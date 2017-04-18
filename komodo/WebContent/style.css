@@ -9,7 +9,7 @@ body
 header
 {
 	display: flex;
-	padding: 30px;
+	padding: 2%;
 	background-color: #444;
 	color: white;
 	border-bottom: 1px solid #CCC;
@@ -46,13 +46,14 @@ aside
 {
 	width: 20%;
 	background-color: #DDD;
-	border-right: 1px solid #CCC;
-	padding-bottom: 20px;
+	border-right: 1px solid #BBB;
+	padding-bottom: 2%;
 }
 
 aside div
 {
-	margin-left: 20px;
+	font-size: 1vw;
+	margin-left: 10%;
 }
 
 aside img
@@ -72,15 +73,15 @@ aside img
 section
 {
 	width: 80%;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 20px;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-bottom: 2%;
 }
 
 #tabs-app
 {
 	display: flex;
-	margin-top: 15px;
+	margin-top: 2%;
 	border-left: 1px solid black;
 }
 .tab-app
@@ -122,8 +123,23 @@ table
 }
 
 td{border: 1px solid black;}
-td:nth-child(1){border: none;}
 td:nth-child(5){border: none;}
+
+td:nth-child(1)
+{
+	padding: 0;
+	vertical-align: top;
+}
+.skill
+{
+	padding: 5px;
+	background-color: #DDD;
+	border-bottom: 1px solid black;
+}
+.criteria
+{
+	padding: 5px;
+}
 
 .skill-levels
 {
