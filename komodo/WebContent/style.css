@@ -2,8 +2,10 @@ body
 {
 	font-family: arial;
 	font-size: 14px;
-	margin: 0;
 }
+
+/*Général-------------------------------------------------------------------------------------*/
+.container{width: 100%;}
 
 /*Header--------------------------------------------------------------------------------------*/
 header
@@ -35,26 +37,18 @@ header a
 	text-decoration: none;
 }
 
-/*Corps de la page----------------------------------------------------------------------------*/
-#page
-{
-	display: flex;
-}
-
 /*Barre latérale-------------------------------------------------------------------------------*/
 menu
 {
-	width: 20%;
-	background-color: #DDD;
-	border-right: 1px solid #BBB;
-	padding-bottom: 2%;
+	background-color: #E0E0E0;
+	border: 1px solid #BBB;
+	border-radius: 6px;
+	padding-left: 10px;
+	padding-top: 10px;
+	margin-left: -6px;
 }
 
-menu div
-{
-	font-size: 1vw;
-	margin-left: 10%;
-}
+menu div{margin-left: 10%;}
 
 menu img
 {
@@ -70,13 +64,6 @@ menu img
 #student1{color: #26F;}
 
 /*Contenu principal----------------------------------------------------------------------------*/
-section
-{
-	width: 80%;
-	padding-left: 2%;
-	padding-right: 2%;
-	padding-bottom: 2%;
-}
 
 #tabs-app
 {
@@ -133,7 +120,7 @@ td:nth-child(1)
 .skill
 {
 	padding: 5px;
-	background-color: #DDD;
+	background-color: #E0E0E0;
 	border-bottom: 1px solid black;
 }
 .criteria
@@ -151,9 +138,10 @@ td:nth-child(1)
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 50px;
-	height: 50px;
+	text-align: center;
+	width: 20%;
 	border: 1px solid black;
+	padding: 5px;
 }
 .skill-level:nth-child(n+2)
 {
@@ -161,9 +149,8 @@ td:nth-child(1)
 }
 .skill-level-cell
 {
-	width: 50px;
-	height: 50px;
-	border: 1px solid white;
+	width: 20%;
+	height: 20px;
 }
 #skill-level1{background-color: #0A0;}
 #skill-level2{background-color: #0A0;}
@@ -173,7 +160,7 @@ td:nth-child(1)
 footer
 {
 	display: flex;
-	padding: 30px;
+	padding: 2%;
 	background-color: #444;
 	border-top: 1px solid #CCC;
 	justify-content: space-around;
