@@ -1,29 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-
-<script>
-	function displ(classname){
-		var x=document.getElementsByClassName(classname);
-		for (i = 0; i < x.length; i++) {
-			if(document.getElementsByClassName(classname)[i].style.display=='none')
-				document.getElementsByClassName(classname)[i].style.display='block';
-			else
-				document.getElementsByClassName(classname)[i].style.display='none';
-		}
-	}
-	
-	function open(promo,role,app,groupe,eleve){
-		document.location.href="AffichageTeacher?sql=1&promo="+promo+"&role="+role+"&app="+app+"&groupe="+groupe+"&eleve="+eleve;
-	}
-	
-</script>
+<!DOCTYPE html>
 
 <html>
     <head>
-        <meta charset="UTF-8"/>
 		<title>Teacher</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	 </head>
@@ -37,47 +16,62 @@
 	    		<a href="#">Déconnexion</a>
 	    	</div>
 		</header>
+<script>
+function clickGrille(grille,nomGrille){
+	//alert("gigi");
+	var cible = document.getElementById(nomGrille);
+	if (document.getElementById(grille).disabled == undefined || document.getElementById(nomGrille).disabled == false){
+		//alert("gogo");
+		if(cible.style.display != ''){
+			//alert("false");
+        	cible.style.display = '';
+		}
+    	else {
+    		//alert("true");
+       		cible.style.display = 'none';
+    	}
+	}
+}
 
+</script>
 
 		<div id="page">
 			<aside>
-				<c:forEach var="i" begin="2015" end="2025" step="1">
 				<div class="aside-promo">
-					<p onclick="displ('aside-category${ i }')"><img src="pictures/minus.png"/>Promo ${ i }</p>
-					<c:forTokens var="elt" items="Tuteur/Client/Autre" delims="/">
-					<div class="aside-category${ i }">
-						<p onclick="open('','${ elt }','','','')"><img src="pictures/minus.png"/>${ elt }</p>
-						<c:forEach items="${ apps }" varStatus="s2"><c:if test="${ promos[s2.index] == i }" var="variable">
+					<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
+					<div class="aside-category">
+						<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
 						<div class="aside-app">
-							<p onclick="open('','${ elt }',${ apps_id[s2.index] },'','')"><img src="pictures/minus.png"/>${ apps[s2.index] }</p>
-							<c:forEach items="${ groupes }" varStatus="s3">
+							<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
 							<div class="aside-group">
-								<p onclick="open('','${ elt }',${ apps_id[s2.index] },${ groupes_id[s3.index] },'')"><img src="pictures/minus.png"/>${ groupes[s3.index] }</p>
+								<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
 								<div class="aside-student">
-									<c:forEach items="${ eleves }" varStatus="s4">
-									<p>${ eleves[s4.index] }</p>
-									</c:forEach>
+									<p id="student1">Léo<p>
+									<p>François</p>
+									<p>Gérard</p>
 								</div>
 							</div>
-							</c:forEach>
-						</div>
-						</c:if></c:forEach>
-						<div class="aside-app">
-							<p><a href="CreationGrille">Ajouter</a></p>
 						</div>
 					</div>
-					</c:forTokens>
+					<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
 				</div>
-				</c:forEach>
+				<div class="aside-promo">
+					<p><img src="pictures/plus.png"/>Autres promos</p>
+				</div>
+				<div class="aside-app">
+					<p><a href="CreationGrille">Ajouter</a></p>
+				</div>
+				<div id="grille" onClick='clickGrille("grille","nomGrille");'>Grille APP</div>
+				<div id="nomGrille" style="display:none;">
+					<c:forEach items="${ nomGrille }" var="nomGrilleInd" varStatus="boucle">
+						<p><a href="#">${nomGrilleInd}</a></p>
+					</c:forEach>
+				</div>
 			</aside>
-			<script>
-				var number = 2015;
-				while (number < 2030) {
-					//displ('aside-category'+number);
-					number++;
-				}
-			</script>
+ 
 			<section>
+			<p><span>${resultatForm }</span></p>	
+			<!--
 				<h2>Promo 2018 &gt; Tuteur &gt; APP électronique &gt; Groupe APP A &gt; Léo</h2>
 				<div id="content">
 					<div id="tabs">
@@ -165,6 +159,7 @@
 						</table>
 					</article>
 				</div>
+				-->
 			</section>
 		</div>
 
