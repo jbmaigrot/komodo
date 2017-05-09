@@ -24,25 +24,23 @@ public class LoginServlet extends HttpServlet{
         response.setContentType("text/html");  
         PrintWriter out = response.getWriter();  
         
-        String n=request.getParameter("username");  
-        String p=request.getParameter("userpass"); 
+        String n=request.getParameter("userName");  
+        String p=request.getParameter("motdepasse"); 
         String t = null;
         
         HttpSession session = request.getSession(false);
         if(session!=null)
-        session.setAttribute("name", n);
-
-        if(LoginBDD.validate(n, p)){  
+        session.setAttribute("userName", n);
+        t = LoginBDD.validate(n, p);
+        if(t != null){ 
+        	session.setAttribute("Type", t);
+            if (t.equals("élèves")){
+            	this.getServletContext().getRequestDispatcher("/student.html").forward(request, response);
+            }
+            else if (t.equals("professeur") || t.equals("responsable")){
+            	this.getServletContext().getRequestDispatcher("/teacher.html").forward(request, response);
+            }
             
-            t = LoginBDD.GetType(n, p);
-            if (t == "élèves"){
-            	RequestDispatcher rd = request.getRequestDispatcher("student.html");
-            	rd.forward(request,response);
-            }
-            if (t == "professeur"){
-            	RequestDispatcher rd = request.getRequestDispatcher("teacher.html");
-            	rd.forward(request,response);
-            }
         }  
         else{  
             out.print("<p style=\"color:red\">Sorry username or password error</p>");  

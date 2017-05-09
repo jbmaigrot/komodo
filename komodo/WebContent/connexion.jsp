@@ -14,13 +14,11 @@
                 <p>Vous pouvez vous connecter via ce formulaire.</p>
 
                 <label for="nom">Nom d'utilisateur <span class="requis">*</span></label>
-                <input type="text" id="userName" name="userName" value="<c:out value="${utilisateur.userName}"/>" size="20" maxlength="60" />
-                <span class="erreur">${form.erreurs['userName']}</span>
+                <input type="text" id="userName" name="userName" value="" />
                 <br />
 
                 <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
                 <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['motdepasse']}</span>
                 <br />
 
                 <input type="submit" value="Connexion" class="sansLabel" />

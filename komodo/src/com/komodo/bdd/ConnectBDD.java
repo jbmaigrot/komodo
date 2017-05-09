@@ -24,9 +24,9 @@ public class ConnectBDD {
 	    }
 
 	    /* Connexion à la base de données */
-	    String url = "jdbc:mysql://cpg.sharethepool.ovh:443/komodo";
-	    String utilisateur = "komodo";
-	    String motDePasse = "AlxK8*AnU";
+	    String url = "jdbc:mysql://localhost/Komodo";
+	    String utilisateur = "root";
+	    String motDePasse = "";
 	    Connection connexion=null;
 	    try {
 	    	System.out.println( "Connexion à la base de données..." );
