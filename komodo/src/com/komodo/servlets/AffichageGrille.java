@@ -1,3 +1,5 @@
+package com.komodo.servlets;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -7,18 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.komodo.bdd.ConnectBDD;
+
 /**
  * Servlet implementation class AffichageTeacher
  */
-@WebServlet("/AffichageTeacher")
-public class AffichageTeacher extends HttpServlet {
+@WebServlet("/AffichageGrille")
+public class AffichageGrille extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE          = "/teacher.jsp";  
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AffichageTeacher() {
+    public AffichageGrille() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -131,3 +135,4 @@ public class AffichageTeacher extends HttpServlet {
 	}
 
 }
+
