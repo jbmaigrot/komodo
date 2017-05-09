@@ -11,7 +11,8 @@
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
 
-		<script type="text/javascript" src="script/test.js"></script>
+		<script src="script/jquery.min.js"></script>
+		<script src="script/test.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,11 +36,15 @@
 
 			<div class="row">
 				<menu class="col-md-3">
-					<p id="group1"><img src="pictures/minus.png"/>APP électronique</p>
-					<div class="aside-student">
-						<p id="student1">MOI<p>
-						<p>François</p>
-						<p>Gérard</p>
+					<div class="group" onclick="menuToggle(this)">
+						<img src="pictures/minus.png"/>
+						<img src="pictures/plus.png" class="hidden-menu"/>
+						APP électronique
+						<div class="aside-student">
+							<p id="student1">MOI<p>
+							<p>François</p>
+							<p>Gérard</p>
+						</div>
 					</div>
 				</menu>
 
@@ -47,11 +52,11 @@
 					<h2>APP électronique &gt; Moi</h2>
 					<div id="content">
 						<div id="tabs">
-							<div class="tab" id="tab1" onclick="selectSkill('tab1','main-skill-1')">Compétence principale 1</div>
-							<div class="tab" id="tab2" onclick="selectSkill('tab2','main-skill-2')">Compétence principale 2</div>
-							<div class="tab" id="tab3" onclick="selectSkill('tab3','main-skill-3')">Compétence principale 3</div>
+							<div class="tab selected-tab" onclick="selectSkill(1)">Compétence principale 1</div>
+							<div class="tab" onclick="selectSkill(2)">Compétence principale 2</div>
+							<div class="tab" onclick="selectSkill(3)">Compétence principale 3</div>
 						</div>
-						<article id="main-skill-1">
+						<article class="selected-article">
 							<table class="grid">
 								<tr>
 									<th></th>
@@ -131,7 +136,7 @@
 							</table>
 						</article>
 
-						<article id="main-skill-2" style="display: none;">
+						<article>
 							<table class="grid">
 								<tr>
 									<th></th>
@@ -211,7 +216,7 @@
 							</table>
 						</article>
 
-						<article id="main-skill-3" style="display: none;">
+						<article>
 							<table class="grid">
 								<tr>
 									<th></th>

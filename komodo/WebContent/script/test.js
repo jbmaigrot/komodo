@@ -1,19 +1,13 @@
-function selectSkill(tabId, skillId)
+function selectSkill(n)
 {
-	var x = document.getElementsByTagName('article');
-		for(i=0 ; i<x.length ; i++)
-		{
-			x[i].style.display = "none";
-		}
-	document.getElementById(skillId).style.display = "block";
+	$(".tab").removeClass("selected-tab");
+	$(".tab").eq(n-1).addClass("selected-tab");
 
-	var x = document.getElementsByClassName('tab');
-		for(i=0 ; i<x.length ; i++)
-		{
-			x[i].style.color = "black";
-			x[i].style.backgroundColor = "white";
-		}
-	document.getElementById(tabId).style.color = "white";
-	document.getElementById(tabId).style.backgroundColor = "#26F";
+	$("article").removeClass("selected-article");
+	$("article").eq(n-1).addClass("selected-article");
+}
 
+function menuToggle(element)
+{
+	$(element).children().toggleClass("hidden-menu");
 }

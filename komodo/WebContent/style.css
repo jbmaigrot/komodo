@@ -56,15 +56,16 @@ menu img
 	height: 12px;
 }
 
+.hidden-menu{display: none;}
+
 /*Couleur des "dossiers" sélectionnés, remplacé par un menu déroulant avec des "+" et "-"
 #promo1{color: #26F;}
 #category1{color: #26F;}
 #app1{color: #26F;}
 #group1{color: #26F;}*/
-#student1{color: #26F;}
+.selected-student{color: #26F;}
 
-/*Contenu principal----------------------------------------------------------------------------*/
-
+/*Onglets---------------------------------------------------------------------------------*/
 #tabs-app
 {
 	display: flex;
@@ -92,16 +93,30 @@ menu img
 	padding: 10px;
 	border-right: 1px solid black;
 	border-bottom: 1px solid black;
+	transition: 1s all ease;
 }
-#tab1
+.tab:hover{
+	cursor:pointer;
+	background-color: #DDD;
+}
+.selected-tab
 {
 	background-color: #26F;
 	color: white;
 }
+.selected-tab:hover{
+	cursor: pointer;
+	background-color: #13F;
+}
 
+/*Contenu principal----------------------------------------------------------------------------*/
 article
 {
+	display: none;
 	margin: 10px;
+}
+.selected-article{
+	display: block;
 }
 
 table
@@ -109,11 +124,17 @@ table
 	border-collapse: collapse;
 }
 
-td{border: 1px solid black;}
+td
+{
+	word-break: break-all;
+	border: 1px solid black;
+}
+
 td:nth-child(5){border: none;}
 
 td:nth-child(1)
 {
+	word-break: initial;
 	padding: 0;
 	vertical-align: top;
 }
