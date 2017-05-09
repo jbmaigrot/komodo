@@ -83,7 +83,7 @@ public class ConnectBDD {
         try {
 			statement = connexion.createStatement();
 			resultat = statement.executeQuery( "SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE );
-			//System.out.println(resultat); 
+			System.out.println("SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE); 
 			while ( resultat.next() ) {
 	            String nomGrille = resultat.getString( SELECT );
 	            values.add(nomGrille);

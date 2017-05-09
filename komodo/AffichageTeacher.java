@@ -34,7 +34,29 @@ public class AffichageTeacher extends HttpServlet {
 		conn.getConnection();
 
 		//controleur
+		if(request.getParameter("eleve")!=null){
+			
+			String grille=request.getParameter("grille");
+			List<String> l3 = conn.sendList("idCompPrin", "lie3", "idGrilleComp="+grille+" ORDER BY idGrilleComp", "compprinc_tmp", request);
+			conn.sendListById("Nom_competence_principale", "competence_principale", "id_comp", l3, "compprinc", request);
+			
+			String competence=request.getParameter("competence");
+			
+			String eleve=request.getParameter("eleve");
+			String filtre="idEleve="+eleve+" AND idComp_Sec_Util="+competence+" ORDER BY idComp_Sec_Util";
+			
+			List<String> l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences",request);
+			conn.sendListById("Nom", "competence_secondaire", "id_comp_second", l, "noms", request);
+			conn.sendList("CommentaireIndividuel", "evalue", filtre, "ci",request);
+			conn.sendList("CommentaireGroupe", "evalue", filtre, "cg",request);
+			conn.sendList("CommentaireProfesseur", "evalue", filtre, "cp",request);
+			conn.sendList("Evaluation", "evalue", filtre, "evaluations",request);
+			List<String> l2 = conn.sendListById("idCritere", "lie5", "idCompSecUtil", l, "criteres_tmp", request);
+			conn.sendListById("Descriptif", "critere", "id_critere", l2, "criteres", request);
+		}
 		if(request.getParameter("sql")!=null){
+			
+			/*gestion de l'arborescence*/
 			
 			//faux cookie pour l'exemple
 			int monIdUtilisateur=1;
