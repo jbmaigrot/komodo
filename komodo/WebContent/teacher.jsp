@@ -36,7 +36,7 @@ function clickGrille(grille,nomGrille){
 </script>
 
 		<div id="page">
-			<aside>
+			<menu>
 				<div class="aside-promo">
 					<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
 					<div class="aside-category">
@@ -67,7 +67,7 @@ function clickGrille(grille,nomGrille){
 						<p><a href="#">${nomGrilleInd}</a></p>
 					</c:forEach>
 				</div>
-			</aside>
+			</menu>
  
 			<section>
 			<p><span>${resultatForm }</span></p>	

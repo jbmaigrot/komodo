@@ -59,7 +59,7 @@
 		</script>
 
 		<div id="page">
-			<aside>
+			<menu>
 				<div class="aside-promo">
 					<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
 					<div class="aside-category">
@@ -90,7 +90,7 @@
 						<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
 					</c:forEach>
 				</div>
-			</aside>
+			</menu>
 		</div>
 		
 		<section>
