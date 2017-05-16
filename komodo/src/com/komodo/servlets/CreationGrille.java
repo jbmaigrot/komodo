@@ -295,8 +295,14 @@ public class CreationGrille extends HttpServlet
 			}while(indicePonderation<=nbLignes);
 			request.setAttribute("comptePonderation", comptePonderation);
 		
+			boolean erreur = false;
+			for (int i =0; i<erreurs.size();i++){
+				if (erreurs.get(i)!=null){
+					erreur=true;
+				}
+			}
 		/* On remplit les tables de la base de données si la condition est vérifiée. */
-		if ( erreurs.isEmpty() )
+		if ( erreur == false )
 		{
 			
 			statement.executeUpdate("INSERT INTO grille_de_competence_app (Nom_grille, Promo) VALUES ('"+nomGrille+"','"+promo+"')",Statement.RETURN_GENERATED_KEYS);
@@ -381,7 +387,6 @@ public class CreationGrille extends HttpServlet
 	
 	private void validationCompPrinc(String[] compPrinc) throws Exception
 	{
-		
 		int j = 0;
 		for(int i = 1;i<compPrinc.length;i++)
 		{
@@ -397,7 +402,6 @@ public class CreationGrille extends HttpServlet
 	
 	private void validationCompSec(String[] compPrinc, String[][] compSecond, int nbLignesSec, int indice) throws Exception
 	{
-		
 		int k = 0;
 		for(int m=1;m<=nbLignesSec;m++)
 		{
