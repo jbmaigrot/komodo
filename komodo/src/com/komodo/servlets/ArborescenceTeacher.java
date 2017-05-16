@@ -13,15 +13,15 @@ import com.komodo.bdd.ConnectBDD;
 /**
  * Servlet implementation class AffichageTeacher
  */
-@WebServlet("/Arborescence")
-public class Arborescence extends HttpServlet {
+@WebServlet("/ArborescenceTeacher")
+public class ArborescenceTeacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE          = "/arborescence.jsp";  
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Arborescence() {
+    public ArborescenceTeacher() {
         super();
         // TODO Auto-generated constructor stub
     }
