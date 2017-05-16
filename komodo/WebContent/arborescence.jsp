@@ -38,19 +38,19 @@
 
 
 		<div id="page">
-			<aside>
+			<menu>
 				<c:forEach var="i" begin="2015" end="2025" step="1">
 				<div class="aside-promo">
 					<p onclick="displ('aside-category${ i }')"><img src="pictures/minus.png"/>Promo ${ i }</p>
 					<c:forTokens var="elt" items="Tuteur/Client/Autre" delims="/">
 					<div class="aside-category${ i }">
-						<p onclick="open('0','${ elt }','0','0','0')"><img src="pictures/minus.png"/>${ elt }</p>
+						<a href="Arborescence?sql=1&promo=0&role=${ elt }&app=0&groupe=0&eleve=0"><img src="pictures/minus.png"/>${ elt }</a>
 						<c:forEach items="${ apps }" varStatus="s2"><c:if test="${ promos[s2.index] == i }" var="variable">
 						<div class="aside-app">
-							<p onclick="open('0','${ elt }','${ apps_id[s2.index] }','0','0')"><img src="pictures/minus.png"/>${ apps[s2.index] }</p>
+							<a href="Arborescence?sql=1&promo=0&role=${ elt }&app=${ apps_id[s2.index] }&groupe=0&eleve=0"><img src="pictures/minus.png"/>${ apps[s2.index] }</a>
 							<c:forEach items="${ groupes }" varStatus="s3">
 							<div class="aside-group">
-								<p onclick="open('0','${ elt }','${ apps_id[s2.index] }','${ groupes_id[s3.index] }','0')"><img src="pictures/minus.png"/>${ groupes[s3.index] }</p>
+								<a href="Arborescence?sql=1&promo=0&role=${ elt }&app=${ apps_id[s2.index] }&groupe=${ groupes_id[s3.index] }&eleve=0"><img src="pictures/minus.png"/>${ groupes[s3.index] }</a>
 								<div class="aside-student">
 									<c:forEach items="${ eleves }" varStatus="s4">
 									<p>${ eleves[s4.index] }</p>
@@ -64,7 +64,7 @@
 					</c:forTokens>
 				</div>
 				</c:forEach>
-			</aside>
+			</menu>
 			<script>
 				var number = 2015;
 				while (number < 2030) {
