@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,23 +29,26 @@ public class LoginServlet extends HttpServlet{
         String p=request.getParameter("motdepasse"); 
         String t = null;
         
-        HttpSession session = request.getSession(false);
-        if(session!=null)
-        session.setAttribute("userName", n);
+        
         t = LoginBDD.validate(n, p);
         if(t != null){ 
+        	HttpSession session = request.getSession();
+        	session.setAttribute("userName", n);
         	session.setAttribute("Type", t);
+			session.setMaxInactiveInterval(30*60);
+			Cookie userName = new Cookie("userName", n);
+			response.addCookie(userName);
             if (t.equals("élèves")){
-            	this.getServletContext().getRequestDispatcher("/student.html").forward(request, response);
+            	this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
             }
             else if (t.equals("professeur") || t.equals("responsable")){
-            	this.getServletContext().getRequestDispatcher("/teacher.html").forward(request, response);
+            	this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
             }
             
         }  
         else{  
             out.print("<p style=\"color:red\">Sorry username or password error</p>");  
-            RequestDispatcher rd=request.getRequestDispatcher("connexion.jsp");  
+            RequestDispatcher rd=request.getRequestDispatcher("/connexion.jsp");  
             rd.include(request,response);  
         }  
 
