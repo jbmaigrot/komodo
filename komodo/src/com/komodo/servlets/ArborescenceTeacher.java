@@ -16,7 +16,7 @@ import com.komodo.bdd.ConnectBDD;
 @WebServlet("/ArborescenceTeacher")
 public class ArborescenceTeacher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE          = "/arborescence.jsp";  
+	public static final String VUE          = "/arborescenceTeacher.jsp";  
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,6 +37,7 @@ public class ArborescenceTeacher extends HttpServlet {
 		conn.getConnection();
 
 		//controleur
+		conn.sendList("DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
 		if(request.getParameter("sql")!=null){//gestion de l'arborescence
 			
 			/*gestion de l'arborescence*/
@@ -47,6 +48,7 @@ public class ArborescenceTeacher extends HttpServlet {
 			//preparation donnes app
 			String promo=request.getParameter("promo");
 			String role=request.getParameter("role");
+			
 			if(role.contains("Autre"))
 			{
 				conn.sendList("Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "promos",request);
@@ -83,7 +85,6 @@ public class ArborescenceTeacher extends HttpServlet {
 			//preparation donnes eleves
 			String groupe=request.getParameter("groupe");
 			List<String> l = conn.sendListRelation("id_utilisateur", "appartient", "eleves", "idGroupe", "idEleve", "id_utilisateur", groupe, "tmp", request);
-			//donnes eleves
 			conn.sendListById("Nom", "utilisateur", "id", l, "eleves", request);
 			conn.sendListById("id", "utilisateur", "id", l, "eleves_id", request);
 		}

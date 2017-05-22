@@ -85,7 +85,8 @@ public class ConnectBDD {
         try {
 			statement = connexion.createStatement();
 			resultat = statement.executeQuery( "SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE );
-			System.out.println("SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE); 
+			System.out.println("SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE);
+			SELECT=SELECT.replace("DISTINCT ", "");
 			while ( resultat.next() ) {
 	            String nomGrille = resultat.getString( SELECT );
 	            values.add(nomGrille);
