@@ -66,15 +66,8 @@
 	        }
 		</script>
 	 </head>
-	 
+	 <jsp:include page = "header.jsp"/> 
 	 <body>
-	 	<header>
-			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-			<div class="col-md-3">
-	    		<a href="#">Thomas (mon profil)</a>
-	    		<a href="#">Déconnexion</a>
-	    	</div>
-		</header>
 
 		<div class="container">
 
@@ -183,11 +176,6 @@
 				</section>
 			</div>
 		</div>
-		
-		<footer>
-			<div><a href="#">CGU</a></div>
-			<div><a href="#">FAQ</a></div>
-			<div><a href="#">Nous contacter</a></div>
-		</footer>
 	</body>
+	    <jsp:include page = "footer.jsp" />
 </html>

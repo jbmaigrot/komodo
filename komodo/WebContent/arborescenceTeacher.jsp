@@ -60,16 +60,8 @@
 		<title>Arborescence</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	 </head>
-
+<jsp:include page = "header.jsp" />
 	 <body>
-
-	 	<header>
-	    	<h1>SITE WEB APP</h1>
-	    	<div>
-	    		<a href="#">Thomas (mon profil)</a>
-	    		<a href="#">Déconnexion</a>
-	    	</div>
-		</header>
 
 
 		<div id="page">
@@ -117,12 +109,8 @@
 			</section>
 		</div>
 
-		<footer>
-			<div><a href="#">CGU</a></div>
-			<div><a href="#">FAQ</a></div>
-			<div><a href="#">Nous contacter</a></div>
-		</footer>
 
 	</body>
+	<jsp:include page = "footer.jsp" />
 
 </html> 

@@ -23,19 +23,9 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-
+<jsp:include page = "header.jsp" />
 	<body>
-
-			<header>
-				<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-				<div class="col-md-3">
-					<a href="#">Léo (mon profil)</a><br>
-					<a href="#">Déconnexion</a>
-				</div>
-			</header>
-
 		<div class="container">
-
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="group" onclick="menuToggle(this)">
@@ -301,18 +291,15 @@
 					</div>
 				</section>
 			</div>
-
+			
 		</div>
 
-		<footer>
-				<div><a href="#">CGU</a></div>
-				<div><a href="#">FAQ</a></div>
-				<div><a href="#">Nous contacter</a></div>
-		</footer>
+
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 	</body>
+	<jsp:include page = "footer.jsp" />
 </html>

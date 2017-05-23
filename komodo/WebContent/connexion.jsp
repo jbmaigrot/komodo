@@ -7,20 +7,8 @@
         <title>Connexion</title>
         <link type="text/css" rel="stylesheet" href="form.css" />
     </head>
+    <jsp:include page = "header.jsp" />
     <body>
-        <c:if test="${ !empty sessionScope.userName && sessionScope.Type.equals('élèves')}">
-        	<p>Vous êtes ${ sessionScope.userName } ${ sessionScope.Type } !</p>
-        	<form action="LogoutServlet" method="post">
-				<input type="submit" value="déconnexion" >
-			</form>
-    	</c:if>
-    	
-    	<c:if test="${ !empty sessionScope.userName && sessionScope.Type.equals('professeur')}">
-        	<p>Vous êtes ${ sessionScope.userName } ${ sessionScope.Type } !</p>
-        	<form action="LogoutServlet" method="post">
-				<input type="submit" value="déconnexion" >
-			</form>
-    	</c:if>
         <form method="post" action="LoginServelt">
             <fieldset>
                 <legend>Connexion</legend>
@@ -40,4 +28,5 @@
             </fieldset>
         </form>
     </body>
+    <jsp:include page = "footer.jsp" />
 </html>
