@@ -18,7 +18,12 @@ import com.komodo.bdd.LoginBDD;
 public class LoginServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
+    
+    public void doGet(HttpServletRequest request, HttpServletResponse response)  
+            throws ServletException, IOException {  
+    	this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
 
+    }
     public void doPost(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {  
 
@@ -41,8 +46,11 @@ public class LoginServlet extends HttpServlet{
             if (t.equals("élève")){
             	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
             }
-            else if (t.equals("professeur") || t.equals("responsable")){
+            else if (t.equals("professeur")){
             	this.getServletContext().getRequestDispatcher("/ArborescenceTeacher").forward(request, response);
+            }
+            else if (t.equals("responsable")){
+            	this.getServletContext().getRequestDispatcher("/ArborescenceResponsableModule").forward(request, response);
             }
             
         }  

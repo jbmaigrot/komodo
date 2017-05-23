@@ -7,7 +7,6 @@
         <title>Connexion</title>
         <link type="text/css" rel="stylesheet" href="form.css" />
     </head>
-    <jsp:include page = "header.jsp" />
     <body>
         <form method="post" action="LoginServelt">
             <fieldset>
@@ -28,5 +27,4 @@
             </fieldset>
         </form>
     </body>
-    <jsp:include page = "footer.jsp" />
 </html>
