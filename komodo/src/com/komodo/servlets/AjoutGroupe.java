@@ -175,7 +175,7 @@ public class AjoutGroupe extends HttpServlet {
         request.setAttribute( ATT_RESULTAT, resultat );
         
         	//Transmission
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        doGet(request,response);
 	}
 	
 	
