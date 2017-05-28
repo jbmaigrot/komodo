@@ -33,7 +33,11 @@ public class LogoutServlet extends HttpServlet {
     	if(session != null){
     		session.invalidate();
     	}
-    	response.sendRedirect("/connexion.jsp");
+    	response.sendRedirect("connexion.jsp");
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doPost(request,response);
     }
 
 }

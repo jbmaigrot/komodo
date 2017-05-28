@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/CreationGrille")
+@WebFilter("/*")
 public class LoginFilter implements Filter {
 	
 	private ServletContext context;
@@ -30,12 +30,11 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
-        String uri = request.getRequestURI();
 
         boolean loggedIn = session != null && session.getAttribute("userName") != null;
-        boolean loginRequest = request.getRequestURI().equals("connexion.jsp");
+        String loginRequest = request.getRequestURI();
 
-        if (loggedIn) {
+        if (loggedIn || (loginRequest.endsWith("connexion.jsp") || loginRequest.contains("Login"))) {
             chain.doFilter(request, response);
         } else {
             response.sendRedirect("connexion.jsp");
