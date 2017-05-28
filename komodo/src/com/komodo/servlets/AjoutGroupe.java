@@ -116,11 +116,7 @@ public class AjoutGroupe extends HttpServlet {
         String nom_groupe = request.getParameter(NOM_GROUPE);
 		String id_tuteur = request.getParameter(NOM_TUTEUR);
 		String id_client = request.getParameter(NOM_CLIENT);
-		
-		System.out.println("id APP : "+id_APP);
-		System.out.println("tuteur : "+id_tuteur);
-		System.out.println("client : "+id_client);
-		
+
 		ConnectBDD conn = new ConnectBDD();
 		Statement statement = null;
 		
@@ -155,7 +151,6 @@ public class AjoutGroupe extends HttpServlet {
 		// Accès BDD
 			try {
 				statement = conn.getConnection().createStatement();
-				System.out.println("INSERT INTO groupe(Nom, idClient, idTuteur, idGrilleAPP) VALUES ('"+ nom_groupe +"', '"+ id_client +"', '"+ id_tuteur +"', '"+ id_APP +"')");
 				statement.executeUpdate("INSERT INTO groupe(Nom, idClient, idTuteur, idGrilleAPP) VALUES ('"+ nom_groupe +"', '"+ id_client +"', '"+ id_tuteur +"', '"+ id_APP +"')");
 			} catch (SQLException e) {
 				e.printStackTrace();
