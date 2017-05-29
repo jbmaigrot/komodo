@@ -53,7 +53,6 @@ public class AjoutGroupe extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
-		//Statement statement = null;
 		ResultSet listeProfs = null;
 		ResultSet listeAPP = null;
 		Statement statement = null;
