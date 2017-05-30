@@ -19,28 +19,25 @@ public class LoginServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
     
-    public void doGet(HttpServletRequest request, HttpServletResponse response)  
-            throws ServletException, IOException {  
-    	HttpSession session = request.getSession(false);
-    	Object t = session.getAttribute("Type");
-    	if(session != null && t != null){
-            if (t.equals("élève")){
-            	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
-            }
-            else if (t.equals("professeur")){
-            	this.getServletContext().getRequestDispatcher("/ArborescenceTeacher").forward(request, response);
-            }
-            else if (t.equals("responsable")){
-            	this.getServletContext().getRequestDispatcher("/ArborescenceResponsableModule").forward(request, response);
-            }
-    	}
-    	
-    	else {
-        	this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
-    	}
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		Object t = session.getAttribute("Type");
+		if (session != null && t != null) {
+			if (t.equals("élève")) {
+				this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
+			} else if (t.equals("professeur")) {
+				this.getServletContext().getRequestDispatcher("/ArborescenceTeacher").forward(request, response);
+			} else if (t.equals("responsable")) {
+				this.getServletContext().getRequestDispatcher("/ArborescenceResponsableModule").forward(request,
+						response);
+			}
+		}
 
+		else {
+			this.getServletContext().getRequestDispatcher("/connexion.jsp").forward(request, response);
+		}
 
-    }
+	}
     public void doPost(HttpServletRequest request, HttpServletResponse response)  
             throws ServletException, IOException {  
 
