@@ -38,7 +38,7 @@
 			}
 		</script>
 	 </head>
-	 <jsp:include page = "header.jsp" />
+	 /*<jsp:include page = "header.jsp" />
 	 <body>
 
 		<div class="container">

@@ -23,7 +23,6 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-<jsp:include page = "header.jsp" />
 	<body>
 		<div class="container">
 			<div class="row">
@@ -301,5 +300,4 @@
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 	</body>
-	<jsp:include page = "footer.jsp" />
 </html>
