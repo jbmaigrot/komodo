@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 30, 2017 at 02:34 PM
+-- Generation Time: May 30, 2017 at 02:54 PM
 -- Server version: 5.7.18-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `komodo`
 --
+CREATE DATABASE IF NOT EXISTS `komodo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `komodo`;
 
 -- --------------------------------------------------------
 
@@ -177,7 +179,6 @@ DROP TABLE IF EXISTS `Lie6`;
 CREATE TABLE `Lie6` (
   `idGroupe` int(10) UNSIGNED NOT NULL,
   `idPlaning` int(10) UNSIGNED NOT NULL,
-  `Descriptif` text NOT NULL,
   `Date` date NOT NULL,
   `Debut` time DEFAULT NULL,
   `Fin` time DEFAULT NULL
@@ -471,10 +472,11 @@ ALTER TABLE `Lie6`
 
 
 
+
 --
 -- Database: `phpmyadmin`
 --
-
+USE `phpmyadmin`;
 -- --------------------------------------------------------
 
 --
