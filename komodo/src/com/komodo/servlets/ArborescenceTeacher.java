@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.komodo.bdd.ConnectBDD;
 
@@ -37,17 +38,20 @@ public class ArborescenceTeacher extends HttpServlet {
 		conn.getConnection();
 
 		//controleur
-		conn.sendList( "Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
+		conn.sendList( "DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
 		if(request.getParameter("sql")!=null){//gestion de l'arborescence
 			
 			/*gestion de l'arborescence*/
 			
-			//faux cookie pour l'exemple
-			int monIdUtilisateur=1;
+			//cookie
+			HttpSession session = request.getSession(false);
+			String username = (String) session.getAttribute("userName");
 			
 			//preparation donnes app
-			String promo=request.getParameter("promo");
+			//String promo=request.getParameter("promo");
 			String role=request.getParameter("role");
+			List<String> utmp = conn.sendList("id", "utilisateur", "NomConnection='"+username+"'", "utmp",request);
+			int monIdUtilisateur=Integer.parseInt(utmp.get(0));
 			
 			if(role.contains("Autre"))
 			{

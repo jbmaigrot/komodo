@@ -56,8 +56,10 @@ public class AffichageEleve extends HttpServlet {
 			conn.sendList("CommentaireGroupe", "evalue", filtre, "cg",request);
 			conn.sendList("CommentaireProfesseur", "evalue", filtre, "cp",request);
 			conn.sendList("Evaluation", "evalue", filtre, "evaluations",request);
-			List<String> l2 = conn.sendListById("idCritere", "lie5", "idCompSecUtil", l, "criteres_tmp", request);
-			conn.sendListById("Descriptif", "critere", "id_critere", l2, "criteres", request);
+			
+			conn.sendListById("Critere", "competence_secondaire", "id_comp_second", l, "criteres", request);
+			//List<String> l2 = conn.sendListById("idCritere", "lie5", "idCompSecUtil", l, "criteres_tmp", request);
+			//conn.sendListById("Descriptif", "critere", "id_critere", l2, "criteres", request);
 		}
 		//conn.sendListRelation("Numero_eleve", "appartient", "eleves", "idGroupe", "idEleve", "id_utilisateur", "1", "eleves", request);
 		//conn.delete("utilisateur", "1=1");
