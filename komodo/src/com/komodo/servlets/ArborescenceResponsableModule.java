@@ -24,7 +24,9 @@ public class ArborescenceResponsableModule extends HttpServlet {
 	public static final String VUE          = "/arborescenceResponsableModule.jsp";  
 	public static final String INFO         = "nomGrille";   
 	public static final String INFO_GRILLE_ID         = "grilleTabId";   
-	public static final String INFO_GRILLE_NOM         = "grilleTabNom";   
+	public static final String INFO_GRILLE_NOM         = "grilleTabNom"; 
+	public static final String INFO_GROUPE_NOM        = "groupeTabNom";
+	public static final String INFO_GROUPE_ID         = "groupeTabId";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -42,6 +44,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
         Statement statement = null; 
+        Statement statementSec = null;
 	    ResultSet compteGrille = null;
 	    conn.getConnection();
 	    try 
@@ -76,6 +79,32 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			//faux cookie pour l'exemple
       			int monIdUtilisateur=1;
       			
+      			try 
+      	        {
+      	        	
+      	        	/* Connexion à la base de données. */
+      				statement = conn.getConnection().createStatement();
+      				statementSec = conn.getConnection().createStatement();
+      			compteGrille = statement.executeQuery( "SELECT id_groupe, Nom FROM groupe;" );
+    			
+    			ArrayList<String> groupeTabId = new ArrayList<String>();
+    			ArrayList<String> groupeTabNom = new ArrayList<String>();
+    			while (compteGrille.next())
+    			{
+    				String groupeId = compteGrille.getString( "id_groupe" );
+    				String groupeNom = compteGrille.getString( "Nom" );
+    				groupeTabId.add(groupeId);
+    				System.out.print("aff id : "+groupeId);
+    				groupeTabNom.add(groupeNom);
+    				System.out.print("aff nom : "+groupeNom);
+    			}
+    			request.setAttribute(INFO_GROUPE_ID, groupeTabId);
+    			request.setAttribute(INFO_GROUPE_NOM, groupeTabNom);
+      	        }catch (SQLException e) 
+      	        {
+      				// TODO Auto-generated catch block
+      				e.printStackTrace();
+      			}
       			//preparation donnes app
       			//String promo=request.getParameter("promo");
       			String role=request.getParameter("role");
@@ -118,6 +147,8 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			List<String> l = conn.sendListRelation("id_utilisateur", "appartient", "eleves", "idGroupe", "idEleve", "id_utilisateur", groupe, "tmp", request);
       			conn.sendListById("Nom", "utilisateur", "id", l, "eleves", request);
       			conn.sendListById("id", "utilisateur", "id", l, "eleves_id", request);
+      			
+      			
       		}
         
 		 this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );

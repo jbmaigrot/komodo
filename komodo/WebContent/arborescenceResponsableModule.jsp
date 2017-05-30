@@ -109,8 +109,8 @@ function selectionElementGrille(id_element,id_element_sec){
 					<script>hideRoles('f${ i }','${ i }');</script>
 				</div>
 				</c:forEach>
-				<div class="aside-app" id="grille">
-					<p><a href="CreationGrille">Ajouter</a></p>
+				<div class="aside-app" id="grilleAjout">
+					<p><a href="CreationGrille">Ajouter grille</a></p>
 				</div>
 				<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
 				<div id="nomGrille" style="display:none;">
@@ -118,7 +118,18 @@ function selectionElementGrille(id_element,id_element_sec){
 						<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
 					</c:forEach>
 			    </div>
+			    <div class="aside-app" id="groupeAjout">
+					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
+				</div>
+			    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+			    <div id="nomGroupe" style="display:none;">
+			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
+						<p><a href="?id=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+					</c:forEach>
+			    
+			    </div>
 			</menu>
+			<section></section>
 			<script>
 				var number = 2015;
 				while (number < 2030) {
@@ -127,7 +138,7 @@ function selectionElementGrille(id_element,id_element_sec){
 				}
 			</script>
 			<section>
-				
+				<span>${resultatForm }</span>
 			</section>
 		</div>
 

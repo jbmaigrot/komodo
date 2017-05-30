@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet{
     	HttpSession session = request.getSession(false);
     	Object t = session.getAttribute("Type");
     	if(session != null && t != null){
-            if (t.equals("élève")){
+            if (t.equals("eleve")){
             	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
             }
             else if (t.equals("professeur")){
@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet{
 			session.setMaxInactiveInterval(30*60);
 			Cookie userName = new Cookie("userName", n);
 			response.addCookie(userName);
-            if (t.equals("élève")){
+            if (t.equals("eleve")){
             	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
             }
             else if (t.equals("professeur")){
