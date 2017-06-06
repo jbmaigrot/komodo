@@ -145,7 +145,7 @@ public class ConnectBDD {
 			statement = connexion.createStatement();
 			//System.out.println("Ca marche");
 			statement.executeUpdate( "UPDATE "+UPDATE+" SET "+attribut+" = '"+valeur+"' WHERE "+WHERE);
-			//System.out.println(resultat);
+			System.out.println("UPDATE "+UPDATE+" SET "+attribut+" = '"+valeur+"' WHERE "+WHERE);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -74,23 +74,6 @@
 									</div>
 								</th>
 							</tr>
-							<tr>
-								<td>
-									<div class="skill">Jugement global</div>
-								</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>
-									<div class="skill-levels">
-										<div class="skill-level-cell"></div>
-										<div class="skill-level-cell"></div>
-										<div class="skill-level-cell" id="skill-level1"></div>
-										<div class="skill-level-cell"></div>
-										<div class="skill-level-cell"></div>
-									</div>
-								</td>
-							</tr>
 							<c:set var="loin" value="loin" scope="page" />
 							<c:set var="proche" value="proche" scope="page" />
 							<c:set var="tproche" value="tproche" scope="page" />
@@ -123,7 +106,7 @@
 											<div class="skill-level-cell"></div>
 											<div class="skill-level-cell"></div>
 										</c:if>
-										<c:if test="${ evaluations[ligne.index] == tproch }" var="variable">
+										<c:if test="${ evaluations[ligne.index] == tproche }" var="variable">
 											<div class="skill-level-cell"></div>
 											<div class="skill-level-cell"></div>
 											<div class="skill-level-cell" id="skill-level2"></div>
@@ -143,6 +126,13 @@
 											<div class="skill-level-cell"></div>
 											<div class="skill-level-cell"></div>
 											<div class="skill-level-cell" id="skill-level2"></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] != loin && evaluations[ligne.index] != proche && evaluations[ligne.index] != tproche && evaluations[ligne.index] != attendu && evaluations[ligne.index] != audela }" var="variable">
+											<div class="skill-level-cell"></div>
+											<div class="skill-level-cell"></div>
+											<div class="skill-level-cell"></div>
+											<div class="skill-level-cell"></div>
+											<div class="skill-level-cell"></div>
 										</c:if>
 									</div>
 								</td>
