@@ -35,6 +35,17 @@
 			       		cible.style.display = 'none';
 				}
 			}
+			function affichageElementTier(id_element,id_element_sec){
+				var cible = document.getElementById(id_element_sec);
+				if (document.getElementById(id_element).disabled == undefined || document.getElementById(id_element).disabled == false)
+				{
+					if(cible.style.display != '')
+			       		cible.style.display = '';
+			 		else{
+					cible.style.display = 'none';
+		    		}
+				}
+			}
 		</script>
 	 </head>
 	 
@@ -86,61 +97,63 @@
 				</menu>
 				<section class="col-md-9">
 					<h1>Gestion de groupe</h1>
-					<h3>Edition de ${nom_groupe} dans ${nom_app}</h3>
+					<h3>Edition de <strong>${nom_groupe}</strong> dans <strong>${nom_app}</strong></h3>
 					<p> Tuteur : ${tuteur_prenom} ${tuteur_nom}<p>
 					<p> Client : ${client_prenom} ${client_nom}<p>
 					<p> Élèves membre :<p>
 					<ul>
-						<c:forEach var="i" begin="0" end="${nb_eleves}">
-							<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${eleves_id[0] == null}">
+								<li>Pas encore d'élèves</li>
+							</c:when>
+							
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="${nb_eleves}">
+									<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</ul>
+					<p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
+					<span id="ajout_eleve" class="" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span>
+					<div id="choix_eleve" style="display:none;">
+						<form method="post" action="GestionGroupe">
+							<select id="choix_nouveau" name="choix_nouveau">
+								<option disabled selected>Nouvel élève</option>
+								
+								<c:choose>
+									<c:when test="${eleves_id[0] == null}">
+										<li>Pas d'élèves à ajouter</li>
+									</c:when>
+								
+									<c:otherwise>
+										<c:forEach var="i" begin="0" end="${nb_all}">
+											<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</select>
+							<input type="submit" name="Submit" value="Ajouter" id="Submit" >
+						</form>
+					</div>
 				</section>
-				<!--
-				<section class="col-md-9">
-				<h1>Ajouter un Groupe</h1>
-					<form method="post" action="AjoutGroupe">
-						<div>
-							<label>Choississez un APP :  </label>
-							<select id="choix_APP" name="choix_APP">
-								<option disabled selected>Choisissez une grille d'APP</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${app_id[i]}"/>' >[Promo : ${app_promo[i]}] ${app_nom[i]}</option>
+				<section>
+					<h4>Planning du groupe</h4>
+					<u1>
+						<c:choose>
+							<c:when test="${plan_id[0] == null}">
+								<li>Pas d'évènements dans le planning</li>
+							</c:when>
+							
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="${nb_plan}">
+									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
+									</li>
 								</c:forEach>
-							</select>
-							<span class="erreur">${erreurs['choix_APP']}</span>
-						</div>
-						<div>
-							<label>Nom du Groupe : </label><input type="text" id="nom_groupe" name="nom_groupe" value='<c:out value="${param.nom_groupe}"/>' />
-							<span class="erreur">${erreurs['nom_groupe']}</span>
-						</div>
-						<div>
-							<label>Tuteur : </label>
-							<select id="nom_tuteur" name="nom_tuteur">
-								<option disabled selected>Choisissez un professeur</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
-								</c:forEach>
-							</select>
-							<span class="erreur">${erreurs['nom_tuteur']}</span>
-						</div>
-						<div>
-							<label>Client : </label>
-							<select id="nom_client" name="nom_client">
-								<option disabled selected>Choisissez un professeur</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
-								</c:forEach>
-							</select>
-							<span class="erreur">${erreurs['nom_client']}</span>
-						</div>
-						<div>
-						<p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
-							<input type="submit" name="Submit" value="Ajouter un groupe" id="Submit" >
-						</div>
-					</form>		
+							</c:otherwise>
+						</c:choose>
+					</u1>
 				</section>
-				-->
 			</div>
 		</div>
 		
