@@ -48,7 +48,8 @@ public class AffichageEleve extends HttpServlet {
 			String competence=request.getParameter("competence");
 			
 			String eleve=request.getParameter("eleve");
-			String filtre="idEleve="+eleve+" AND idComp_Sec_Util="+competence+" ORDER BY idComp_Sec_Util";
+			//String filtre="idEleve="+eleve+" AND idComp_Sec_Util="+competence+" ORDER BY idComp_Sec_Util";
+			String filtre="idEleve="+eleve+" AND idComp_Sec_Util IN (SELECT id_comp_second FROM competence_secondaire WHERE id_comp_princ = "+competence+") ORDER BY idComp_Sec_Util";
 			
 			List<String> l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences",request);
 			conn.sendListById("Nom", "competence_secondaire", "id_comp_second", l, "noms", request);

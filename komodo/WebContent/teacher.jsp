@@ -1,176 +1,185 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <head>
-    	<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Professeur</title>
-
-		<!-- Bootstrap -->
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="style.css">
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		
-		<script>
-			function clickGrille(grille,nomGrille){
-				//alert("gigi");
-				var cible = document.getElementById(nomGrille);
-				if (document.getElementById(grille).disabled == undefined || document.getElementById(nomGrille).disabled == false){
-					//alert("gogo");
-					if(cible.style.display != ''){
-						//alert("false");
-			        	cible.style.display = '';
-					}
-			    	else {
-			    		//alert("true");
-			       		cible.style.display = 'none';
-			    	}
-				}
+	<script type="text/javascript">
+	function get(param) {
+		var vars = {};
+		window.location.href.replace( location.hash, '' ).replace( 
+			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+			function( m, key, value ) { // callback
+				vars[key] = value !== undefined ? value : '';
 			}
-		</script>
+		);
+
+		if ( param ) {
+			return vars[param] ? vars[param] : null;
+		}
+		return vars;
+	}
+	
+	function modifLink(){
+		var obj=document.getElementsByClassName("link");
+		for (i = 0; i < obj.length; i++) {
+			//alert(obj[i].href);
+			obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
+			obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
+			//alert(obj[i].href);
+		}
+	}
+	
+	function modifLink2(){
+		var obj=document.getElementsByClassName("link2");
+		for (i = 0; i < obj.length; i++) {
+			//alert(obj[i].href);
+			obj[i].action = obj[i].action.replace("eleve=0", "eleve="+get("eleve"));
+			obj[i].action = obj[i].action.replace("grille=0", "grille="+get("grille"));
+			obj[i].action = obj[i].action.replace("competence=0", "competence="+get("competence"));
+			//alert(obj[i].href);
+		}
+	}
+	
+	</script>
+    <head>
+        <meta charset="UTF-8"/>
+		<title>Grille de compétence</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
 	 </head>
-	 /*<jsp:include page = "header.jsp" />
+
 	 <body>
 
-		<div class="container">
-
-			<div class="row">
-				<menu class="col-md-3">
-					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
-					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
-					</div>
-					<div class="aside-app">
-						<p><a href="CreationGrille">Ajouter</a></p>
-					</div>
-					<div id="grille" onClick='clickGrille("grille","nomGrille");'>Grille APP</div>
-					<div id="nomGrille" style="display:none;">
-						<c:forEach items="${ nomGrille }" var="nomGrilleInd" varStatus="boucle">
-							<p><a href="#">${nomGrilleInd}</a></p>
+	 	<header>
+	    	<h1>SITE WEB APP</h1>
+	    	<div>
+	    		<a href="#">Thomas (mon profil)</a>
+	    		<a href="#">Déconnexion</a>
+	    	</div>
+		</header>
+		
+		<div id="page">
+			<section>
+				<h2>Promo 2018 &gt; Tuteur &gt; APP électronique &gt; Groupe APP A &gt; Léo</h2>
+				<div id="content">
+					<div id="tabs">
+						<c:forEach items="${ compprinc }" varStatus="i">
+						<div class="tab"><a class="link" href="AffichageTeacher?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a></div>
 						</c:forEach>
 					</div>
-				</menu>
- 
-				<section class="col-md-9"><p><span>${resultatForm }</span></p>	
-				<!--
-					<h2>Promo 2018 &gt; Tuteur &gt; APP électronique &gt; Groupe APP A &gt; Léo</h2>
-					<div id="content">
-						<div id="tabs">
-							<div class="tab" id="tab1">Compétence principale 1</div>
-							<div class="tab">Compétence principale 2</div>
-							<div class="tab">...</div>
-						</div>
-						<article>
-							<table class="grid">
-								<tr>
-									<th></th>
-									<th>Commentaire au prof</th>
-									<th>Commentaire à l'élève</th>
-									<th>Commentaire de groupe</th>
-									<th>
-										Niveau de compétence<br>
-										<div class="skill-levels">
-											<div class="skill-level">Loin</div>
-											<div class="skill-level">Proche</div>
-											<div class="skill-level">Très proche</div>
-											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delà</div>
-										</div>
-									</th>
-								</tr>
-								<tr>
-									<td>
-										<div class="skill">Jugement global</div>
-									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit vitae urna at eleifend. Vivamus nec posuere risus. Aliquam erat volutpat.</td>
-									<td>Nullam et neque vel nulla commodo venenatis in eget urna. Sed et elit ante. Praesent eleifend ex velit, vel dictum libero efficitur at.</td>
-									<td>Nunc sed egestas leo.</td>
-									<td>
-										<div class="skill-levels">
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell" id="skill-level1"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div class="skill">Compétence secondaire 1</div>
-										<div class="criteria">
-											- Critère 1<br>
-											- Critère 2
-										</div>
-									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit vitae urna at eleifend. Vivamus nec posuere risus. Aliquam erat volutpat.</td>
-									<td>Nullam et neque vel nulla commodo venenatis in eget urna. Sed et elit ante. Praesent eleifend ex velit, vel dictum libero efficitur at.</td>
-									<td>Nunc sed egestas leo.</td>
-									<td>
-										<div class="skill-levels">
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell" id="skill-level2"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div class="skill">Compétence secondaire 2</div>
-										<div class="criteria">
-											- Critère 1<br>
-											- Critère 2
-										</div>
-									</td>
-									<td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam blandit vitae urna at eleifend. Vivamus nec posuere risus. Aliquam erat volutpat.</td>
-									<td>Nullam et neque vel nulla commodo venenatis in eget urna. Sed et elit ante. Praesent eleifend ex velit, vel dictum libero efficitur at.</td>
-									<td>Donec commodo diam vitae erat bibendum ullamcorper. Nam faucibus purus non accumsan imperdiet. Proin tristique varius tempus. Aliquam eleifend vitae purus quis auctor.</td>
-									<td>
-										<div class="skill-levels">
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell" id="skill-level3"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-											<div class="skill-level-cell"></div>
-										</div>
-									</td>
-								</tr>
-							</table>
-						</article>
+					<div>
+						<table class="grid">
+							<tr>
+								<th></th>
+								<th>Commentaire au prof</th>
+								<th>Commentaire à l'élève</th>
+								<th>Commentaire de groupe</th>
+								<th>
+									Niveau de compétence<br>
+									<div class="skill-levels">
+										<div class="skill-level">Loin</div>
+										<div class="skill-level">Proche</div>
+										<div class="skill-level">Très proche</div>
+										<div class="skill-level">Attendu</div>
+										<div class="skill-level">Au-delà</div>
+										<div class="skill-level">[Evaluation]</div>
+									</div>
+								</th>
+							</tr>
+							
+							<c:set var="loin" value="loin" scope="page" />
+							<c:set var="proche" value="proche" scope="page" />
+							<c:set var="tproche" value="tproche" scope="page" />
+							<c:set var="attendu" value="attendu" scope="page" />
+							<c:set var="audela" value="audela" scope="page" />
+							<c:forEach items="${ competences }" varStatus="ligne">
+							<tr>
+								<td>
+									<div class="skill">${ noms[ligne.index] }</div>
+									<div class="criteria">
+										${ criteres[ligne.index] }
+									</div>
+								</td>
+								<td>
+									<form id="frm_${ ligne.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&cp=1#frm_${ ligne.index }">
+										<textarea name="value" id="value">${ cp[ligne.index] }</textarea>
+										<input type="submit" value="Modifier" />
+									</form>
+								</td>
+								<td>
+									<form id="frm_${ ligne.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&ci=1#frm_${ ligne.index }">
+										<textarea name="value" id="value">${ ci[ligne.index] }</textarea>
+										<input type="submit" value="Modifier" />
+									</form>
+								</td>
+								<td>
+									<form id="frm_${ ligne.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&cg=1#frm_${ ligne.index }">
+										<textarea name="value" id="value">${ cg[ligne.index] }</textarea>
+										<input type="submit" value="Modifier" />
+									</form>
+								</td>
+								<td><form class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&ev=1#frm_${ ligne.index }">
+									<div class="skill-levels">
+										<c:if test="${ evaluations[ligne.index] == loin }" var="variable">
+											<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] == proche }" var="variable">
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] == tproche }" var="variable">
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] == attendu }" var="variable">
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] == audela }" var="variable">
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<c:if test="${ evaluations[ligne.index] != loin && evaluations[ligne.index] != proche && evaluations[ligne.index] != tproche && evaluations[ligne.index] != attendu && evaluations[ligne.index] != audela }" var="variable">
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="proche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="tproche" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="attendu" id="${ ligne.index }" /></div>
+											<div class="skill-level-cell"><input type="radio" name="eval${ 1+ligne.index }" value="audela" id="${ ligne.index }" /></div>
+										</c:if>
+										<div class="skill-level-cell"><input type="submit" value="Modifier"></div>
+									</div>
+								</form></td>
+							</tr>
+							</c:forEach>
+						</table>
 					</div>
-					-->
-				</section>
-			</div>
+				</div>
+			</section>
 		</div>
 
+		<footer style="width:100%;float:left;">
+			<div><a href="#">CGU</a></div>
+			<div><a href="#">FAQ</a></div>
+			<div><a href="#">Nous contacter</a></div>
+		</footer>
+		<script>modifLink();</script>
+		<script>modifLink2();</script>
 	</body>
-	<jsp:include page = "footer.jsp" />
+
 </html> 

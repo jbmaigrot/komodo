@@ -88,7 +88,7 @@
 								<a id="${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" href="ArborescenceTeacher?sql=1&promo=${ i }&role=${ elt }&app=${ apps_id[s2.index] }&groupe=${ groupes_id[s3.index] }&eleve=0#${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }"><img src="pictures/minus.png"/>${ groupes[s3.index] }</a>
 								<div id="f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" class="aside-student">
 									<c:forEach items="${ eleves }" varStatus="s4">
-									<p><a href="AffichageEleve?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
+									<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
 									</c:forEach>
 								</div>
 								<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
