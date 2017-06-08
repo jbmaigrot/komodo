@@ -19,22 +19,10 @@
 		<![endif]-->
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Gestion de groupe</title>
+		<title>Planning APP</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		
 		<script>
-			function selectionElementGrille(id_element,id_element_sec)
-			{
-					
-				var cible = document.getElementById(id_element_sec);
-				if (document.getElementById(id_element).disabled == undefined || document.getElementById(id_element).disabled == false)
-				{
-					if(cible.style.display != '')
-			        	cible.style.display = '';
-			    	else 
-			       		cible.style.display = 'none';
-				}
-			}
 			function affichageElementTier(id_element,id_element_sec){
 				var cible = document.getElementById(id_element_sec);
 				if (document.getElementById(id_element).disabled == undefined || document.getElementById(id_element).disabled == false)
@@ -96,49 +84,8 @@
 					</div>
 				</menu>
 				<section class="col-md-9">
-					<h1>Gestion de groupe</h1>
-					<h3>Edition de <strong>${nom_groupe}</strong> dans <strong>${nom_app}</strong></h3>
-					<p> Tuteur : ${tuteur_prenom} ${tuteur_nom}<p>
-					<p> Client : ${client_prenom} ${client_nom}<p>
-					<p> Élèves membre :<p>
-					<ul>
-						<c:choose>
-							<c:when test="${eleves_id[0] == null}">
-								<li>Pas encore d'élèves</li>
-							</c:when>
-							
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_eleves}">
-									<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-					<p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
-					<span id="ajout_eleve" class="" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span>
-					<div id="choix_eleve" style="display:none;">
-						<form method="post" action="GestionGroupe">
-							<select id="choix_nouveau" name="choix_nouveau">
-							
-								<c:choose>
-									<c:when test="${eleves_id[0] == null}">
-										<option>Pas d'élèves à ajouter</option>
-									</c:when>
-								
-									<c:otherwise>
-										<option disabled selected>Nouvel élève</option>
-										<c:forEach var="i" begin="0" end="${nb_all}">
-											<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</select>
-							<input type="submit" name="Submit" value="Ajouter" id="Submit" >
-						</form>
-					</div>
-				</section>
 				<section>
-					<h4>Planning du groupe</h4>
+					<h4>Planning du groupe <strong>${nom_groupe}</strong> de <strong>${nom_app}</strong></h4>
 					<u1>
 						<c:choose>
 							<c:when test="${plan_id[0] == null}">

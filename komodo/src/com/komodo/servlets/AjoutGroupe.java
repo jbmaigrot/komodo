@@ -38,6 +38,7 @@ public class AjoutGroupe extends HttpServlet {
     public static final String INFO_APP_ID = "app_id";
     public static final String INFO_APP_NOM = "app_nom";
     public static final String INFO_APP_PROMO = "app_promo";
+    public static final String NOMBRE_APP = "nb_app";
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -57,6 +58,8 @@ public class AjoutGroupe extends HttpServlet {
 		ResultSet listeAPP = null;
 		Statement statement = null;
 		Statement statement_APP = null;
+		boolean pas_de_profs = true;
+		boolean pas_d_app = true;
 		
 		try 
 		{
@@ -72,6 +75,11 @@ public class AjoutGroupe extends HttpServlet {
 				listeProfId.add(listeProfs.getString( "id" ));
 				listeProfPrenom.add(listeProfs.getString( "Prenom" ));
 				listeProfNom.add(listeProfs.getString( "Nom" ));
+				pas_de_profs = false;
+			}
+			if(pas_de_profs)
+			{
+				listeProfId.add(null);
 			}
 			//Récuperation des APP
 			listeAPP = statement_APP.executeQuery( "SELECT id_grille, Nom_grille, Promo FROM grille_de_competence_app;" );
@@ -83,7 +91,13 @@ public class AjoutGroupe extends HttpServlet {
 				listeAPPId.add(listeAPP.getString( "id_grille" ));
 				listeNomGrille.add(listeAPP.getString( "Nom_grille" ));
 				listePromo.add(listeAPP.getString( "Promo" ));
+				pas_d_app = false;
 			}
+			if(pas_d_app)
+			{
+				listeAPPId.add(null);
+			}
+			
 			//Définition des Attributs pour la page jsp
 			request.setAttribute(INFO_PROFS_ID, listeProfId);
 			request.setAttribute(INFO_PROFS_NOM, listeProfNom);
@@ -92,6 +106,7 @@ public class AjoutGroupe extends HttpServlet {
 			request.setAttribute(INFO_APP_ID, listeAPPId);
 			request.setAttribute(INFO_APP_NOM, listeNomGrille);
 			request.setAttribute(INFO_APP_PROMO, listePromo);
+			request.setAttribute(NOMBRE_APP, (listeAPPId.size()-1));
 		} catch (SQLException e) 
         {
 			// TODO Auto-generated catch block
