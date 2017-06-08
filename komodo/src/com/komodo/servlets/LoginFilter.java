@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
         boolean loggedIn = session != null && session.getAttribute("userName") != null;
         String loginRequest = request.getRequestURI();
 
-        if (loggedIn || (loginRequest.endsWith("connexion.jsp") || loginRequest.contains("Login"))) {
+        if (loggedIn || (loginRequest.endsWith("connexion.jsp") || loginRequest.contains("Login") || loginRequest.endsWith(".css"))) {
             chain.doFilter(request, response);
         } else {
             response.sendRedirect("LoginServlet");

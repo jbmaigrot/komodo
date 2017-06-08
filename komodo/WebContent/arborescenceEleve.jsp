@@ -18,6 +18,7 @@
 	
 	function get(param) {
 		var vars = {};
+		value = 0;
 		window.location.href.replace( location.hash, '' ).replace( 
 			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
 			function( m, key, value ) { // callback
