@@ -71,7 +71,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
 			e.printStackTrace();
 		}
       //controleur
-      		conn.sendList( "Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
+      		conn.sendList( "DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
       		if(request.getParameter("sql")!=null){//gestion de l'arborescence
       			
       			/*gestion de l'arborescence*/
@@ -82,7 +82,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			try 
       	        {
       	        	
-      	        	/* Connexion à la base de données. */
+      	        	/* Connexion Ã  la base de donnÃ©es. */
       				statement = conn.getConnection().createStatement();
       				statementSec = conn.getConnection().createStatement();
       			compteGrille = statement.executeQuery( "SELECT id_groupe, Nom FROM groupe;" );
