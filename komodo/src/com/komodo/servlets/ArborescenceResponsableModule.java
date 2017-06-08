@@ -71,7 +71,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
 			e.printStackTrace();
 		}
       //controleur
-      		conn.sendList( "Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
+      		conn.sendList( "DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
       		if(request.getParameter("sql")!=null){//gestion de l'arborescence
       			
       			/*gestion de l'arborescence*/

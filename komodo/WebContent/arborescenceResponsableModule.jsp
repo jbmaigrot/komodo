@@ -129,7 +129,7 @@ function selectionElementGrille(id_element,id_element_sec){
 			    
 			    </div>
 			</menu>
-			<section></section>
+			<section class="col-md-9"></section>
 			<script>
 				var number = 2015;
 				while (number < 2030) {
