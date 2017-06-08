@@ -126,8 +126,10 @@ function selectionElementGrille(id_element,id_element_sec){
 			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
 						<p><a href="?id=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
 					</c:forEach>
-			    
 			    </div>
+			    <div class="aside-app" id="ajoutUtilisateur">
+				    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
+				</div>
 			</menu>
 			<section class="col-md-9"></section>
 			<script>
