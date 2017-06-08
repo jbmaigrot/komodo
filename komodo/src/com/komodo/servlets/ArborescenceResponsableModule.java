@@ -82,7 +82,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			try 
       	        {
       	        	
-      	        	/* Connexion à la base de données. */
+      	        	/* Connexion Ã  la base de donnÃ©es. */
       				statement = conn.getConnection().createStatement();
       				statementSec = conn.getConnection().createStatement();
       			compteGrille = statement.executeQuery( "SELECT id_groupe, Nom FROM groupe;" );
