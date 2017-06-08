@@ -61,13 +61,14 @@
         <meta charset="UTF-8"/>
 		<title>Arborescence</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-	 </head>
-
+	 </head>	
 	 <body>
-
-	    <jsp:include page = "header.jsp">
-
-		
+		 <header>
+			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
+			<div class="col-md-3">
+				<a href="#">${ sessionScope.userName }</a><br> <a href="LogoutServlet">Déconnexion</a>
+			</div>
+		</header>
 		<div id="page">
 			<menu>
 				<div>MOI<p>
