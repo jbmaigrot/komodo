@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Prof</title>
+		<title>Création grille</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -110,25 +110,7 @@
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
-					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
+						<p><a id="ajout" href="ArborescenceResponsableModule">Retour vers l'arborescence du responsable module</a></p>
 					</div>
 					<div class="aside-app" id="grille">
 						<p><a id="ajout" href="#creation" onClick='selectionElementGrille("ajout","creation");'>Ajouter Grille</a></p>
