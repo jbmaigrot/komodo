@@ -1,27 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Modification de grille</title>
-
-		<!-- Bootstrap -->
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Modification grille</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-
-		<script src="script/jquery.min.js"></script>
-		<script src="script/test.js"></script>
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		
+	 </head>
+	 <body>
+	 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	 	<header>
+	    	<h1>SITE WEB APP</h1>
+	    	<div>
+	    		<a href="#">Thomas (mon profil)</a>
+	    		<a href="#">Déconnexion</a>
+	    	</div>
+		</header>
 		<script>
 			function selection(check_tab,id_comp,id_comp_sec,id_checkbox_sec,id_critere,id_ponderation,tabComp,tabCritere) 
 			{
@@ -101,47 +94,46 @@
 					sel.size = '1';
 	        }
 		</script>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	 </head>
-	 
-	 <body>
-	 	<%@include  file="header.jsp" %>
 
-		<div class="container">
-			<div class="row">
-				<menu class="col-md-3">
-					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
+		<div id="page">
+			<aside>
+				<div class="aside-promo">
+					<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
+					<div class="aside-category">
+						<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
+						<div class="aside-app">
+							<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
+							<div class="aside-group">
+								<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
+								<div class="aside-student">
+									<p id="student1">Léo<p>
+									<p>François</p>
+									<p>Gérard</p>
 								</div>
 							</div>
 						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
 					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
-					</div>
-					<div class="aside-app" id="grille">
-						<p><a href="CreationGrille">Ajouter</a></p>
-					</div>
-					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
-					<div id="nomGrille" style="display:none;">
-						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
-							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
-						</c:forEach>
-				    </div>
-				</menu>
-			</div>
+					<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
+				</div>
+				<div class="aside-promo">
+					<p><img src="pictures/plus.png"/>Autres promos</p>
+				</div>
+				<div class="aside-app" id="grille">
+					<p><a href="CreationGrille">Ajouter</a></p>
+				</div>
+				<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
+				<div id="nomGrille" style="display:none;">
+					<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
+						<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+					</c:forEach>
+			    </div>
+			    <div class="aside-app" id="ajoutCompPrin">
+			    <p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+			    </div>
+			    <div class="aside-app" id="ajoutCompSec">
+			    <p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+			    </div>
+			</aside>
 		</div>
 		
 		<section>
@@ -179,7 +171,7 @@
 						<c:set var = "tabComp" value="checkboxtab${boucle.count }"/>
 						<c:set var ="valideGet" value="false"/>
 		  				<div id="tabs">
-							<div class="comp${boucle.count}"><a href="#" id="comp_princip${boucle.count }" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd}" ><c:set var="valideGet" value="true"/>style="display:;"</c:if></c:forTokens><c:if test="${valideGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valide[boucle.count] == false}"> style="display:none;"</c:if> <c:if test = "${valide[boucle.count] == true}"> style="display:'';" </c:if></c:when></c:choose> onClick='selectionElementGrille("comp_princip${boucle.count}","comp_Sec${boucle.count }");'>${nomCompPrincipInd}</a>
+							<div class="comp${boucle.count}"><a href="#comp_Sec${boucle.count }" id="comp_princip${boucle.count }" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd}" ><c:set var="valideGet" value="true"/>style="display:;"</c:if></c:forTokens><c:if test="${valideGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valide[boucle.count] == false}"> style="display:none;"</c:if> <c:if test = "${valide[boucle.count] == true}"> style="display:'';" </c:if></c:when></c:choose> onClick='selectionElementGrille("comp_princip${boucle.count}","comp_Sec${boucle.count }");'>${nomCompPrincipInd}</a>
 								<div id="comp_Sec${boucle.count }" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd}" ><c:set var="valideGet" value="true"/> style="display:;"</c:if></c:forTokens><c:if test="${valideGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valide[boucle.count] == false}"> style="display:none;"</c:if> <c:if test = "${valide[boucle.count] == true}"> style="display:'';" </c:if></c:when></c:choose>>
 								<p>Compétence(s) secondaire(s)</p>
 									<c:forEach items="${ nomCompSec }" var="nomCompSecInd" varStatus="boucleSec">
@@ -223,7 +215,5 @@
 				<input type="submit" name="Submit" value="Valider" id="Submit" >
 			</form>
 		</section>
-		
-		<%@include  file="footer.jsp" %>
 	</body>
 </html>

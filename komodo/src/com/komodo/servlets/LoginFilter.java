@@ -37,7 +37,7 @@ public class LoginFilter implements Filter {
         if (loggedIn || (loginRequest.endsWith("connexion.jsp") || loginRequest.contains("Login"))) {
             chain.doFilter(request, response);
         } else {
-            response.sendRedirect("/connexion.jsp");
+            response.sendRedirect("LoginServlet");
         }
     }
 

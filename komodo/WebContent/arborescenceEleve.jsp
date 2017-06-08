@@ -64,13 +64,7 @@
 
 	 <body>
 
-	 	<header>
-	    	<h1>SITE WEB APP</h1>
-	    	<div>
-	    		<a href="#">Thomas (mon profil)</a>
-	    		<a href="#">Déconnexion</a>
-	    	</div>
-		</header>
+	    <jsp:include page = "header.jsp">
 
 		
 		<div id="page">

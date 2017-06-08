@@ -23,7 +23,7 @@
     
     <body>
     	<div class="center">
-	        <form class="connexion" method="post" action="LoginServelt">
+	        <form class="connexion" method="post" action="LoginServlet">
 	        	<div class="container">
 	            	<h2>Connexion</h2>
 					<div class="row">

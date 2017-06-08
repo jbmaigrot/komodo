@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.komodo.bdd.LoginBDD;
 
-@WebServlet("/LoginServelt")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
 
     private static final long serialVersionUID = 1L;
@@ -24,8 +24,8 @@ public class LoginServlet extends HttpServlet{
     	HttpSession session = request.getSession(false);
     	Object t = session.getAttribute("Type");
     	if(session != null && t != null){
-            if (t.equals("élève")){
-            	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
+            if (t.equals("eleve")){
+            	this.getServletContext().getRequestDispatcher("/ArborescenceEleve").forward(request, response);
             }
             else if (t.equals("professeur")){
             	this.getServletContext().getRequestDispatcher("/ArborescenceTeacher").forward(request, response);
@@ -60,8 +60,8 @@ public class LoginServlet extends HttpServlet{
 			session.setMaxInactiveInterval(30*60);
 			Cookie userName = new Cookie("userName", n);
 			response.addCookie(userName);
-            if (t.equals("élève")){
-            	this.getServletContext().getRequestDispatcher("/student.jsp").forward(request, response);
+            if (t.equals("eleve")){
+            	this.getServletContext().getRequestDispatcher("/ArborescenceEleve").forward(request, response);
             }
             else if (t.equals("professeur")){
             	this.getServletContext().getRequestDispatcher("/ArborescenceTeacher").forward(request, response);

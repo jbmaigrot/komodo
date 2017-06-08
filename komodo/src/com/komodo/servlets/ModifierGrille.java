@@ -3,10 +3,8 @@ package com.komodo.servlets;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -24,22 +22,11 @@ import com.komodo.bdd.ConnectBDD;
 public class ModifierGrille extends HttpServlet {
 	public static final long serialVersionUID = 1L;
 	public static final String VUE                     = "/modification_grille.jsp";
-	public static final String VUE2                    = "/ArborescenceResponsableModule";
-	public static final String VUE3                    = "/ModifierGrille";
+	public static final String VUE2                    = "/AffichageResponsableModule";
 	public static final String GRILLE_ID               = "id";
-	public static final String GRILLE_NOM              = "grilleNom";
 	public static final String CHAMP_NOM_GRILLE        = "nom_grille";
 	public static final String CHAMP_PROMO             = "promo";
-	public static final String GRILLE_PROMO            = "grillePromo";
-	public static final String RESULTAT_COMP_PRINC     = "resultatNomCompPrincip";
-	public static final String RESULTAT_ID_COMP_PRINC  = "resultatIdNomCompPrincip";
-	public static final String RESULTAT_COMP_SEC       = "resultatNomCompSec";
-	public static final String RESULTAT_ID_COMP_SEC    = "resultatIdNomCompSec";
-	public static final String RESULTAT_ID_COMP_SECOND = "resultatIdCompSecond";
-	public static final String COMP_PRINC              = "nomCompPrincip";
-	public static final String COMP_SEC                = "nomCompSec";
-	public static final String CRITERE                 = "resultatCompCritere";
-	public static final String PONDERATION             = "resultatCompPonderation";
+	
 	public static final String ATT_ERREURS             = "erreurs";
 	public static final String ATT_RESULTAT            = "resultatForm";
 	public static final String VALIDE                  = "valide";
@@ -63,136 +50,43 @@ public class ModifierGrille extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
-		Statement statement = null;
-		ResultSet resultat = null;
-		ResultSet comp = null;
-		ResultSet compSec = null;
-		ResultSet resultatComp = null;
-		ResultSet resultatCompSec = null;
-		ResultSet resultatCritere = null;
-		ResultSet resultatPonderation = null; 
-		ResultSet resultatCompte = null;
-		ResultSet resultatCompteSec =null;
-		ResultSet resultatCompteSecSec = null;
-		Statement statementSec = null;
+		// Récupére l'id de la table grille_de_competence_app
 		String id = request.getParameter(GRILLE_ID);
-		String promo = request.getParameter(CHAMP_PROMO);
+		//String promo = request.getParameter(CHAMP_PROMO);
 		System.out.println("id get : "+id);
-		System.out.println("id get : "+promo);
-		try 
-        {
-			statement = conn.getConnection().createStatement();
-			statementSec= conn.getConnection().createStatement();
+		conn.getConnection();
 			
 			/* Initialisation des deux tableaux de booléens pour l'affichage du contenu lorsque l'on arrive pour la première fois sur ce contrôleur. */
 			if(request.getAttribute(ATT_RESULTAT) == null)
 			{
-				resultatCompte = statement.executeQuery("Select count(*) as nbLignes From modele_comp_prin;");
-				if(resultatCompte.next())
-				{		
-					int nbLignes = resultatCompte.getInt("nbLignes");
-					valide = new boolean[nbLignes+1];
-				}
-				resultatCompteSec = statement.executeQuery("Select count(*) as nbLignes From modele_comp_prin;");
-				resultatCompteSecSec = statementSec.executeQuery("Select count(*) as nbLignesSec From modele_comp_sec;");
-				resultatCompteSec.next();
-				resultatCompteSecSec.next();
-				int nbLignes = resultatCompteSec.getInt("nbLignes");
-				int nbLignesSec = resultatCompteSecSec.getInt("nbLignesSec");
+				int nbLignes = conn.compte("*", "modele_comp_prin");
+				valide = new boolean[nbLignes+1];
+				int nbLignesSec = conn.compte("*", "modele_comp_sec");
 				valideSec = new boolean[nbLignes+1][nbLignesSec+1];
 			}
-			resultat = statement.executeQuery("Select * From grille_de_competence_app WHERE id_grille="+id+";");
-			resultat.next();
-			String grilleNom = resultat.getString( "Nom_grille" );
-			String grillePromo = resultat.getString( "Promo" );
-			comp = statement.executeQuery( "SELECT Nom FROM modele_comp_prin;" );
-			List<String> nomCompPrincip = new ArrayList<String>(); 
-			List<String> nomCompSec = new ArrayList<String>();
-			while ( comp.next() ) 
-			{
-	            String nomCompPrincipInd = comp.getString( "Nom" );
-	            
-	            /* Formatage des données pour affichage dans la page JSP au niveau des compétences principales. */
-	            nomCompPrincip.add(nomCompPrincipInd);
-	            System.out.println( " nom competence principale = " +nomCompPrincipInd+ "." );
-	        }
+			// Permet de récupérer les valeurs contenues dans la table grille_de_competence_app pour les afficher ensuite dans le formulaire.
+			conn.sendString("Nom_grille", "grille_de_competence_app", "id_grille="+id, "grilleNom",request);
+			conn.sendString("Promo", "grille_de_competence_app", "id_grille="+id, "grillePromo",request);
 			
-			compSec = statement.executeQuery( "SELECT Nom FROM modele_comp_sec;" );
-			while ( compSec.next() ) 
-			{	
-				String nomCompSecInd = compSec.getString( "Nom" );
-				
-				/* Formatage des données pour affichage dans la page JSP au niveau des compétences secondaires. */
-		        nomCompSec.add(nomCompSecInd);
-		        System.out.println( " nom competence secondaire = " +nomCompSecInd+ "." );
-		    }
+			// On récupére ici toutes le scompétences principales et secondaires pour alisser la possibilité à l'uitlisateur d'ajouter d'autres compétences
+			// à la grille.
+			conn.sendList("Nom", "modele_comp_prin", "1=1 ORDER BY idModCompPrin", "nomCompPrincip",request);
+			conn.sendList("Nom", "modele_comp_sec", "1=1 ORDER BY idModCompSec", "nomCompSec",request);
 			
-			resultatComp = statement.executeQuery("Select id_comp, Nom_competence_principale From competence_principale INNER JOIN lie3 ON (competence_principale.id_comp=lie3.idCompPrin) Where idGrilleComp='"+id+"';");
-			List<String> resultatNomCompPrincip = new ArrayList<String>();
-			List<String> resultatIdNomCompPrincip = new ArrayList<String>();
-			while ( resultatComp.next() ) 
-			{
-				String resultatNomCompInd = resultatComp.getString( "Nom_competence_principale" );
-				String resultatIdNomCompInd = resultatComp.getString("id_comp");
-				/* Formatage des données pour affichage dans la page JSP au niveau des compétences secondaires. */
-				resultatNomCompPrincip.add(resultatNomCompInd);
-				resultatIdNomCompPrincip.add(resultatIdNomCompInd);
-		    }
+			conn.sendListInner("id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdNomCompPrincip",request);
+			conn.sendListInner("Nom_competence_principale", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatNomCompPrincip",request);
+			conn.sendListInnerIn("id_comp_second", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdCompSecond", request);
+			conn.sendListInnerIn("id_comp_princ", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdNomCompSec", request);
+			conn.sendListInnerIn("Nom", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatNomCompSec", request);
+			conn.sendListInnerIn("Critere", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompCritere", request);
+			conn.sendListInnerIn("Ponderation", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompPonderation", request);
+		
 			
-			resultatCompSec = statement.executeQuery("Select id_comp_second, id_comp_princ, Nom From competence_secondaire Where id_comp_princ in (Select id_comp From competence_principale INNER JOIN lie3 ON (competence_principale.id_comp=lie3.idCompPrin) Where idGrilleComp="+id+");");
-			List<String> resultatNomCompSec = new ArrayList<String>();
-			List<String> resultatIdNomCompSec = new ArrayList<String>();
-			List<String> resultatIdCompSecond = new ArrayList<String>();
-			while ( resultatCompSec.next() ) 
-			{
-				String resultatNomCompSecInd = resultatCompSec.getString( "Nom" );
-				String resultatIdNomCompSecInd = resultatCompSec.getString("id_comp_princ");
-				String resultatIdCompSecondInd = resultatCompSec.getString("id_comp_second");
-				
-				/* Formatage des données pour affichage dans la page JSP au niveau des compétences secondaires. */
-				resultatNomCompSec.add(resultatNomCompSecInd);
-				resultatIdNomCompSec.add(resultatIdNomCompSecInd);
-				resultatIdCompSecond.add(resultatIdCompSecondInd);
-			}
-			
-			resultatCritere = statement.executeQuery("Select Critere From competence_secondaire Where id_comp_princ in(Select id_comp From competence_principale INNER JOIN lie3 ON (competence_principale.id_comp=lie3.idCompPrin) Where idGrilleComp="+id+");");
-			List<String> resultatCompCritere = new ArrayList<String>();
-			while (resultatCritere.next())
-			{
-				String resultatCompCritereInd = resultatCritere.getString( "Critere" );
-				resultatCompCritere.add(resultatCompCritereInd);
-			}
-			
-			resultatPonderation = statement.executeQuery("Select Ponderation From competence_secondaire Where id_comp_princ in(Select id_comp From competence_principale INNER JOIN lie3 ON (competence_principale.id_comp=lie3.idCompPrin) Where idGrilleComp="+id+");");
-			List<String> resultatCompPonderation = new ArrayList<String>();
-			while (resultatPonderation.next())
-			{
-				System.out.print("id : "+id);
-				System.out.println("result ponderation : "+resultatPonderation.getString( "Ponderation" ));
-				String resultatCompPonderationInd = resultatPonderation.getString( "Ponderation" );
-				resultatCompPonderation.add(resultatCompPonderationInd);
-			}
-			
-			request.setAttribute(GRILLE_NOM, grilleNom);
-			request.setAttribute(GRILLE_PROMO, grillePromo);
 			request.setAttribute(GRILLE_ID, id);
-			request.setAttribute(RESULTAT_COMP_PRINC, resultatNomCompPrincip);
-			request.setAttribute(RESULTAT_ID_COMP_PRINC, resultatIdNomCompPrincip);
-			request.setAttribute(COMP_SEC, nomCompSec);
-			request.setAttribute(RESULTAT_COMP_SEC, resultatNomCompSec);
-			request.setAttribute(RESULTAT_ID_COMP_SEC, resultatIdNomCompSec);
-			request.setAttribute(RESULTAT_ID_COMP_SECOND, resultatIdCompSecond);
-			request.setAttribute(COMP_PRINC, nomCompPrincip);
-			request.setAttribute(CRITERE, resultatCompCritere);
-			request.setAttribute(PONDERATION, resultatCompPonderation);
+		
 			request.setAttribute(VALIDE, valide);
 			request.setAttribute(VALIDE_SEC, valideSec);
 			
-        }catch (SQLException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 
@@ -205,11 +99,8 @@ public class ModifierGrille extends HttpServlet {
 		// TODO Auto-generated method stub
 		String promo = request.getParameter(CHAMP_PROMO);
 		String nomGrille = request.getParameter(CHAMP_NOM_GRILLE);
-		Statement statement = null;
-		Statement statementSec = null;
 		ConnectBDD conn = new ConnectBDD();
-		ResultSet resultat = null;
-		ResultSet resultSec = null;
+		conn.getConnection();
 		Map<String, String> erreurs = new HashMap<String, String>();
 		String id = request.getParameter("id");
 		System.out.print("");
@@ -240,21 +131,10 @@ public class ModifierGrille extends HttpServlet {
 			erreurs.put(CHAMP_PROMO, e.getMessage());
 		}
 		
-		try 
-		{
-			
-			/* Ici on remplit des tableaux qui correspondent aux différents éléments du formulaire pour ensuite tester la validation de ces valeurs. */
-			statement = conn.getConnection().createStatement();
-			statementSec = conn.getConnection().createStatement();
-			resultat = statement.executeQuery("Select count(*) as nbLignes From modele_comp_prin;");
-			int nbLignes = 0;		
-			resultSec = statementSec.executeQuery("Select count(*) as nbLignesSec From modele_comp_sec;");
-			int nbLignesSec = 0;
-			resultat.next();
-			resultSec.next();
-			nbLignesSec = resultSec.getInt("nbLignesSec");
-			
-			nbLignes = resultat.getInt("nbLignes");
+		int nbLignes = conn.compte("*","modele_comp_prin");
+		System.out.println("nbLignes : "+nbLignes);
+		int nbLignesSec = conn.compte("*","modele_comp_sec");
+		System.out.println("nbLignesSec : "+nbLignes);
 			String[] tabComp = new String[nbLignes+1];
 			String[] tabCompId = new String[nbLignes+1];
 			String[][] tabCompSecId = new String[nbLignes+1][nbLignesSec+1];
@@ -298,6 +178,7 @@ public class ModifierGrille extends HttpServlet {
 			}
 			
 		if(nbLignesSec!=0){
+			
 			/* Validation compétences secondaires. */
 			String[] compte = new String[nbLignes+1];
 			do
@@ -313,7 +194,6 @@ public class ModifierGrille extends HttpServlet {
 				}
 				indiceCompSec++;
 			}while(indiceCompSec<=nbLignes);
-			request.setAttribute("compte", compte);
 
 			
 			/* Validation critères. */
@@ -336,7 +216,6 @@ public class ModifierGrille extends HttpServlet {
 				}while(indiceCritereSecond<=nbLignesSec);
 				indiceCritere++;
 			}while(indiceCritere<=nbLignes);
-			request.setAttribute("compteCritere", compteCritere);
 			
 			/* Validation pondération. */
 			String[] comptePonderation = new String[nbLignes*nbLignesSec+1];
@@ -358,12 +237,12 @@ public class ModifierGrille extends HttpServlet {
 				}while(indicePonderationSecond<=nbLignesSec);
 				indicePonderation++;
 			}while(indicePonderation<=nbLignes);
-			
-			request.setAttribute("comptePonderation", comptePonderation);
+
 		}
 			if ( erreur(erreurs) == false )
 			{
-				statement.executeUpdate("UPDATE grille_de_competence_app set Nom_grille='"+nomGrille+"', Promo='"+promo+"' where id_grille='"+id+"'");
+				conn.updateGroup("grille_de_competence_app", "id_grille='"+id+"'", "Nom_grille", "Promo", nomGrille, promo);
+			
 				for (int c = 1;c <= nbLignes;c++ )
 				{	
 					if (tabComp[c] != null && (tabCompId[c]!=null && !tabCompId[c].equals("")))
@@ -377,7 +256,8 @@ public class ModifierGrille extends HttpServlet {
 								System.out.print("");
 								System.out.print("UPDATE competence_secondaire set id_comp_princ='"+tabCompId[c]+"', Ponderation='"+tabPonderation[c][d]+"', Nom='"+tabCompSec[c][d]+"', Critere='"+tabCritere[c][d]+"' where id_comp_second='"+tabCompSecId[c][d]+"'");
 								System.out.print("");
-								statementSec.executeUpdate("UPDATE competence_secondaire set id_comp_princ='"+tabCompId[c]+"', Ponderation='"+tabPonderation[c][d]+"', Nom='"+tabCompSec[c][d]+"', Critere='"+tabCritere[c][d]+"' where id_comp_second='"+tabCompSecId[c][d]+"'");
+								conn.updateGroup("competence_secondaire", "id_comp_second='"+tabCompSecId[c][d]+"'", "id_comp_princ", "Ponderation", "Nom", "Critere", tabCompId[c], tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
+								
 							}
 							
 							if ((tabCompSecId[c][d] == null || tabCompSecId[c][d].equals("")) && tabCompSec[c][d] != null && tabCritere[c][d] != null && tabPonderation[c][d] != null)
@@ -385,14 +265,15 @@ public class ModifierGrille extends HttpServlet {
 								System.out.print("2e Passage !");
 								System.out.print("");
 								System.out.print("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+tabCompId[c]+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
-								statementSec.executeUpdate("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+tabCompId[c]+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
+								conn.insertGroup("competence_secondaire","id_comp_princ","Ponderation", "Nom", "Critere", tabCompId[c], tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
+							
 							}
 							
 							if ((tabCompSecId[c][d] != null && !tabCompSecId[c][d].equals("")) && tabCompSec[c][d] == null ){
 								System.out.println("3e Passage !");
 								System.out.println("");
 								System.out.println("DELETE FROM competence_secondaire where id_comp_second='"+tabCompSecId[c][d]+"'");
-								statementSec.executeUpdate("DELETE FROM competence_secondaire where id_comp_second='"+tabCompSecId[c][d]+"'");
+								conn.delete("competence_secondaire", "id_comp_second= '"+tabCompSecId[c][d]+"'");
 							}
 						}
 						
@@ -402,28 +283,35 @@ public class ModifierGrille extends HttpServlet {
 						System.out.println("4e Passage !");
 						System.out.println("");
 						System.out.println("INSERT INTO competence_principale (Nom_competence_principale) VALUES ('"+tabComp[c]+"')");
-						statementSec.executeUpdate("INSERT INTO competence_principale (Nom_competence_principale) VALUES ('"+tabComp[c]+"')",Statement.RETURN_GENERATED_KEYS);
-						ResultSet resId = statementSec.getGeneratedKeys();
-						if(resId.next())
-						{
-							for (int d = 1 ; d <= nbLignesSec;d++)
+						ResultSet resId = conn.insertGroup("competence_principale","Nom_competence_principale", tabComp[c]);
+						try {
+							if(resId.next())
 							{
-								if (tabCompSec[c][d] != null && tabCritere[c][d] != null && tabPonderation[c][d] != null)
+								for (int d = 1 ; d <= nbLignesSec;d++)
 								{
-									System.out.println("5e Passage !");
-									System.out.println("");
-									System.out.println("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
-									statementSec.executeUpdate("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
-								}
-							}		
-							statementSec.executeUpdate("INSERT INTO lie3 (idGrilleComp, idCompPrin) VALUES ('"+id+"','"+resId.getInt(1)+"')");
+									if (tabCompSec[c][d] != null && tabCritere[c][d] != null && tabPonderation[c][d] != null)
+									{
+										System.out.println("5e Passage !");
+										System.out.println("");
+										System.out.println("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
+										conn.insertGroup("competence_secondaire","id_comp_princ", "Ponderation", "Nom", "Critere", resId.getString(1), tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
+									//	statementSec.executeUpdate("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
+									}
+								}	
+								conn.insertGroup("lie3","idGrilleComp", "idCompPrin", id, resId.getString(1));
+								//statementSec.executeUpdate("INSERT INTO lie3 (idGrilleComp, idCompPrin) VALUES ('"+id+"','"+resId.getInt(1)+"')");
+							}
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 					}
 					if(tabComp[c] == null && (tabCompId[c]!=null && !tabCompId[c].equals(""))){
 						System.out.println("6e Passage !");
 						System.out.println("");
 						System.out.println("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
-						statementSec.executeUpdate("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
+						conn.delete("competence_principale", "id_comp='"+tabCompId[c]+"'");
+						//statementSec.executeUpdate("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
 					}
 				}
 				
@@ -439,10 +327,6 @@ public class ModifierGrille extends HttpServlet {
 				request.setAttribute( ATT_ERREURS, erreurs );
 				doGet(request,response);
 			}
-		}catch(Exception e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	private void validationNomApp(String nomApp) throws Exception
