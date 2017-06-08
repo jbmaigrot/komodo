@@ -123,10 +123,18 @@
 						<div>
 							<label>Choississez un APP :  </label>
 							<select id="choix_APP" name="choix_APP">
-								<option disabled selected>Choisissez une grille d'APP</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${app_id[i]}"/>' >[Promo : ${app_promo[i]}] ${app_nom[i]}</option>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${app_id[0] == null}">
+										<option disabled selected>Pas d'APP à afficher</option>
+									</c:when>
+							
+									<c:otherwise>
+										<option disabled selected>Choisissez une grille d'APP</option>
+										<c:forEach var="i" begin="0" end="${nb_APP}">
+											<option value='<c:out value="${app_id[i]}"/>' >[Promo : ${app_promo[i]}] ${app_nom[i]}</option>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</select>
 							<span class="erreur">${erreurs['choix_APP']}</span>
 						</div>
@@ -147,10 +155,18 @@
 						<div>
 							<label>Client : </label>
 							<select id="nom_client" name="nom_client">
-								<option disabled selected>Choisissez un professeur</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${profs_id[0] == null}">
+										<option disabled selected>Pas de professeurs</option>
+									</c:when>
+							
+									<c:otherwise>
+										<option disabled selected>Choisissez un professeur</option>
+										<c:forEach var="i" begin="0" end="${nombre_profs}">
+											<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</select>
 							<span class="erreur">${erreurs['nom_client']}</span>
 						</div>

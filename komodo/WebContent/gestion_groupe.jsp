@@ -119,14 +119,14 @@
 					<div id="choix_eleve" style="display:none;">
 						<form method="post" action="GestionGroupe">
 							<select id="choix_nouveau" name="choix_nouveau">
-								<option disabled selected>Nouvel élève</option>
-								
+							
 								<c:choose>
 									<c:when test="${eleves_id[0] == null}">
-										<li>Pas d'élèves à ajouter</li>
+										<option>Pas d'élèves à ajouter</option>
 									</c:when>
 								
 									<c:otherwise>
+										<option disabled selected>Nouvel élève</option>
 										<c:forEach var="i" begin="0" end="${nb_all}">
 											<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
 										</c:forEach>
