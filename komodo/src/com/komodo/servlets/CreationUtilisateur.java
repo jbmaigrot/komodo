@@ -168,19 +168,20 @@ public class CreationUtilisateur extends HttpServlet {
 			MessageDigest md;
 			try {
 				md = MessageDigest.getInstance("SHA-256");
-				md.update(motDePasse.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+				md.update(motDePasse.getBytes("UTF-8"));
 				byte[] digest = md.digest();
 				String mdp = getHexString(digest);
-				//String mdp = new String( digest , "Cp1252" );
+				
 				System.out.print("mot de passe : "+mdp);
 				ResultSet resId = conn.insertGroup("utilisateur","Nom","Prenom","Age","Type","NomConnection","MotDePasse",nom,prenom,age,type,nomConnexion,mdp);
 				if (resId.next()){
-				if (type.equals("eleve")){
+					if (type.equals("eleve")){
 				
-					conn.insertGroup("eleves","id_utilisateur","Numero_eleve","Annee","Specialite", resId.getString(1),numeroEleve,annee,specialite);
+						conn.insertGroup("eleves","id_utilisateur","Numero_eleve","Annee","Specialite", resId.getString(1),numeroEleve,annee,specialite);
+					}
 				}
-				}
-			} catch (NoSuchAlgorithmException e) {
+			} catch (NoSuchAlgorithmException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (SQLException e) {
@@ -191,13 +192,13 @@ public class CreationUtilisateur extends HttpServlet {
 			request.setAttribute( ATT_RESULTAT, resultatForm );
 			this.getServletContext().getRequestDispatcher( VUE2 ).forward( request, response );
 		}else
-			{
-				resultatForm = "Échec de l'ajout.";
-				request.setAttribute( ATT_ERREURS, erreurs );
-				request.setAttribute( ATT_RESULTAT, resultatForm );
-				doGet(request,response);
-			}
+		{
+			resultatForm = "Échec de l'ajout.";
+			request.setAttribute( ATT_ERREURS, erreurs );
+			request.setAttribute( ATT_RESULTAT, resultatForm );
+			doGet(request,response);
 		}
+	}
 	
 	private void validationNomUtilisateur(String nom) throws Exception
 	{
@@ -322,6 +323,6 @@ public class CreationUtilisateur extends HttpServlet {
         for (int i=0; i < b.length; i++) {
             result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
         }
-    return result;
+        return result;
 	}
 }
