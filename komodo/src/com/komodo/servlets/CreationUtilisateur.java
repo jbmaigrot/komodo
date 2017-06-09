@@ -132,7 +132,7 @@ public class CreationUtilisateur extends HttpServlet {
 		}
 		//System.out.println("type = "+type);
 		if (type!=null && type.equals("eleve")){
-			//System.out.println("type = "+type);
+			//System.out.println("Integer.parseInt(numeroEleve))"+Integer.parseInt(numeroEleve));
 			
 			/* Validation du champ numéro élève. */
 			try 
@@ -175,7 +175,7 @@ public class CreationUtilisateur extends HttpServlet {
 				System.out.print("mot de passe : "+mdp);
 				ResultSet resId = conn.insertGroup("utilisateur","Nom","Prenom","Age","Type","NomConnection","MotDePasse",nom,prenom,age,type,nomConnexion,mdp);
 				if (resId.next()){
-				if (type == "eleve"){
+				if (type.equals("eleve")){
 				
 					conn.insertGroup("eleves","id_utilisateur","Numero_eleve","Annee","Specialite", resId.getString(1),numeroEleve,annee,specialite);
 				}
@@ -268,16 +268,12 @@ public class CreationUtilisateur extends HttpServlet {
 	{
 		if (numeroEleve != null && numeroEleve.trim().length() != 0)
 		{
-			//System.out.println("String.valueOf(Integer.parseInt(numeroEleve)).length()"+String.valueOf(Integer.parseInt(numeroEleve)).length());
-			if (Integer.parseInt(numeroEleve)>0){
-				if(String.valueOf(Integer.parseInt(numeroEleve)).length()==numeroEleve.length()){
+			
+			if (numeroEleve.matches("-?\\d+")){
 					if(numeroEleve.length() < 4)
-						throw new Exception("Veuilez saisir un numéro d'élève au moins égal de 4 caractères !");
+						throw new Exception("Veuilez saisir un numéro d'élève au moins égal à 4 caractères !");
 					if(numeroEleve.length() > 5)
 						throw new Exception("Veuilez saisir un numéro d'élève au plus égal à 5 caractères !");
-				}else{
-					throw new Exception("Veuilez écrire seulement des chiffres et aucun autre caractère !");
-				}
 			}else{
 				throw new Exception("Veuilez écrire seulement des chiffres, les autres caractères ne sont pas autorisés !");
 			}
