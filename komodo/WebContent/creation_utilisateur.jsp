@@ -46,13 +46,13 @@
 	        }
 			
 			function changementType(eleve){
-				alert("hfhffhhffhhfhf");
+				
 				var type = document.getElementById("type").value;
-				alert(type);
+				
 				var div = document.getElementById(eleve);
 				alert(div);
 				if (type=="eleve"){
-					alert("uuuuuuuu");
+					
 					div.style.display='';
 				}else{
 					div.style.display='none';
