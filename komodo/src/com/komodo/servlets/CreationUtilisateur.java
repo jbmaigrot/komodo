@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -76,6 +78,10 @@ public class CreationUtilisateur extends HttpServlet {
 		String specialite = request.getParameter(CHAMP_SPECIALITE);
 		Map<String, String> erreurs = new HashMap<String, String>();
 		String resultatForm;
+		List<String> tabIdEleve = new ArrayList<String>();
+		
+		tabIdEleve = conn.sendList("Numero_eleve", "eleves", "1=1 ORDER BY Numero_eleve", "num",request);
+		System.out.print("tabIdEleve"+tabIdEleve.get(0));
 	
 		/* Validation du champ nom utilisateur */
 		try 
@@ -137,7 +143,7 @@ public class CreationUtilisateur extends HttpServlet {
 			/* Validation du champ numéro élève. */
 			try 
 			{
-				validationNumeroEleve(numeroEleve);
+				validationNumeroEleve(numeroEleve, tabIdEleve);
 			}catch(Exception e)
 			{
 				erreurs.put(CHAMP_NUMERO_ELEVE, e.getMessage());
@@ -265,16 +271,21 @@ public class CreationUtilisateur extends HttpServlet {
 		}
 	}
 	
-	private void validationNumeroEleve(String numeroEleve) throws Exception
+	private void validationNumeroEleve(String numeroEleve, List<String> tabIdEleve) throws Exception
 	{
 		if (numeroEleve != null && numeroEleve.trim().length() != 0)
 		{
 			
 			if (numeroEleve.matches("-?\\d+")){
-					if(numeroEleve.length() < 4)
-						throw new Exception("Veuilez saisir un numéro d'élève au moins égal à 4 caractères !");
-					if(numeroEleve.length() > 5)
-						throw new Exception("Veuilez saisir un numéro d'élève au plus égal à 5 caractères !");
+				for(int i=0;i<tabIdEleve.size();i++){
+					if (tabIdEleve.get(i).equals(numeroEleve)){
+						throw new Exception("Ce numéro élève est déjà présent dans la base de données !");
+					}
+				}
+				if(numeroEleve.length() < 4)
+					throw new Exception("Veuilez saisir un numéro d'élève au moins égal à 4 caractères !");
+				if(numeroEleve.length() > 5)
+					throw new Exception("Veuilez saisir un numéro d'élève au plus égal à 5 caractères !");
 			}else{
 				throw new Exception("Veuilez écrire seulement des chiffres, les autres caractères ne sont pas autorisés !");
 			}
