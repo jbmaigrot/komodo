@@ -180,6 +180,36 @@ public class ConnectBDD {
             return values;
       }
       
+      public List<String> sendListInnerInCond(String SELECT, String FROM, String WHERE, String WHERE_2, String SELECT_2, String FROM_2, String INNERJOIN, String id_in, String id_out, String WHERE_3, String nom, HttpServletRequest request){
+    	  SELECT=secure(SELECT);
+          FROM=secure(FROM);
+          WHERE=secure(WHERE);
+          SELECT_2=secure(SELECT_2);
+          FROM_2=secure(FROM_2);
+          INNERJOIN=secure(INNERJOIN);
+          WHERE_2=secure(WHERE_2);
+          id_in=secure(id_in);
+          id_out=secure(id_out);
+          WHERE_3 = secure(WHERE_3);
+          Statement statement = null;
+    	  ResultSet resultat = null;
+    	  List<String> values = new ArrayList<String>();
+    	  try {
+    			statement = connexion.createStatement();
+    			resultat = statement.executeQuery( "SELECT "+SELECT+" FROM "+FROM+" WHERE "+WHERE+" and "+WHERE_2+" IN (SELECT "+SELECT_2+" FROM "+FROM_2+" INNER JOIN "+INNERJOIN+" ON ("+FROM_2+"."+id_in+"="+INNERJOIN+"."+id_out+") WHERE "+WHERE_3+")");
+    	
+    			while ( resultat.next() ) {
+    	            String nomElement = resultat.getString( SELECT );
+    	            values.add(nomElement);
+    	        }
+    			request.setAttribute( nom, values );
+    	  } catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+            return values;
+      }
+      
       public List<String> sendListById(String SELECT, String FROM, String nom_id, List<String> ids,String nom,HttpServletRequest request){
       	String WHERE=new String();
       	for(int i=0;i<ids.size();i++)
@@ -233,6 +263,7 @@ public class ConnectBDD {
       public ResultSet insertGroup(String INSERT_INTO,String... attributs){
     	  String secondMoitie ="";
     	  String premiereMoitie ="";
+    	  String initialise = "";
     	  INSERT_INTO=secure(INSERT_INTO);
     	  for(int i=0;i<attributs.length;++i)
     	  {
@@ -240,13 +271,13 @@ public class ConnectBDD {
     		  if (i<attributs.length/2)
     		  { 
     			  if (i<(attributs.length/2)-1)
-    			  {
-    				  secondMoitie+="'"+attributs[i+attributs.length/2]+"',";
+    			  {//"'rffrfr'gtgr'"
+    				  secondMoitie+="'"+attributs[i+attributs.length/2].replace("'", "''")+"',";
     				  premiereMoitie+=attributs[i]+",";
     			  }
     			  else
     			  {
-    				  secondMoitie+="'"+attributs[i+attributs.length/2]+"'";
+    				  secondMoitie+="\'"+attributs[i+attributs.length/2].replace("'", "''")+"\'";
     				  premiereMoitie+=attributs[i];
     			  }
     		  }
@@ -278,11 +309,11 @@ public class ConnectBDD {
     		  if (i<attributs.length/2){
     			  if (i<(attributs.length/2)-1)
     			  {
-    				  SET+= attributs[i]+" = '"+attributs[i+attributs.length/2]+"', ";
+    				  SET+= attributs[i]+" = '"+attributs[i+attributs.length/2].replace("'", "''")+"', ";
     			  }
     			  else
     			  {
-    				  SET+= attributs[i]+" = '"+attributs[i+attributs.length/2]+"'";
+    				  SET+= attributs[i]+" = '"+attributs[i+attributs.length/2].replace("'", "''")+"'";
     			  }
     		  }
     	  }
