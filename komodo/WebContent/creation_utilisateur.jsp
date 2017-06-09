@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Creation utilisateur</title>
+		<title>Création utilisateur</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,6 +44,20 @@
 				else
 					sel.size = '1';
 	        }
+			
+			function changementType(eleve){
+				alert("hfhffhhffhhfhf");
+				var type = document.getElementById("type").value;
+				alert(type);
+				var div = document.getElementById(eleve);
+				alert(div);
+				if (type=="eleve"){
+					alert("uuuuuuuu");
+					div.style.display='';
+				}else{
+					div.style.display='none';
+				}
+			}
 		</script>
 	 </head>
 	 <body>
@@ -79,11 +93,11 @@
 					<div id="creation">
 						<form method="post" action="CreationUtilisateur">
 							<div>
-								<label>Nom : </label><input type="text" name="nom_utilisateur" value="" id="nom_utilisateur" />
+								<label>Nom : </label><input type="text" name="nom_utilisateur" value='<c:out value="${param.nom_utilisateur}"/>' id="nom_utilisateur" />
 				 				<span class="erreur">${erreurs['nom_utilisateur']}</span>
 							</div>
 							<div>
-								<label>Prénom : </label><input type="text" name="prenom_utilisateur" value="" id="prenom_utilisateur" />
+								<label>Prénom : </label><input type="text" name="prenom_utilisateur" value='<c:out value="${param.prenom_utilisateur}"/>' id="prenom_utilisateur" />
 				 				<span class="erreur">${erreurs['prenom_utilisateur']}</span>
 							</div>
 							<p>
@@ -96,23 +110,49 @@
 								</select>
 								<span class="erreur">${erreurs['age']}</span>
 							</p>
+							<c:set var="eleve" value="eleve"/>
+							<c:set var="professeur" value="professeur"/>
+							<c:set var="responsable" value="responsable"/>
+							<c:set var="affEleve" value="false"/>
 							<div>
-								<label>Type : </label><select name="type" size="1">
-								<option disabled selected >Type</option>
-								<option value="eleve">eleve</option>
-								<option value="professeur">professeur</option>
-								<option value="responsable">responsable</option>
+								<label>Type : </label><select name="type" size="1" id="type" onchange='changementType("eleve");'>
+							    <option disabled selected >Type</option>
+								<option value="${eleve}" <c:if test="${param.type == eleve }">selected<c:set var="affEleve" value="true"/></c:if>>élève</option>
+								<option value="${professeur }" <c:if test="${param.type == professeur }">selected</c:if>>professeur</option>
+								<option value="${responsable }" <c:if test="${param.type == responsable }">selected</c:if>>responsable</option>
 								</select>
 				 				<span class="erreur">${erreurs['type']}</span>
 							</div>
+							
 							<div>
-								<label>Identifiant : </label><input type="text" name="identifiant" value="" id="identifiant" />
+								<label>Identifiant : </label><input type="text" name="identifiant" value='<c:out value="${param.identifiant}"/>' id="identifiant" />
 				 				<span class="erreur">${erreurs['identifiant']}</span>
 							</div>
 							<div>
-								<label>Mot de passe : </label><input type="password" name="mot_de_passe" value="" id="mot_de_passe" />
+								<label>Mot de passe : </label><input type="password" name="mot_de_passe" value='<c:out value="${param.mot_de_passe}"/>' id="mot_de_passe" />
 				 				<span class="erreur">${erreurs['mot_de_passe']}</span>
 							</div>
+							<div id="eleve" <c:choose><c:when test = "${affEleve == false}"> style="display:none;"</c:when> <c:when test = "${affEleve == true}"> style="display:'';"</c:when></c:choose>>
+							<div>
+								<label>Numéro élève : </label><input type="text" name="numero_eleve" value='<c:out value="${param.numero_eleve}"/>' id="numero_eleve" />
+				 				<span class="erreur">${erreurs['numero_eleve']}</span>
+							</div>
+							<p>
+								<label>Année : </label><select name="annee" size="1" onclick="affichageListeCoefficient(this, '4');" >
+								<option disabled selected >Année</option>
+								<c:forEach var="i" begin="2015" end ="2050" step="1">
+								
+									<option value="${ i}" <c:if test = "${param.annee == i}">selected</c:if>><c:out value="${ i }" /> </option>
+								</c:forEach>
+								</select>
+								<span class="erreur">${erreurs['annee']}</span>
+							</p>
+							<div>
+								<label>Spécialité : </label><input type="text" name="specialite" value='<c:out value="${param.specialite}"/>' id="specialite" />
+				 				<span class="erreur">${erreurs['specialite']}</span>
+							</div>
+							</div>
+							
 							<input type="submit" name="Submit" value="Valider" id="Submit" >
 						</form>
 						<span>${resultatForm }</span>

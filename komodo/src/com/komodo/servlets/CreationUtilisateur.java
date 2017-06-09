@@ -3,6 +3,8 @@ package com.komodo.servlets;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +30,15 @@ public class CreationUtilisateur extends HttpServlet {
 	public static final String CHAMP_TYPE = "type";
 	public static final String CHAMP_NOM_CONNEXION = "identifiant";
 	public static final String CHAMP_MOT_DE_PASSE = "mot_de_passe";
+	public static final String CHAMP_NUMERO_ELEVE = "numero_eleve";
+	public static final String CHAMP_ANNEE = "annee";
+	public static final String CHAMP_SPECIALITE = "specialite";
+	
 	public static final String ATT_ERREURS  = "erreurs";
 	public static final String ATT_RESULTAT = "resultatForm";
+	
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -62,6 +71,9 @@ public class CreationUtilisateur extends HttpServlet {
 		String type = request.getParameter(CHAMP_TYPE);
 		String nomConnexion = request.getParameter(CHAMP_NOM_CONNEXION);
 		String motDePasse = request.getParameter(CHAMP_MOT_DE_PASSE);
+		String numeroEleve = request.getParameter(CHAMP_NUMERO_ELEVE);
+		String annee = request.getParameter(CHAMP_ANNEE);
+		String specialite = request.getParameter(CHAMP_SPECIALITE);
 		Map<String, String> erreurs = new HashMap<String, String>();
 		String resultatForm;
 	
@@ -118,6 +130,38 @@ public class CreationUtilisateur extends HttpServlet {
 		{
 			erreurs.put(CHAMP_MOT_DE_PASSE, e.getMessage());
 		}
+		//System.out.println("type = "+type);
+		if (type!=null && type.equals("eleve")){
+			//System.out.println("type = "+type);
+			
+			/* Validation du champ numéro élève. */
+			try 
+			{
+				validationNumeroEleve(numeroEleve);
+			}catch(Exception e)
+			{
+				erreurs.put(CHAMP_NUMERO_ELEVE, e.getMessage());
+			}
+			
+			/* Validation du champ année. */
+			try 
+			{
+				validationAnnee(annee);
+			}catch(Exception e)
+			{
+				erreurs.put(CHAMP_ANNEE, e.getMessage());
+			}
+			
+			/* Validation du champ spécialité. */
+			try 
+			{
+				validationSpecialite(specialite);
+			}catch(Exception e)
+			{
+				erreurs.put(CHAMP_SPECIALITE, e.getMessage());
+			}
+			
+		}
 		
 		if ( erreur(erreurs) == false )
 		{
@@ -129,8 +173,17 @@ public class CreationUtilisateur extends HttpServlet {
 				String mdp = getHexString(digest);
 				//String mdp = new String( digest , "Cp1252" );
 				System.out.print("mot de passe : "+mdp);
-				conn.insertGroup("utilisateur","Nom","Prenom","Age","Type","NomConnection","MotDePasse",nom,prenom,age,type,nomConnexion,mdp);
+				ResultSet resId = conn.insertGroup("utilisateur","Nom","Prenom","Age","Type","NomConnection","MotDePasse",nom,prenom,age,type,nomConnexion,mdp);
+				if (resId.next()){
+				if (type == "eleve"){
+				
+					conn.insertGroup("eleves","id_utilisateur","Numero_eleve","Annee","Specialite", resId.getString(1),numeroEleve,annee,specialite);
+				}
+				}
 			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -197,19 +250,63 @@ public class CreationUtilisateur extends HttpServlet {
 		}
 	}
 	
-	private void validationMotDePasseUtilisateur(String MotDePasse) throws Exception
+	private void validationMotDePasseUtilisateur(String motDePasse) throws Exception
 	{
-		if (MotDePasse != null && MotDePasse.trim().length() != 0)
+		if (motDePasse != null && motDePasse.trim().length() != 0)
 		{
-			if(MotDePasse.length() < 4)
-				throw new Exception("Veuilez saisir un mot de passe au moins 4 caractères !");
-			if(MotDePasse.length() > 20)
+			if(motDePasse.length() < 4)
+				throw new Exception("Veuilez saisir un mot de passe au moins égal à 4 caractères !");
+			if(motDePasse.length() > 20)
 				throw new Exception("Veuilez saisir un mot de passe au plus égal à 20 caractères !");
 		}else 
 		{
 			throw new Exception("Merci de saisir un mot de passe pour cet utilisateur.");
 		}
 	}
+	
+	private void validationNumeroEleve(String numeroEleve) throws Exception
+	{
+		if (numeroEleve != null && numeroEleve.trim().length() != 0)
+		{
+			//System.out.println("String.valueOf(Integer.parseInt(numeroEleve)).length()"+String.valueOf(Integer.parseInt(numeroEleve)).length());
+			if (Integer.parseInt(numeroEleve)>0){
+				if(String.valueOf(Integer.parseInt(numeroEleve)).length()==numeroEleve.length()){
+					if(numeroEleve.length() < 4)
+						throw new Exception("Veuilez saisir un numéro d'élève au moins égal de 4 caractères !");
+					if(numeroEleve.length() > 5)
+						throw new Exception("Veuilez saisir un numéro d'élève au plus égal à 5 caractères !");
+				}else{
+					throw new Exception("Veuilez écrire seulement des chiffres et aucun autre caractère !");
+				}
+			}else{
+				throw new Exception("Veuilez écrire seulement des chiffres, les autres caractères ne sont pas autorisés !");
+			}
+		}else 
+		{
+			throw new Exception("Merci de saisir un numéro d'élève.");
+		}
+	}
+	
+	private void validationAnnee(String annee) throws Exception
+	{
+		if (annee == null)
+			throw new Exception("Merci de bien vouloir sélectionner une année."); 
+	}
+	
+	private void validationSpecialite(String specialite) throws Exception
+	{
+		if (specialite != null && specialite.trim().length() != 0)
+		{
+			if(specialite.length() < 4)
+				throw new Exception("Veuilez saisir une spécialité d'au moins 4 caractères !");
+			if(specialite.length() > 45)
+				throw new Exception("Veuilez saisir une spécialité au plus égal à 45 caractères !");
+		}else 
+		{
+			throw new Exception("Merci de saisir une spécialité pour cet élève.");
+		}
+	}
+	
 	
 	private boolean erreur( Map<String, String> erreurs){
 		boolean err = false;
