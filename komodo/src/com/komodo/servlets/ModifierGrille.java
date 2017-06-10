@@ -68,6 +68,8 @@ public class ModifierGrille extends HttpServlet {
 			conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
 			conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
 			
+			conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+			conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
 			
 			conn.sendString("Nom_grille", "grille_de_competence_app", "id_grille="+id, "grilleNom",request);
 			conn.sendString("Promo", "grille_de_competence_app", "id_grille="+id, "grillePromo",request);

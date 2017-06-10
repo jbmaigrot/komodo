@@ -67,6 +67,8 @@ public class CreationGrille extends HttpServlet
 			conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
 			conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
 			
+			conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+			conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
 			conn.sendList("Nom", "modele_comp_prin", "1=1 ORDER BY idModCompPrin", "nomCompPrincip",request);
 			
 			conn.sendList("Nom", "modele_comp_sec", "1=1 ORDER BY idModCompSec", "nomCompSec",request);

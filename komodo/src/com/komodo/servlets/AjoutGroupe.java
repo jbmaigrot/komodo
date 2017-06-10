@@ -48,6 +48,9 @@ public class AjoutGroupe extends HttpServlet {
 		ConnectBDD conn = new ConnectBDD();
 		conn.getConnection();
 		
+		conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+		conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
+		
 		conn.sendList("id", "utilisateur", "Type='professeur'", "profs_id", request);
 		conn.sendList("Nom", "utilisateur", "Type='professeur'", "profs_nom", request);
 		conn.sendList("Prenom", "utilisateur", "Type='professeur'", "profs_prenom", request);

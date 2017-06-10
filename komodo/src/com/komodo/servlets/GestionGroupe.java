@@ -48,6 +48,9 @@ public class GestionGroupe extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ConnectBDD conn = new ConnectBDD();
 	    conn.getConnection();
+	    
+	    conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+		conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
 	    String id_groupe = request.getParameter("id_groupe");
 	    numero_groupe = Integer.parseInt(id_groupe);
 	 	//Récupération du groupe, des profs, du planning et des eleves - ID GROUPE FIXÉ !!!

@@ -50,49 +50,41 @@
 	 </head>
 	 
 	 <body>
-	 	<header>
-			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-			<div class="col-md-3">
-	    		<a href="#">Thomas (mon profil)</a>
-	    		<a href="#">Déconnexion</a>
-	    	</div>
-		</header>
+	 	<jsp:include page="header.jsp" />
 
 		<div class="container">
 
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>[TO BE MADE : MENU] PROMO 20XX</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
-					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
+						<p><a id="ajout" href="ArborescenceResponsableModule">Retour vers l'arborescence du responsable module</a></p>
 					</div>
 					<div class="aside-app" id="grille">
-						<p><a href="CreationGrille">Ajouter</a></p>
+						<p><a id="ajout" href="CreationGrille">Ajouter Grille</a></p>
 					</div>
-					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","grilles");'>
-						<p><img src="pictures/plus.png"/>Grille APP<p>
-						<div id="grilles" style="display:none;">
-							<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
-								<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
-							</c:forEach>
-						</div>
+					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
+					<div id="nomGrille" style="display:none;">
+						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
+							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+						</c:forEach>
+				    </div>
+				     <div class="aside-app" id="groupeAjout">
+						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
+					</div>
+				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+				    <div id="nomGroupe" style="display:none;">
+				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
+							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						</c:forEach>
+				    </div>
+				    <div class="aside-app" id="ajoutCompPrin">
+				    	<p><a id="ajoutCompPrin" href="#creation" onClick='selectionElementGrille("ajoutCompPrin","creation");'>Ajouter un modèle de compétence principale</a></p>
+				    </div>
+				    <div class="aside-app" id="ajoutCompSec">
+				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    </div>
+				    <div class="aside-app" id="ajoutUtilisateur">
+				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
 					</div>
 				</menu>
 				<section class="col-md-9">
@@ -159,10 +151,6 @@
 			</div>
 		</div>
 		
-		<footer>
-			<div><a href="#">CGU</a></div>
-			<div><a href="#">FAQ</a></div>
-			<div><a href="#">Nous contacter</a></div>
-		</footer>
+		<jsp:include page = "footer.jsp" />
 	</body>
 </html>
