@@ -4,75 +4,84 @@
 <!DOCTYPE html>
 
 <html>
-<script>
-function selectionElementGrille(id_element,id_element_sec){
-	var cible = document.getElementById(id_element_sec);
-	if (document.getElementById(id_element).disabled == undefined || document.getElementById(id_element).disabled == false)
-	{
-		if(cible.style.display != '')
-       		cible.style.display = '';
- 		else{
-		cible.style.display = 'none';
-    		
-			//document.getElementById(id_element_sec).innerHTML = "";
-   			//cible.style.display = 'none';
-		}
-	}
-}
-	function displ(classname){
-		var x=document.getElementsByClassName(classname);
-		for (i = 0; i < x.length; i++) {
-			if(document.getElementsByClassName(classname)[i].style.display=='none')
-				document.getElementsByClassName(classname)[i].style.display='block';
-			else
-				document.getElementsByClassName(classname)[i].style.display='none';
-		}
-	}
-	
-	function get(param) {
-		var vars = {};
-		window.location.href.replace( location.hash, '' ).replace( 
-			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-			function( m, key, value ) { // callback
-				vars[key] = value !== undefined ? value : '';
-			}
-		);
 
-		if ( param ) {
-			return vars[param] ? vars[param] : null;	
-		}
-		return vars;
-	}
-	
-	function hideRoles(id,promo){
-		if(promo!=get("promo")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideApps(id,role){
-		if(role!=get("role")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideGroupes(id,app){
-		if(app!=get("app")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideEleves(id,groupe){
-		if(groupe!=get("groupe")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-</script>
     <head>
-        <meta charset="UTF-8"/>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
 		<title>Arborescence responsable module</title>
+
+		<!-- Bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		
+		<script>
+			function selectionElementGrille(id_element,id_element_sec){
+				var cible = document.getElementById(id_element_sec);
+				if (document.getElementById(id_element).disabled == undefined || document.getElementById(id_element).disabled == false)
+				{
+					if(cible.style.display != '')
+			       		cible.style.display = '';
+			 		else{
+					cible.style.display = 'none';
+			    		
+						//document.getElementById(id_element_sec).innerHTML = "";
+			   			//cible.style.display = 'none';
+					}
+				}
+			}
+				function displ(classname){
+					var x=document.getElementsByClassName(classname);
+					for (i = 0; i < x.length; i++) {
+						if(document.getElementsByClassName(classname)[i].style.display=='none')
+							document.getElementsByClassName(classname)[i].style.display='block';
+						else
+							document.getElementsByClassName(classname)[i].style.display='none';
+					}
+				}
+				
+				function get(param) {
+					var vars = {};
+					window.location.href.replace( location.hash, '' ).replace( 
+						/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+						function( m, key, value ) { // callback
+							vars[key] = value !== undefined ? value : '';
+						}
+					);
+			
+					if ( param ) {
+						return vars[param] ? vars[param] : null;	
+					}
+					return vars;
+				}
+				
+				function hideRoles(id,promo){
+					if(promo!=get("promo")){
+						document.getElementById(id).style.display='none';
+					}
+				}
+				
+				function hideApps(id,role){
+					if(role!=get("role")){
+						document.getElementById(id).style.display='none';
+					}
+				}
+				
+				function hideGroupes(id,app){
+					if(app!=get("app")){
+						document.getElementById(id).style.display='none';
+					}
+				}
+				
+				function hideEleves(id,groupe){
+					if(groupe!=get("groupe")){
+						document.getElementById(id).style.display='none';
+					}
+				}
+				
+			</script>
 	 </head>
 
 	 <body>
@@ -138,10 +147,15 @@ function selectionElementGrille(id_element,id_element_sec){
 					    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
 					</div>
 				</menu>
+		
+				<section class="col-md-9">
+					<span>${resultatForm }</span>
+				</section>
 			</div>
 		</div>
+
+		<jsp:include page = "footer.jsp" />
 		
-		<section class="col-md-9"></section>
 		<script>
 			var number = 2015;
 			while (number < 2030) {
@@ -149,11 +163,6 @@ function selectionElementGrille(id_element,id_element_sec){
 				number++;
 			}
 		</script>
-		<section>
-			<span>${resultatForm }</span>
-		</section>
-
-		<jsp:include page = "footer.jsp" />
 	</body>
 
 </html> 
