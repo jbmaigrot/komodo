@@ -489,7 +489,7 @@ public class ConnectBDD {
   			request.setAttribute("eleves_nom", listeEleveNom);
   			request.setAttribute("eleves_annee", listeEleveAnnee);
   			request.setAttribute("eleves_numero", listeEleveNumero);
-  			request.setAttribute("nb_eleves", (listeEleveId.size()-2) );
+  			request.setAttribute("nb_eleves", (listeEleveId.size()-1) );
   			request.setAttribute("all_id", AllElevesId);
   			request.setAttribute("all_prenom", AllElevesPrenom);
   			request.setAttribute("all_nom", AllElevesNom);
