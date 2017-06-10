@@ -31,14 +31,6 @@ public class AjoutGroupe extends HttpServlet {
 	public static final String NOM_CLIENT = "nom_client";
     public static final String ATT_ERREURS  = "erreurs";
     public static final String ATT_RESULTAT = "resultat";
-    public static final String INFO_PROFS_ID = "profs_id";
-    public static final String INFO_PROFS_NOM = "profs_nom";
-    public static final String INFO_PROFS_PRENOM = "profs_prenom";
-    public static final String NOMBRE_PROFS = "nombre_profs";
-    public static final String INFO_APP_ID = "app_id";
-    public static final String INFO_APP_NOM = "app_nom";
-    public static final String INFO_APP_PROMO = "app_promo";
-    public static final String NOMBRE_APP = "nb_app";
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -54,64 +46,20 @@ public class AjoutGroupe extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
-		ResultSet listeProfs = null;
-		ResultSet listeAPP = null;
-		Statement statement = null;
-		Statement statement_APP = null;
-		boolean pas_de_profs = true;
-		boolean pas_d_app = true;
+		conn.getConnection();
 		
-		try 
-		{
-			statement = conn.getConnection().createStatement();
-			statement_APP = conn.getConnection().createStatement();
-			//Récupération des utilisateurs "prof"
-			listeProfs = statement.executeQuery( "SELECT id, Prenom, Nom FROM utilisateur WHERE Type='professeur';" );
-			ArrayList<String> listeProfId = new ArrayList<String>();
-			ArrayList<String> listeProfPrenom = new ArrayList<String>();
-			ArrayList<String> listeProfNom = new ArrayList<String>();
-			while (listeProfs.next())
-			{
-				listeProfId.add(listeProfs.getString( "id" ));
-				listeProfPrenom.add(listeProfs.getString( "Prenom" ));
-				listeProfNom.add(listeProfs.getString( "Nom" ));
-				pas_de_profs = false;
-			}
-			if(pas_de_profs)
-			{
-				listeProfId.add(null);
-			}
-			//Récuperation des APP
-			listeAPP = statement_APP.executeQuery( "SELECT id_grille, Nom_grille, Promo FROM grille_de_competence_app;" );
-			ArrayList<String> listeAPPId = new ArrayList<String>();
-			ArrayList<String> listeNomGrille = new ArrayList<String>();
-			ArrayList<String> listePromo = new ArrayList<String>();
-			while (listeAPP.next())
-			{
-				listeAPPId.add(listeAPP.getString( "id_grille" ));
-				listeNomGrille.add(listeAPP.getString( "Nom_grille" ));
-				listePromo.add(listeAPP.getString( "Promo" ));
-				pas_d_app = false;
-			}
-			if(pas_d_app)
-			{
-				listeAPPId.add(null);
-			}
+		conn.sendList("id", "utilisateur", "Type='professeur'", "profs_id", request);
+		conn.sendList("Nom", "utilisateur", "Type='professeur'", "profs_nom", request);
+		conn.sendList("Prenom", "utilisateur", "Type='professeur'", "profs_prenom", request);
+		int nbProfs = conn.compte("id", "`utilisateur` WHERE Type='professeur'");
+		conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "app_id", request);
+		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "app_nom", request);
+		conn.sendList("Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "app_promo", request);
+		int nbAPP = conn.compte("id_grille", "grille_de_competence_app");
 			
-			//Définition des Attributs pour la page jsp
-			request.setAttribute(INFO_PROFS_ID, listeProfId);
-			request.setAttribute(INFO_PROFS_NOM, listeProfNom);
-			request.setAttribute(INFO_PROFS_PRENOM, listeProfPrenom);
-			request.setAttribute(NOMBRE_PROFS, (listeProfId.size()-1) );
-			request.setAttribute(INFO_APP_ID, listeAPPId);
-			request.setAttribute(INFO_APP_NOM, listeNomGrille);
-			request.setAttribute(INFO_APP_PROMO, listePromo);
-			request.setAttribute(NOMBRE_APP, (listeAPPId.size()-1));
-		} catch (SQLException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		request.setAttribute("nombre_profs", nbAPP );
+		request.setAttribute("nb_app", nbProfs);
+			
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
 	
@@ -132,7 +80,6 @@ public class AjoutGroupe extends HttpServlet {
 		String id_client = request.getParameter(NOM_CLIENT);
 
 		ConnectBDD conn = new ConnectBDD();
-		Statement statement = null;
 		
 		// Validations des variables
 		try {
@@ -163,13 +110,8 @@ public class AjoutGroupe extends HttpServlet {
 		if(!fail)
 		{
 		// Accès BDD
-			try {
-				statement = conn.getConnection().createStatement();
-				statement.executeUpdate("INSERT INTO groupe(Nom, idClient, idTuteur, idGrilleAPP) VALUES ('"+ nom_groupe +"', '"+ id_client +"', '"+ id_tuteur +"', '"+ id_APP +"')");
-			} catch (SQLException e) {
-				e.printStackTrace();
-				erreurs_bdd.put( NOM_GROUPE, e.getMessage() );
-			}
+			conn.getConnection();
+			conn.insertGroup("groupe", "Nom", "idClient", "idTuteur", "idGrilleAPP", nom_groupe, id_client, id_tuteur, id_APP);
 		}
 		
 		// Renvoie des erreurs
@@ -183,7 +125,7 @@ public class AjoutGroupe extends HttpServlet {
         request.setAttribute( ATT_ERREURS, erreurs );
         request.setAttribute( ATT_RESULTAT, resultat );
         
-        	//Transmission
+        //Transmission
         doGet(request,response);
 	}
 	

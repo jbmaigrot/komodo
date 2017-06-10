@@ -124,13 +124,13 @@
 							<label>Choississez un APP :  </label>
 							<select id="choix_APP" name="choix_APP">
 								<c:choose>
-									<c:when test="${app_id[0] == null}">
+									<c:when test="${nb_APP == 0}">
 										<option disabled selected>Pas d'APP à afficher</option>
 									</c:when>
 							
 									<c:otherwise>
 										<option disabled selected>Choisissez une grille d'APP</option>
-										<c:forEach var="i" begin="0" end="${nb_APP}">
+										<c:forEach var="i" begin="0" end="${nb_APP + 1}">
 											<option value='<c:out value="${app_id[i]}"/>' >[Promo : ${app_promo[i]}] ${app_nom[i]}</option>
 										</c:forEach>
 									</c:otherwise>
@@ -145,10 +145,18 @@
 						<div>
 							<label>Tuteur : </label>
 							<select id="nom_tuteur" name="nom_tuteur">
-								<option disabled selected>Choisissez un professeur</option>
-								<c:forEach var="i" begin="0" end="${nombre_profs}">
-									<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${nombre_profs == 0}">
+										<option disabled selected>Pas de professeurs</option>
+									</c:when>
+							
+									<c:otherwise>
+										<option disabled selected>Choisissez un professeur</option>
+										<c:forEach var="i" begin="0" end="${nombre_profs + 1}">
+											<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</select>
 							<span class="erreur">${erreurs['nom_tuteur']}</span>
 						</div>
@@ -156,13 +164,13 @@
 							<label>Client : </label>
 							<select id="nom_client" name="nom_client">
 								<c:choose>
-									<c:when test="${profs_id[0] == null}">
+									<c:when test="${nombre_profs == 0}">
 										<option disabled selected>Pas de professeurs</option>
 									</c:when>
 							
 									<c:otherwise>
 										<option disabled selected>Choisissez un professeur</option>
-										<c:forEach var="i" begin="0" end="${nombre_profs}">
+										<c:forEach var="i" begin="0" end="${nombre_profs + 1}">
 											<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
 										</c:forEach>
 									</c:otherwise>
