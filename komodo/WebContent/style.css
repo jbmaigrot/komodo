@@ -113,16 +113,11 @@ menu img
 article
 {
 	display: none;
-	margin: 10px;
+	margin: 1%;
 }
-.selected-article{
-	display: block;
-}
+.selected-article{display: block;}
 
-table
-{
-	border-collapse: collapse;
-}
+table{border-collapse: collapse;}
 
 td
 {
@@ -178,6 +173,8 @@ td:nth-child(1)
 #skill-level3{background-color: #0A0;}
 
 /*Création de grille----------------------------------------------------------------------------*/
+#creation{margin: 1.5%;}
+
 .comp{padding: 5px;}
 
 .comp_princip

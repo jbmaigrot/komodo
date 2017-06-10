@@ -243,7 +243,7 @@ CREATE TABLE `Utilisateur` (
   `Age` int(10) UNSIGNED NOT NULL,
   `Type` varchar(45) NOT NULL,
   `NomConnection` varchar(32) NOT NULL,
-  `MotDePasse` varchar(32) NOT NULL
+  `MotDePasse` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

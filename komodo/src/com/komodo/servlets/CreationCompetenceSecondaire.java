@@ -37,6 +37,11 @@ public class CreationCompetenceSecondaire extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		ConnectBDD conn = new ConnectBDD();
+	    conn.getConnection();
+		conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
+		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
+		
 		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
 	}
 

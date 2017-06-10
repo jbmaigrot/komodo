@@ -22,7 +22,7 @@ import com.komodo.bdd.ConnectBDD;
 public class ModifierGrille extends HttpServlet {
 	public static final long serialVersionUID = 1L;
 	public static final String VUE                     = "/modification_grille.jsp";
-	public static final String VUE2                    = "/AffichageResponsableModule";
+	public static final String VUE2                    = "/ArborescenceResponsableModule";
 	public static final String GRILLE_ID               = "id";
 	public static final String CHAMP_NOM_GRILLE        = "nom_grille";
 	public static final String CHAMP_PROMO             = "promo";
@@ -65,6 +65,10 @@ public class ModifierGrille extends HttpServlet {
 				valideSec = new boolean[nbLignes+1][nbLignesSec+1];
 			}
 			// Permet de récupérer les valeurs contenues dans la table grille_de_competence_app pour les afficher ensuite dans le formulaire.
+			conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
+			conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
+			
+			
 			conn.sendString("Nom_grille", "grille_de_competence_app", "id_grille="+id, "grilleNom",request);
 			conn.sendString("Promo", "grille_de_competence_app", "id_grille="+id, "grillePromo",request);
 			
@@ -75,11 +79,12 @@ public class ModifierGrille extends HttpServlet {
 			
 			conn.sendListInner("id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdNomCompPrincip",request);
 			conn.sendListInner("Nom_competence_principale", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatNomCompPrincip",request);
-			conn.sendListInnerIn("id_comp_second", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdCompSecond", request);
-			conn.sendListInnerIn("id_comp_princ", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdNomCompSec", request);
-			conn.sendListInnerIn("Nom", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatNomCompSec", request);
-			conn.sendListInnerIn("Critere", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompCritere", request);
-			conn.sendListInnerIn("Ponderation", "competence_secondaire", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompPonderation", request);
+			
+			conn.sendListInnerInCond("id_comp_second", "competence_secondaire","Nom!='Jugement global'", "id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdCompSecond", request);
+			conn.sendListInnerInCond("id_comp_princ", "competence_secondaire", "Nom!='Jugement global'","id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatIdNomCompSec", request);
+			conn.sendListInnerInCond("Nom", "competence_secondaire", "Nom!='Jugement global'","id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatNomCompSec", request);
+			conn.sendListInnerInCond("Critere", "competence_secondaire", "Nom!='Jugement global'","id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompCritere", request);
+			conn.sendListInnerInCond("Ponderation", "competence_secondaire", "Nom!='Jugement global'","id_comp_princ", "id_comp", "competence_principale", "lie3", "id_comp", "idCompPrin", "idGrilleComp="+id, "resultatCompPonderation", request);
 		
 			
 			request.setAttribute(GRILLE_ID, id);
@@ -154,6 +159,7 @@ public class ModifierGrille extends HttpServlet {
 				{
 					for (int j = 1 ; j <= nbLignesSec;j++)
 					{
+						
 						tabCompSecId[i][j] = request.getParameter("compSecId"+i+j);
 						System.out.println("tabSecId = "+tabCompSecId[i][j]);
 						tabCompSec[i][j] = request.getParameter("compSec"+i+j);
@@ -241,6 +247,9 @@ public class ModifierGrille extends HttpServlet {
 		}
 			if ( erreur(erreurs) == false )
 			{
+				String ponderationJug = "1";
+				String critereJug = "Regroupement général des différentes compétences secondaires de cette compétence principale.";
+				String jugement = "Jugement global";
 				conn.updateGroup("grille_de_competence_app", "id_grille='"+id+"'", "Nom_grille", "Promo", nomGrille, promo);
 			
 				for (int c = 1;c <= nbLignes;c++ )
@@ -254,7 +263,7 @@ public class ModifierGrille extends HttpServlet {
 							{
 								System.out.println("1er passage !");
 								System.out.print("");
-								System.out.print("UPDATE competence_secondaire set id_comp_princ='"+tabCompId[c]+"', Ponderation='"+tabPonderation[c][d]+"', Nom='"+tabCompSec[c][d]+"', Critere='"+tabCritere[c][d]+"' where id_comp_second='"+tabCompSecId[c][d]+"'");
+								//System.out.print("UPDATE competence_secondaire set id_comp_princ='"+tabCompId[c]+"', Ponderation='"+tabPonderation[c][d]+"', Nom='"+tabCompSec[c][d]+"', Critere='"+tabCritere[c][d]+"' where id_comp_second='"+tabCompSecId[c][d]+"'");
 								System.out.print("");
 								conn.updateGroup("competence_secondaire", "id_comp_second='"+tabCompSecId[c][d]+"'", "id_comp_princ", "Ponderation", "Nom", "Critere", tabCompId[c], tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
 								
@@ -264,7 +273,7 @@ public class ModifierGrille extends HttpServlet {
 							{
 								System.out.print("2e Passage !");
 								System.out.print("");
-								System.out.print("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+tabCompId[c]+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
+								//System.out.print("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+tabCompId[c]+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
 								conn.insertGroup("competence_secondaire","id_comp_princ","Ponderation", "Nom", "Critere", tabCompId[c], tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
 							
 							}
@@ -272,7 +281,7 @@ public class ModifierGrille extends HttpServlet {
 							if ((tabCompSecId[c][d] != null && !tabCompSecId[c][d].equals("")) && tabCompSec[c][d] == null ){
 								System.out.println("3e Passage !");
 								System.out.println("");
-								System.out.println("DELETE FROM competence_secondaire where id_comp_second='"+tabCompSecId[c][d]+"'");
+							//	System.out.println("DELETE FROM competence_secondaire where id_comp_second='"+tabCompSecId[c][d]+"'");
 								conn.delete("competence_secondaire", "id_comp_second= '"+tabCompSecId[c][d]+"'");
 							}
 						}
@@ -282,18 +291,19 @@ public class ModifierGrille extends HttpServlet {
 					{
 						System.out.println("4e Passage !");
 						System.out.println("");
-						System.out.println("INSERT INTO competence_principale (Nom_competence_principale) VALUES ('"+tabComp[c]+"')");
+						//System.out.println("INSERT INTO competence_principale (Nom_competence_principale) VALUES ('"+tabComp[c]+"')");
 						ResultSet resId = conn.insertGroup("competence_principale","Nom_competence_principale", tabComp[c]);
 						try {
 							if(resId.next())
 							{
+								conn.insertGroup("competence_secondaire", "id_comp_princ","Ponderation","Nom","Critere", resId.getString(1), ponderationJug, jugement, critereJug);
 								for (int d = 1 ; d <= nbLignesSec;d++)
 								{
 									if (tabCompSec[c][d] != null && tabCritere[c][d] != null && tabPonderation[c][d] != null)
 									{
 										System.out.println("5e Passage !");
 										System.out.println("");
-										System.out.println("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
+										//System.out.println("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
 										conn.insertGroup("competence_secondaire","id_comp_princ", "Ponderation", "Nom", "Critere", resId.getString(1), tabPonderation[c][d], tabCompSec[c][d], tabCritere[c][d]);
 									//	statementSec.executeUpdate("INSERT INTO competence_secondaire (id_comp_princ, Ponderation, Nom, Critere) VALUES ('"+resId.getInt(1)+"','"+tabPonderation[c][d]+"','"+tabCompSec[c][d]+"','"+tabCritere[c][d]+"')");
 									}
@@ -309,8 +319,9 @@ public class ModifierGrille extends HttpServlet {
 					if(tabComp[c] == null && (tabCompId[c]!=null && !tabCompId[c].equals(""))){
 						System.out.println("6e Passage !");
 						System.out.println("");
-						System.out.println("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
+						//System.out.println("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
 						conn.delete("competence_principale", "id_comp='"+tabCompId[c]+"'");
+						conn.delete("competence_secondaire", "id_comp_princ='"+tabCompId[c]+"'");
 						//statementSec.executeUpdate("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
 					}
 				}

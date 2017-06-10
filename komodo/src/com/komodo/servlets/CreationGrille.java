@@ -22,7 +22,7 @@ public class CreationGrille extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE          = "/creation_grille.jsp";
-	public static final String VUE2         = "/AffichageResponsableModule";
+	public static final String VUE2         = "/ArborescenceResponsableModule";
 	public static final String INFO = "nomCompPrincip";
 	public static final String INFO_COMP_SEC = "nomCompSec";
 	public static final String CHAMP_NOM_GRILLE = "nom_grille";

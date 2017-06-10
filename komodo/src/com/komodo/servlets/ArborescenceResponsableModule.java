@@ -47,31 +47,14 @@ public class ArborescenceResponsableModule extends HttpServlet {
         Statement statementSec = null;
 	    ResultSet compteGrille = null;
 	    conn.getConnection();
-	    try 
-        {
-			statement = conn.getConnection().createStatement();
-			compteGrille = statement.executeQuery( "SELECT id_grille, Nom_grille FROM grille_de_competence_app;" );
-			
-			ArrayList<String> grilleTabId = new ArrayList<String>();
-			ArrayList<String> grilleTabNom = new ArrayList<String>();
-			while (compteGrille.next())
-			{
-				String grilleId = compteGrille.getString( "id_grille" );
-				String grilleNom = compteGrille.getString( "Nom_grille" );
-				grilleTabId.add(grilleId);
-				System.out.print("aff id : "+grilleId);
-				grilleTabNom.add(grilleNom);
-				System.out.print("aff nom : "+grilleNom);
-			}
-			request.setAttribute(INFO_GRILLE_ID, grilleTabId);
-			request.setAttribute(INFO_GRILLE_NOM, grilleTabNom);
-        }catch (SQLException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    
+	    // Ces fonctions permettent d'afficher le contenu de l'ensemble de la colonne id_grille dans la table grille_de_competence_app où 
+	    // on récupére son contenu dans request pour l'utiliser et l'afficher dans la page .jsp.
+	    conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
+		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
+		
       //controleur
-      		conn.sendList( "Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
+      		conn.sendList( "DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
       		if(request.getParameter("sql")!=null){//gestion de l'arborescence
       			
       			/*gestion de l'arborescence*/
@@ -82,7 +65,9 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			try 
       	        {
       	        	
-      	        	/* Connexion à la base de données. */
+      			//	conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+      			//	conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
+      	        	/* Connexion Ã  la base de donnÃ©es. */
       				statement = conn.getConnection().createStatement();
       				statementSec = conn.getConnection().createStatement();
       			compteGrille = statement.executeQuery( "SELECT id_groupe, Nom FROM groupe;" );
@@ -101,7 +86,7 @@ public class ArborescenceResponsableModule extends HttpServlet {
     			request.setAttribute(INFO_GROUPE_ID, groupeTabId);
     			request.setAttribute(INFO_GROUPE_NOM, groupeTabNom);
       	        }catch (SQLException e) 
-      	        {
+      	       {
       				// TODO Auto-generated catch block
       				e.printStackTrace();
       			}
