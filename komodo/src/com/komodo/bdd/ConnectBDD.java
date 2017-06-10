@@ -450,6 +450,7 @@ public class ConnectBDD {
   			while (AllEleves.next())
   			{
   				AllElevesId.add(AllEleves.getString( "id" ));
+  				System.out.println(AllEleves.getString("id"));
   				AllElevesNom.add(AllEleves.getString( "Nom" ));
   				AllElevesPrenom.add(AllEleves.getString( "Prenom" ));
   				AllElevesNum.add(AllEleves.getString( "Numero_eleve" ));
@@ -476,6 +477,7 @@ public class ConnectBDD {
   			//Définition des Attributs pour la page jsp
   			request.setAttribute("nom_app", nomAPP);
   			request.setAttribute("nom_groupe", groupe_actif);
+  			request.setAttribute("id_groupe", numero_groupe);
   			request.setAttribute("tuteur_id", TuteurId);
   			request.setAttribute("tuteur_prenom", TuteurPrenom);
   			request.setAttribute("tuteur_nom", TuteurNom);
@@ -487,7 +489,7 @@ public class ConnectBDD {
   			request.setAttribute("eleves_nom", listeEleveNom);
   			request.setAttribute("eleves_annee", listeEleveAnnee);
   			request.setAttribute("eleves_numero", listeEleveNumero);
-  			request.setAttribute("nb_eleves", (listeEleveId.size()-1) );
+  			request.setAttribute("nb_eleves", (listeEleveId.size()-2) );
   			request.setAttribute("all_id", AllElevesId);
   			request.setAttribute("all_prenom", AllElevesPrenom);
   			request.setAttribute("all_nom", AllElevesNom);

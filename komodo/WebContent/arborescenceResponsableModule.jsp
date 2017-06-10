@@ -124,7 +124,7 @@ function selectionElementGrille(id_element,id_element_sec){
 			    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
 			    <div id="nomGroupe" style="display:none;">
 			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-						<p><a href="?id=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
 					</c:forEach>
 			    </div>
 			     <div class="aside-app" id="ajoutCompPrin">

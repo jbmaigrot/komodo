@@ -43,15 +43,15 @@ public class ArborescenceResponsableModule extends HttpServlet {
 	{
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
-        Statement statement = null; 
-        Statement statementSec = null;
-	    ResultSet compteGrille = null;
 	    conn.getConnection();
 	    
 	    // Ces fonctions permettent d'afficher le contenu de l'ensemble de la colonne id_grille dans la table grille_de_competence_app où 
 	    // on récupére son contenu dans request pour l'utiliser et l'afficher dans la page .jsp.
 	    conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
 		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
+		
+		conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+		conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
 		
       //controleur
       		conn.sendList( "DISTINCT Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "is",request);
@@ -62,34 +62,6 @@ public class ArborescenceResponsableModule extends HttpServlet {
       			//faux cookie pour l'exemple
       			int monIdUtilisateur=1;
       			
-      			try 
-      	        {
-      	        	
-      			//	conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
-      			//	conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
-      	        	/* Connexion Ã  la base de donnÃ©es. */
-      				statement = conn.getConnection().createStatement();
-      				statementSec = conn.getConnection().createStatement();
-      			compteGrille = statement.executeQuery( "SELECT id_groupe, Nom FROM groupe;" );
-    			
-    			ArrayList<String> groupeTabId = new ArrayList<String>();
-    			ArrayList<String> groupeTabNom = new ArrayList<String>();
-    			while (compteGrille.next())
-    			{
-    				String groupeId = compteGrille.getString( "id_groupe" );
-    				String groupeNom = compteGrille.getString( "Nom" );
-    				groupeTabId.add(groupeId);
-    				System.out.print("aff id : "+groupeId);
-    				groupeTabNom.add(groupeNom);
-    				System.out.print("aff nom : "+groupeNom);
-    			}
-    			request.setAttribute(INFO_GROUPE_ID, groupeTabId);
-    			request.setAttribute(INFO_GROUPE_NOM, groupeTabNom);
-      	        }catch (SQLException e) 
-      	       {
-      				// TODO Auto-generated catch block
-      				e.printStackTrace();
-      			}
       			//preparation donnes app
       			//String promo=request.getParameter("promo");
       			String role=request.getParameter("role");
