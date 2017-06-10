@@ -247,6 +247,9 @@ public class ModifierGrille extends HttpServlet {
 		}
 			if ( erreur(erreurs) == false )
 			{
+				String ponderationJug = "1";
+				String critereJug = "Regroupement général des différentes compétences secondaires de cette compétence principale.";
+				String jugement = "Jugement global";
 				conn.updateGroup("grille_de_competence_app", "id_grille='"+id+"'", "Nom_grille", "Promo", nomGrille, promo);
 			
 				for (int c = 1;c <= nbLignes;c++ )
@@ -293,6 +296,7 @@ public class ModifierGrille extends HttpServlet {
 						try {
 							if(resId.next())
 							{
+								conn.insertGroup("competence_secondaire", "id_comp_princ","Ponderation","Nom","Critere", resId.getString(1), ponderationJug, jugement, critereJug);
 								for (int d = 1 ; d <= nbLignesSec;d++)
 								{
 									if (tabCompSec[c][d] != null && tabCritere[c][d] != null && tabPonderation[c][d] != null)
@@ -317,6 +321,7 @@ public class ModifierGrille extends HttpServlet {
 						System.out.println("");
 						//System.out.println("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
 						conn.delete("competence_principale", "id_comp='"+tabCompId[c]+"'");
+						conn.delete("competence_secondaire", "id_comp_princ='"+tabCompId[c]+"'");
 						//statementSec.executeUpdate("DELETE FROM competence_principale where id_comp='"+tabCompId[c]+"'");
 					}
 				}
