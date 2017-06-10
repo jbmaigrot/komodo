@@ -76,7 +76,9 @@ public class ArborescenceTeacher extends HttpServlet {
 			
 			//preparation donnes groupe
 			String app=request.getParameter("app");
-			List<String> l1 = conn.sendList("idEleve", "lie2", "idGrilleComp="+app, "tmp1",request);
+			//List<String> l1 = conn.sendList("idEleve", "lie2", "idGrilleComp="+app, "tmp1",request);
+			List<String> l1 = conn.sendList("idEleve", "appartient", "idGroupe IN (SELECT id_groupe FROM groupe WHERE idGrilleAPP="+app+")", "tmp1",request);
+			
 			List<String> l2 = conn.sendListById("idGroupe", "appartient", "idEleve", l1, "tmp2", request);
 			//donnes groupe
 			conn.sendListById("Nom", "groupe", "id_groupe", l2, "groupes", request);
