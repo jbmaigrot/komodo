@@ -89,6 +89,15 @@
 							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
 						</c:forEach>
 				    </div>
+				    <div class="aside-app" id="groupeAjout">
+						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
+					</div>
+				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+				    <div id="nomGroupe" style="display:none;">
+				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
+							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						</c:forEach>
+				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
 				    	<p><a id="ajoutCompPrin" href="#creation" onClick='selectionElementGrille("ajoutCompPrin","creation");'>Ajouter un modèle de compétence principale</a></p>
 				    </div>
