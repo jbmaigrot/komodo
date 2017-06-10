@@ -108,7 +108,7 @@
 							</c:when>
 							
 							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_eleves}">
+								<c:forEach var="i" begin="0" end="${nb_eleves - 1}">
 									<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
 								</c:forEach>
 							</c:otherwise>
@@ -118,7 +118,7 @@
 					<span id="ajout_eleve" class="" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span>
 					<div id="choix_eleve" style="display:none;">
 						<form method="post" action="GestionGroupe">
-						<input type="hidden" name="id_groupe" value="${id_groupe }"/>
+							<input type="hidden" name="id_groupe" value="${id_groupe }"/>
 							<select id="choix_nouveau" name="choix_nouveau">
 							
 								<c:choose>
@@ -147,7 +147,7 @@
 							</c:when>
 							
 							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_plan}">
+								<c:forEach var="i" begin="0" end="${nb_plan - 1}">
 									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
 									</li>
 								</c:forEach>

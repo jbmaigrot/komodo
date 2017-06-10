@@ -386,8 +386,6 @@ public class ConnectBDD {
   		String ClientId = null;
   		String ClientPrenom = null;
   		String ClientNom = null;
-  		boolean pas_d_eleves = true;
-  		boolean pas_de_plan = true;
   		
   		String nomAPP = null;
   		
@@ -422,7 +420,7 @@ public class ConnectBDD {
   			
   			TuteurInfo.next();
   			ClientInfo.next();
-
+  			
   			AllEleves = statement_tous_eleves.executeQuery("SELECT u.id, u.Nom, u.Prenom, e.Numero_eleve, a.idGroupe FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE e.Annee='"+ TuteurInfo.getString( "Promo" ) +"' AND u.id NOT IN (SELECT u.id FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE a.idGroupe='"+ numero_groupe +"')");
   			
   			nomAPP = TuteurInfo.getString( "Nom_grille" );
@@ -441,11 +439,6 @@ public class ConnectBDD {
   				listeEleveNom.add(listeEleves.getString( "Nom_eleve" ));
   				listeEleveAnnee.add(listeEleves.getString( "Annee" ));
   				listeEleveNumero.add(listeEleves.getString( "Numero_eleve" ));
-  				pas_d_eleves = false;
-  			}
-  			if(pas_d_eleves)
-  			{
-  				listeEleveId.add(null);
   			}
   			while (AllEleves.next())
   			{
@@ -463,17 +456,11 @@ public class ConnectBDD {
   				plan_date.add(planning.getString( "Date" ));
   				plan_debut.add(planning.getString( "Debut" ));
   				plan_fin.add(planning.getString( "Fin" ));
-  				pas_de_plan= false;
   				/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
   				 * 			heures : retirer les secondes
   				 * 			Ajouter une description cliquable pour étendre
   				 * */
   			}
-  			if(pas_de_plan)
-  			{
-  				plan_id.add(null);
-  			}
-  			
   			//Définition des Attributs pour la page jsp
   			request.setAttribute("nom_app", nomAPP);
   			request.setAttribute("nom_groupe", groupe_actif);
@@ -489,7 +476,7 @@ public class ConnectBDD {
   			request.setAttribute("eleves_nom", listeEleveNom);
   			request.setAttribute("eleves_annee", listeEleveAnnee);
   			request.setAttribute("eleves_numero", listeEleveNumero);
-  			request.setAttribute("nb_eleves", (listeEleveId.size()-1) );
+  			request.setAttribute("nb_eleves", (listeEleveId.size()) );
   			request.setAttribute("all_id", AllElevesId);
   			request.setAttribute("all_prenom", AllElevesPrenom);
   			request.setAttribute("all_nom", AllElevesNom);
@@ -501,7 +488,7 @@ public class ConnectBDD {
   			request.setAttribute("plan_date", plan_date);
   			request.setAttribute("heure_debut", plan_debut);
   			request.setAttribute("heure_fin", plan_fin);
-  			request.setAttribute("nb_plan", (plan_id.size()-1) );
+  			request.setAttribute("nb_plan", (plan_id.size()) );
   			
   		} catch (SQLException e) 
           {
