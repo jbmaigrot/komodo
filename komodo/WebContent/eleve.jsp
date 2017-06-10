@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>ElËve</title>
+		<title>El√®ve</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -64,21 +64,21 @@
 					<div class="group" onclick="menuToggle(this)">
 						<img src="pictures/minus.png"/>
 						<img src="pictures/plus.png" class="hidden-menu"/>
-						APP Èlectronique
+						APP √©lectronique
 						<div class="aside-student">
 							<p id="student1">MOI<p>
-							<p>FranÁois</p>
-							<p>GÈrard</p>
+							<p>Fran√ßois</p>
+							<p>G√©rard</p>
 						</div>
 					</div>
 				</menu>
 
 				<section class="col-md-9">
-					<h2>Promo 2018 &gt; Tuteur &gt; APP Èlectronique &gt; Groupe APP A &gt; LÈo</h2>
+					<h2>Promo 2018 &gt; Tuteur &gt; APP √©lectronique &gt; Groupe APP A &gt; L√©o</h2>
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
-							<a class="tab" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a>
+							<a class="tab link" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a>
 							</c:forEach>
 						</div>
 						<div>
@@ -86,16 +86,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire ‡ l'ÈlËve</th>
+									<th>Commentaire √† l'√©l√®ve</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compÈtence<br>
+										Niveau de comp√©tence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">TrËs proche</div>
+											<div class="skill-level">Tr√®s proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-del‡</div>
+											<div class="skill-level">Au-del√†</div>
 										</div>
 									</th>
 								</tr>
