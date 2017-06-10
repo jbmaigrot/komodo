@@ -65,9 +65,21 @@ public class AffichageTeacher extends HttpServlet {
 			String competence=request.getParameter("competence");
 			
 			String eleve=request.getParameter("eleve");
+			
+			List<String> ins = conn.sendList("id_comp_second", "competence_secondaire", "id_comp_princ = "+competence, "ins",request);
+			List<String> grrp = conn.sendList("idGroupe", "appartient", "idEleve = "+eleve+" AND idGroupe IN (SELECT id_groupe FROM groupe WHERE idGrilleAPP = "+grille+")", "grrp",request);
+			
 			String filtre="idEleve="+eleve+" AND idComp_Sec_Util IN (SELECT id_comp_second FROM competence_secondaire WHERE id_comp_princ = "+competence+") ORDER BY idComp_Sec_Util";
 			
-			List<String> l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences",request);
+			List<String> l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences_",request);
+			for(int i=0;i<ins.size();i++){
+				if(l.contains(ins.get(i))==false){
+					System.out.println("Manque competence secondaire ["+ins.get(i)+"] pour l'eleve "+eleve+" du groupe "+grrp.get(0));
+					conn.insert("evalue", "idEleve, idGroupe, idComp_Sec_Util, Evaluation, CommentaireIndividuel, CommentaireGroupe, CommentaireProfesseur", eleve+","+grrp.get(0)+","+ins.get(i)+",'','','',''");
+				}
+			}
+			l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences",request);
+			
 			conn.sendListById("Nom", "competence_secondaire", "id_comp_second", l, "noms", request);
 			conn.sendListById("id_comp_second", "competence_secondaire", "id_comp_second", l, "id_noms", request);
 			conn.sendList("CommentaireIndividuel", "evalue", filtre, "ci",request);
