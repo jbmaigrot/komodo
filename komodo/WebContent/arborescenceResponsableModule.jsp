@@ -74,83 +74,86 @@ function selectionElementGrille(id_element,id_element_sec){
 		<title>Arborescence responsable module</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	 </head>
-<jsp:include page = "header.jsp" />
+
 	 <body>
+		<jsp:include page = "header.jsp" />
 
-
-		<div id="page">
-			<menu>
-				<c:forEach items="${ is }" var="i">
-				<div class="aside-promo">
-					<a id="${ i }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=0&app=0&groupe=0&eleve=0#${ i }"><img src="pictures/minus.png"/>Promo ${ i }</a>
-					<div id="f${ i }" class="aside-category${ i }">
-					<c:forTokens var="elt" items="Autre" delims="/"><p>
-						<a id="${ i }${ elt }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=0&groupe=0&eleve=0#${ i }${ elt }"><img src="pictures/minus.png"/>Tout</a>
-						<div id="f${ i }${ elt }" class="aside-app">
-						<c:forEach items="${ apps }" varStatus="s2"><c:if test="${ promos[s2.index] == i }" var="variable"><p>
-							<a id="${ i }${ elt }${ apps_id[s2.index] }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=${ apps_id[s2.index] }&groupe=0&eleve=0#${ i }${ elt }${ apps_id[s2.index] }"><img src="pictures/minus.png"/>${ apps[s2.index] }</a>
-							<div id="f${ i }${ elt }${ apps_id[s2.index] }" class="aside-group">
-							<c:forEach items="${ groupes }" varStatus="s3"><p>
-								<a id="${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=${ apps_id[s2.index] }&groupe=${ groupes_id[s3.index] }&eleve=0#${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }"><img src="pictures/minus.png"/>${ groupes[s3.index] }</a>
-								<div id="f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" class="aside-student">
-									<c:forEach items="${ eleves }" varStatus="s4">
-									<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
-									</c:forEach>
-								</div>
-								<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
-							</p></c:forEach>
+		<div class="container">
+			<div class="row">
+				<menu class="col-md-3">
+					<c:forEach items="${ is }" var="i">
+						<div class="aside-promo">
+							<a id="${ i }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=0&app=0&groupe=0&eleve=0#${ i }"><img src="pictures/minus.png"/>Promo ${ i }</a>
+							<div id="f${ i }" class="aside-category${ i }">
+								<c:forTokens var="elt" items="Autre" delims="/"><p>
+									<a id="${ i }${ elt }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=0&groupe=0&eleve=0#${ i }${ elt }"><img src="pictures/minus.png"/>Tout</a>
+									<div id="f${ i }${ elt }" class="aside-app">
+										<c:forEach items="${ apps }" varStatus="s2"><c:if test="${ promos[s2.index] == i }" var="variable"><p>
+											<a id="${ i }${ elt }${ apps_id[s2.index] }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=${ apps_id[s2.index] }&groupe=0&eleve=0#${ i }${ elt }${ apps_id[s2.index] }"><img src="pictures/minus.png"/>${ apps[s2.index] }</a>
+											<div id="f${ i }${ elt }${ apps_id[s2.index] }" class="aside-group">
+												<c:forEach items="${ groupes }" varStatus="s3"><p>
+													<a id="${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" href="ArborescenceResponsableModule?sql=1&promo=${ i }&role=${ elt }&app=${ apps_id[s2.index] }&groupe=${ groupes_id[s3.index] }&eleve=0#${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }"><img src="pictures/minus.png"/>${ groupes[s3.index] }</a>
+													<div id="f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }" class="aside-student">
+														<c:forEach items="${ eleves }" varStatus="s4">
+															<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
+														</c:forEach>
+													</div>
+													<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
+												</p></c:forEach>
+											</div>
+											<script>hideGroupes('f${ i }${ elt }${ apps_id[s2.index] }','${ apps_id[s2.index] }');</script>
+										</p></c:if></c:forEach>
+									</div>
+									<script>hideApps('f${ i }${ elt }','${ elt }');</script>
+								</p></c:forTokens>
 							</div>
-							<script>hideGroupes('f${ i }${ elt }${ apps_id[s2.index] }','${ apps_id[s2.index] }');</script>
-						</p></c:if></c:forEach>
+							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
-						<script>hideApps('f${ i }${ elt }','${ elt }');</script>
-					</p></c:forTokens>
+					</c:forEach>
+					<div class="aside-app" id="grilleAjout">
+						<p><a href="CreationGrille">Ajouter grille</a></p>
 					</div>
-					<script>hideRoles('f${ i }','${ i }');</script>
-				</div>
-				</c:forEach>
-				<div class="aside-app" id="grilleAjout">
-					<p><a href="CreationGrille">Ajouter grille</a></p>
-				</div>
-				<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
-				<div id="nomGrille" style="display:none;">
-					<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
-						<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
-					</c:forEach>
-			    </div>
-			    <div class="aside-app" id="groupeAjout">
-					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
-				</div>
-			    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
-			    <div id="nomGroupe" style="display:none;">
-			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-						<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
-					</c:forEach>
-			    </div>
-			     <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
+					<div id="nomGrille" style="display:none;">
+						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
+							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+						</c:forEach>
 				    </div>
-				    <div class="aside-app" id="ajoutCompSec">
-				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    <div class="aside-app" id="groupeAjout">
+						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
+					</div>
+				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+				    <div id="nomGroupe" style="display:none;">
+				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
+							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						</c:forEach>
 				    </div>
-			    <div class="aside-app" id="ajoutUtilisateur">
-				    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
-				</div>
-			</menu>
-			<section class="col-md-9"></section>
-			<script>
-				var number = 2015;
-				while (number < 2030) {
-					//displ('aside-category'+number);
-					number++;
-				}
-			</script>
-			<section>
-				<span>${resultatForm }</span>
-			</section>
+				     <div class="aside-app" id="ajoutCompPrin">
+					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+					    </div>
+					    <div class="aside-app" id="ajoutCompSec">
+					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+					    </div>
+				    <div class="aside-app" id="ajoutUtilisateur">
+					    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
+					</div>
+				</menu>
+			</div>
 		</div>
+		
+		<section class="col-md-9"></section>
+		<script>
+			var number = 2015;
+			while (number < 2030) {
+				//displ('aside-category'+number);
+				number++;
+			}
+		</script>
+		<section>
+			<span>${resultatForm }</span>
+		</section>
 
-
+		<jsp:include page = "footer.jsp" />
 	</body>
 
 </html> 
