@@ -51,6 +51,9 @@ public class GestionGroupe extends HttpServlet {
 	    
 	    conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
 		conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
+		
+		conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
+		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
 	    String id_groupe = request.getParameter("id_groupe");
 	    numero_groupe = Integer.parseInt(id_groupe);
 	 	//Récupération du groupe, des profs, du planning et des eleves - ID GROUPE FIXÉ !!!
