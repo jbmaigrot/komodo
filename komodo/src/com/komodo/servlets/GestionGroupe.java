@@ -64,6 +64,7 @@ public class GestionGroupe extends HttpServlet {
         Map<String, String> erreurs = new HashMap<String, String>();
         Map<String, String> erreurs_bdd = new HashMap<String, String>();
         boolean fail=false;
+        String id_app = request.getParameter("id_app");
         String id_groupe = request.getParameter("id_groupe");
 	    numero_groupe = Integer.parseInt(id_groupe);
 		
@@ -84,6 +85,7 @@ public class GestionGroupe extends HttpServlet {
 		{
 		// Accès BDD
 			conn.insertGroup("appartient", "idEleve", "idGroupe", nouvel_eleve, ""+numero_groupe);
+			conn.insertGroup("lie2", "idEleve", "idGrilleComp", nouvel_eleve, id_app);
 		}
 		
 		// Renvoie des erreurs
