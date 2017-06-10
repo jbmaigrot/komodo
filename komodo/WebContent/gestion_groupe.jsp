@@ -103,7 +103,7 @@
 					<p> Élèves membre :<p>
 					<ul>
 						<c:choose>
-							<c:when test="${eleves_id[0] == null}">
+							<c:when test="${nb_eleves == 0}">
 								<li>Pas encore d'élèves</li>
 							</c:when>
 							
@@ -121,13 +121,13 @@
 							<select id="choix_nouveau" name="choix_nouveau">
 							
 								<c:choose>
-									<c:when test="${eleves_id[0] == null}">
+									<c:when test="${nb_all == 0}">
 										<option>Pas d'élèves à ajouter</option>
 									</c:when>
 								
 									<c:otherwise>
 										<option disabled selected>Nouvel élève</option>
-										<c:forEach var="i" begin="0" end="${nb_all}">
+										<c:forEach var="i" begin="0" end="${nb_all - 1}">
 											<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
 										</c:forEach>
 									</c:otherwise>
@@ -141,7 +141,7 @@
 					<h4>Planning du groupe</h4>
 					<u1>
 						<c:choose>
-							<c:when test="${plan_id[0] == null}">
+							<c:when test="${nb_plan == 0}">
 								<li>Pas d'évènements dans le planning</li>
 							</c:when>
 							

@@ -387,7 +387,6 @@ public class ConnectBDD {
   		String ClientPrenom = null;
   		String ClientNom = null;
   		boolean pas_d_eleves = true;
-  		boolean pas_d_eleves_tot = true;
   		boolean pas_de_plan = true;
   		
   		String nomAPP = null;
@@ -423,7 +422,7 @@ public class ConnectBDD {
   			
   			TuteurInfo.next();
   			ClientInfo.next();
-  			
+
   			AllEleves = statement_tous_eleves.executeQuery("SELECT u.id, u.Nom, u.Prenom, e.Numero_eleve, a.idGroupe FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE e.Annee='"+ TuteurInfo.getString( "Promo" ) +"' AND u.id NOT IN (SELECT u.id FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE a.idGroupe='"+ numero_groupe +"')");
   			
   			nomAPP = TuteurInfo.getString( "Nom_grille" );
@@ -448,18 +447,12 @@ public class ConnectBDD {
   			{
   				listeEleveId.add(null);
   			}
-  			
   			while (AllEleves.next())
   			{
   				AllElevesId.add(AllEleves.getString( "id" ));
   				AllElevesNom.add(AllEleves.getString( "Nom" ));
   				AllElevesPrenom.add(AllEleves.getString( "Prenom" ));
   				AllElevesNum.add(AllEleves.getString( "Numero_eleve" ));
-  				pas_d_eleves_tot = false;
-  			}
-  			if(pas_d_eleves_tot)
-  			{
-  				AllElevesId.add(null);
   			}
   			while (planning.next())
   			{
@@ -499,7 +492,7 @@ public class ConnectBDD {
   			request.setAttribute("all_prenom", AllElevesPrenom);
   			request.setAttribute("all_nom", AllElevesNom);
   			request.setAttribute("all_numero", AllElevesNum);
-  			request.setAttribute("nb_all", (AllElevesId.size()-1) );
+  			request.setAttribute("nb_all", AllElevesId.size() );
   			request.setAttribute("plan_id", plan_id);
   			request.setAttribute("plan_nom", plan_nom);
   			request.setAttribute("plan_description", plan_description);

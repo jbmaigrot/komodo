@@ -130,7 +130,7 @@
 							
 									<c:otherwise>
 										<option disabled selected>Choisissez une grille d'APP</option>
-										<c:forEach var="i" begin="0" end="${nb_APP + 1}">
+										<c:forEach var="i" begin="0" end="${nb_APP}">
 											<option value='<c:out value="${app_id[i]}"/>' >[Promo : ${app_promo[i]}] ${app_nom[i]}</option>
 										</c:forEach>
 									</c:otherwise>
@@ -152,7 +152,7 @@
 							
 									<c:otherwise>
 										<option disabled selected>Choisissez un professeur</option>
-										<c:forEach var="i" begin="0" end="${nombre_profs + 1}">
+										<c:forEach var="i" begin="0" end="${nombre_profs}">
 											<option value='<c:out value="${profs_id[i]}"/>' >${profs_prenom[i]} ${profs_nom[i]}</option>
 										</c:forEach>
 									</c:otherwise>
