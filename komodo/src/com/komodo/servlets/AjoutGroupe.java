@@ -57,8 +57,8 @@ public class AjoutGroupe extends HttpServlet {
 		conn.sendList("Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "app_promo", request);
 		int nbAPP = conn.compte("id_grille", "grille_de_competence_app");
 			System.out.println("nbAPP"+nbAPP);
-		request.setAttribute("nombre_profs", nbAPP );
-		request.setAttribute("nb_app", nbProfs);
+		request.setAttribute("nombre_profs", nbProfs);
+		request.setAttribute("nb_app", nbAPP);
 			
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
@@ -117,6 +117,7 @@ public class AjoutGroupe extends HttpServlet {
 		// Renvoie des erreurs
 		if (erreurs.isEmpty() && erreurs_bdd.isEmpty()) {
 			resultat = "Ajout Réussi";
+			
 		}else if (erreurs_bdd.isEmpty()) {
 			resultat = "Entrée(s) invalide(s)";
 		} else {

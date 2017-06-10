@@ -118,6 +118,7 @@
 					<span id="ajout_eleve" class="" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span>
 					<div id="choix_eleve" style="display:none;">
 						<form method="post" action="GestionGroupe">
+						<input type="hidden" name="id_groupe" value="${id_groupe }"/>
 							<select id="choix_nouveau" name="choix_nouveau">
 							
 								<c:choose>
