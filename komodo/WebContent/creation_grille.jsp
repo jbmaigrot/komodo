@@ -122,11 +122,14 @@
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
-				    <p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutCompSec">
-				    <p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
 				    </div>
+				    <div class="aside-app" id="ajoutUtilisateur">
+				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
+					</div>
 				</menu>
 		
 				<section class="col-md-9">

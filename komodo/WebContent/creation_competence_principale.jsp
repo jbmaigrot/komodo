@@ -62,6 +62,9 @@
 				    <div class="aside-app" id="ajoutCompSec">
 				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
 				    </div>
+				    <div class="aside-app" id="ajoutUtilisateur">
+				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
+					</div>
 				</menu>
 		
 				<section class="col-md-9">
