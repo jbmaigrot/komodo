@@ -18,9 +18,7 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Gestion de groupe</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
 		
 		<script>
 			function selectionElementGrille(id_element,id_element_sec)
@@ -65,7 +63,7 @@
 					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
 					<div id="nomGrille" style="display:none;">
 						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
-							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+							<div><p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p></div>
 						</c:forEach>
 				    </div>
 				     <div class="aside-app" id="groupeAjout">
@@ -74,7 +72,7 @@
 				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
 				    <div id="nomGroupe" style="display:none;">
 				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+							<div><p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p></div>
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
@@ -88,65 +86,67 @@
 					</div>
 				</menu>
 				<section class="col-md-9">
-					<h1>Gestion de groupe</h1>
-					<h3>Edition de <strong>${nom_groupe}</strong> dans <strong>${nom_app}</strong></h3>
-					<p> Tuteur : ${tuteur_prenom} ${tuteur_nom}<p>
-					<p> Client : ${client_prenom} ${client_nom}<p>
-					<p> Élèves membre :<p>
-					<ul>
-						<c:choose>
-							<c:when test="${nb_eleves == 0}">
-								<li>Pas encore d'élèves</li>
-							</c:when>
-							
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_eleves - 1}">
-									<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</ul>
-					<p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
-					<span id="ajout_eleve" class="" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span>
-					<div id="choix_eleve" style="display:none;">
-						<form method="post" action="GestionGroupe">
-							<input type="hidden" name="id_groupe" value="${id_groupe }"/>
-							<input type="hidden" name="id_app" value="${id_app }"/>
-							<select id="choix_nouveau" name="choix_nouveau">
-							
-								<c:choose>
-									<c:when test="${nb_all == 0}">
-										<option>Pas d'élèves à ajouter</option>
-									</c:when>
+					<div>
+						<h1>Gestion de groupe</h1>
+						<h3>Edition de <strong>${nom_groupe}</strong> dans <strong>${nom_app}</strong></h3>
+						<p> Tuteur : ${tuteur_prenom} ${tuteur_nom}<p>
+						<p> Client : ${client_prenom} ${client_nom}<p>
+						<p> Élèves membre :<p>
+						<ul>
+							<c:choose>
+								<c:when test="${nb_eleves == 0}">
+									<li>Pas encore d'élèves</li>
+								</c:when>
 								
-									<c:otherwise>
-										<option disabled selected>Nouvel élève</option>
-										<c:forEach var="i" begin="0" end="${nb_all - 1}">
-											<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
-							</select>
-							<input type="submit" name="Submit" value="Ajouter" id="Submit" >
-						</form>
+								<c:otherwise>
+									<c:forEach var="i" begin="0" end="${nb_eleves - 1}">
+										<li>${eleves_annee[i]} ${eleves_numero[i]} ${eleves_prenom[i]} ${eleves_nom[i]} </li>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+						<p class="${empty erreurs ? 'succes' : 'erreur'}">${resultat}</p>
+						<div class="button"><span id="ajout_eleve" onClick='affichageElementTier("ajout_eleve","choix_eleve");'>Ajouter</span></div>
+						<div id="choix_eleve" style="display:none;">
+							<form method="post" action="GestionGroupe">
+								<input type="hidden" name="id_groupe" value="${id_groupe }"/>
+								<input type="hidden" name="id_app" value="${id_app }"/>
+								<select id="choix_nouveau" name="choix_nouveau">
+								
+									<c:choose>
+										<c:when test="${nb_all == 0}">
+											<option>Pas d'élèves à ajouter</option>
+										</c:when>
+									
+										<c:otherwise>
+											<option disabled selected>Nouvel élève</option>
+											<c:forEach var="i" begin="0" end="${nb_all - 1}">
+												<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+								</select>
+								<input type="submit" name="Submit" value="Ajouter" id="Submit" >
+							</form>
+						</div>
 					</div>
-				</section>
-				<section>
-					<h4>Planning du groupe</h4>
-					<u1>
-						<c:choose>
-							<c:when test="${nb_plan == 0}">
-								<li>Pas d'évènements dans le planning</li>
-							</c:when>
-							
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_plan - 1}">
-									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
-									</li>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</u1>
+					<div>
+						<h4>Planning du groupe</h4>
+						<u1>
+							<c:choose>
+								<c:when test="${nb_plan == 0}">
+									<li>Pas d'évènements dans le planning</li>
+								</c:when>
+								
+								<c:otherwise>
+									<c:forEach var="i" begin="0" end="${nb_plan - 1}">
+										<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
+										</li>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</u1>
+					</div>
 				</section>
 			</div>
 		</div>

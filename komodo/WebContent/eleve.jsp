@@ -78,7 +78,7 @@
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
-							<div class="tab"><a class="link" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a></div>
+							<a class="tab" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a>
 							</c:forEach>
 						</div>
 						<div>
