@@ -56,8 +56,8 @@ public class ArborescenceEleve extends HttpServlet {
 					conn.sendListById("Nom", "utilisateur", "id", l, "eleves", request);
 					conn.sendListById("id", "utilisateur", "id", l, "eleves_id", request);
 					
-					List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "id_groupe="+groupe, "tmp3", request);
-					conn.sendListById("id_grille", "grille_de_competence_app", "id_grille", l3, "apps_id", request);
+					List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "id_groupe="+groupe, "apps_id", request);
+					//conn.sendListById("id_grille", "grille_de_competence_app", "id_grille", l3, "apps_id", request);
 					
 				//}
 					    
