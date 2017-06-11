@@ -52,7 +52,7 @@ public class AffichageTeacher extends HttpServlet {
 					conn.update("evalue", "CommentaireGroupe", request.getParameter("value"), "idEleve="+request.getParameter("eleve")+" AND idComp_Sec_Util="+request.getParameter("modif"));
 				}
 				else if(request.getParameter("ev")!=null){
-					String l = request.getParameter("modif");
+					String l = request.getParameter("nb");
 					conn.update("evalue", "Evaluation", request.getParameter("eval"+l), "idEleve="+request.getParameter("eleve")+" AND idComp_Sec_Util="+request.getParameter("modif"));
 				}
 			}
@@ -69,7 +69,7 @@ public class AffichageTeacher extends HttpServlet {
 			List<String> ins = conn.sendList("id_comp_second", "competence_secondaire", "id_comp_princ = "+competence, "ins",request);
 			List<String> grrp = conn.sendList("idGroupe", "appartient", "idEleve = "+eleve+" AND idGroupe IN (SELECT id_groupe FROM groupe WHERE idGrilleAPP = "+grille+")", "grrp",request);
 			
-			String filtre="idEleve="+eleve+" AND idComp_Sec_Util IN (SELECT id_comp_second FROM competence_secondaire WHERE id_comp_princ = "+competence+") ORDER BY idComp_Sec_Util";
+			String filtre="idGroupe = "+grrp.get(0)+" AND idEleve="+eleve+" AND idComp_Sec_Util IN (SELECT id_comp_second FROM competence_secondaire WHERE id_comp_princ = "+competence+") ORDER BY idComp_Sec_Util";
 			
 			List<String> l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences_",request);
 			for(int i=0;i<ins.size();i++){
