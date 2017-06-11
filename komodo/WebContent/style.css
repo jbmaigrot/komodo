@@ -221,12 +221,14 @@ td:nth-child(1)
 	color: white;
 	text-decoration: none;
 	padding: 3px;
+	border-bottom: 1px solid #888;
 }
 .scroll img
 {
 	width: 12px;
 	height: 12px;
 }
+.scroll td{border: none;}
 
 /*Footer----------------------------------------------------------------------------------------*/
 footer
