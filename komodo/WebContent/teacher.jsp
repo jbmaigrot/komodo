@@ -63,6 +63,15 @@
 				//alert(obj[i].href);
 			}
 		}
+		 
+		function modifLink3(){
+			var obj=document.getElementsByClassName("link3");
+			for (i = 0; i < obj.length; i++) {
+				//alert(obj[i].href);
+				obj[i].href = obj[i].href.replace("Type", get("type"));
+				//alert(obj[i].href);
+			}
+		}
 		
 		</script>
 
@@ -74,34 +83,7 @@
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>Promo 2018</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP Ã©lectronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
-					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
-					</div>
-					<div class="aside-app">
-						<p><a href="CreationGrille">Ajouter</a></p>
-					</div>
-					<div id="grille" onClick='clickGrille("grille","nomGrille");'>Grille APP</div>
-					<div id="nomGrille" style="display:none;">
-						<c:forEach items="${ nomGrille }" var="nomGrilleInd" varStatus="boucle">
-							<p><a href="#">${nomGrilleInd}</a></p>
-						</c:forEach>
+						<p><a class="link3" id="ajout" href="ArborescenceType">Retour vers l'arborescence</a></p>
 					</div>
 				</menu>
 				
