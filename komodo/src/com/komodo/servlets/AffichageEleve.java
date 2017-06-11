@@ -58,7 +58,7 @@ public class AffichageEleve extends HttpServlet {
 			for(int i=0;i<ins.size();i++){
 				if(l.contains(ins.get(i))==false){
 					System.out.println("Manque competence secondaire ["+ins.get(i)+"] pour l'eleve "+eleve+" du groupe "+grrp.get(0));
-					conn.insert("evalue", "idEleve, idGroupe, idComp_Sec_Util, Evaluation, CommentaireIndividuel, CommentaireGroupe, CommentaireProfesseur", eleve+","+grrp.get(0)+","+ins.get(i)+",'','','',''");
+					conn.insert("evalue", "idEleve, idGroupe, idComp_Sec_Util, Evaluation, CommentaireIndividuel, CommentaireGroupe, CommentaireProfesseur", eleve+","+grrp.get(0)+","+ins.get(i)+",,,,");
 				}
 			}
 			l = conn.sendList("idComp_Sec_Util", "evalue", filtre, "competences",request);
