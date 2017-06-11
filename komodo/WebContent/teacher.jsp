@@ -67,7 +67,7 @@
 
 	 <body>
 
-		<%@include  file="header.jsp" %>
+		<jsp:include page = "header.jsp" />
 		
 		<div class="container">
 			<div class="row">
@@ -77,13 +77,13 @@
 						<div class="aside-category">
 							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
 							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP Èlectronique</p>
+								<p id="app1"><img src="pictures/minus.png"/>APP √©lectronique</p>
 								<div class="aside-group">
 									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
 									<div class="aside-student">
-										<p id="student1">LÈo<p>
-										<p>FranÁois</p>
-										<p>GÈrard</p>
+										<p id="student1">L√©o<p>
+										<p>Fran√ßois</p>
+										<p>G√©rard</p>
 									</div>
 								</div>
 							</div>
@@ -105,7 +105,7 @@
 				</menu>
 				
 				<section class="col-md-9">
-					<h2>Promo 2018 &gt; Tuteur &gt; APP Èlectronique &gt; Groupe APP A &gt; LÈo</h2>
+					<h2></h2>
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
@@ -117,16 +117,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire ‡ l'ÈlËve</th>
+									<th>Commentaire √† l'√©l√®ve</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compÈtence<br>
+										Niveau de comp√©tence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">TrËs proche</div>
+											<div class="skill-level">Tr√®s proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-del‡</div>
+											<div class="skill-level">Au-del√†</div>
 											<div class="skill-level">[Evaluation]</div>
 										</div>
 									</th>
@@ -137,7 +137,87 @@
 								<c:set var="tproche" value="tproche" scope="page" />
 								<c:set var="attendu" value="attendu" scope="page" />
 								<c:set var="audela" value="audela" scope="page" />
-								<c:forEach items="${ competences }" varStatus="ligne">
+								
+								<c:set var="J" value="Jugement global" scope="page" />
+								<c:forEach items="${ competences }" varStatus="li">
+								<c:if test="${ noms[li.index] == J }" var="variable">
+								<tr>
+									<td>
+										<div class="skill">${ noms[li.index] }</div>
+										<div class="criteria">
+											${ criteres[li.index] }
+										</div>
+									</td>
+									<td>
+										<form id="frm_${ li.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[li.index] }&cp=1#frm_${ li.index }">
+											<textarea name="value" id="value">${ cp[ligne.index] }</textarea>
+											<input type="submit" value="Modifier" />
+										</form>
+									</td>
+									<td>
+										<form id="frm_${ li.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[li.index] }&ci=1#frm_${ li.index }">
+											<textarea name="value" id="value">${ ci[li.index] }</textarea>
+											<input type="submit" value="Modifier" />
+										</form>
+									</td>
+									<td>
+										<form id="frm_${ li.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[li.index] }&cg=1#frm_${ li.index }">
+											<textarea name="value" id="value">${ cg[li.index] }</textarea>
+											<input type="submit" value="Modifier" />
+										</form>
+									</td>
+									<td>
+										<div class="skill-levels">
+											<c:if test="${ the_evaluation == loin }" var="variable">
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ the_evaluation == proche }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ the_evaluation == tproche }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ the_evaluation == attendu }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ the_evaluation == audela }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+											</c:if>
+											<c:if test="${ the_evaluation != loin && the_evaluation != proche && the_evaluation != tproche && the_evaluation != attendu && the_evaluation != audela }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<div class="skill-level-cell">Modifier</div>
+										</div>
+									</td>
+								</tr>
+								</c:if>
+								</c:forEach>
+								
+								<c:forEach items="${ competences }" varStatus="ligne"><c:if test="${ noms[ligne.index] != J }" var="variable">
 								<tr>
 									<td>
 										<div class="skill">${ noms[ligne.index] }</div>
@@ -210,7 +290,7 @@
 											<div class="skill-level-cell"><input type="submit" value="Modifier"></div>
 										</div>
 									</form></td>
-								</tr>
+								</tr></c:if>
 								</c:forEach>
 							</table>
 						</div>
@@ -219,7 +299,7 @@
 			</div>
 		</div>
 
-		<%@include  file="footer.jsp" %>
+		<jsp:include page = "footer.jsp" />
 		<script>modifLink();</script>
 		<script>modifLink2();</script>
 	</body>
