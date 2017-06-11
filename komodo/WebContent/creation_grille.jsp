@@ -106,7 +106,7 @@
 
 		<jsp:include page="header.jsp" />
 		
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -160,50 +160,57 @@
 								<span class="erreur">${erreurs['promo']}</span>
 							</p>
 							
-							<p>Compétence(s) principale(s)</p>
-							<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
-								<c:set var="tabNum" value="tab${boucle.count }"/>
-								<p>
-									<label id="tab${boucle.count}">${ nomCompPrincipInd }</label><input type="checkbox" name ="${tabNum}" value = "${nomCompPrincipInd}" id="checkbox${tabNum }"<c:if test = "${param[tabNum] == nomCompPrincipInd}">checked = "checked" </c:if> onclick='selection("checkbox${tabNum}","comp_princip${boucle.count }","comp_Sec${boucle.count }","checkboxCompSec${boucle.count }","critereCompSec${boucle.count }","ponderation${boucle.count }", ${nomCompSec.size()}, "critere${boucle.count }");'/>
-								</p>
-							</c:forEach>
-							<span class="erreur">${erreurs['tab1']}</span>
+							<h3>Compétence(s) principale(s)</h3>
+							<div class="scroll">
+								<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
+									<c:set var="tabNum" value="tab${boucle.count }"/>
+									<p>
+										<label id="tab${boucle.count}">${ nomCompPrincipInd }</label><input type="checkbox" name ="${tabNum}" value = "${nomCompPrincipInd}" id="checkbox${tabNum }"<c:if test = "${param[tabNum] == nomCompPrincipInd}">checked = "checked" </c:if> onclick='selection("checkbox${tabNum}","comp_princip${boucle.count }","comp_Sec${boucle.count }","checkboxCompSec${boucle.count }","critereCompSec${boucle.count }","ponderation${boucle.count }", ${nomCompSec.size()}, "critere${boucle.count }");'/>
+									</p>
+								</c:forEach>
+								<span class="erreur">${erreurs['tab1']}</span>
+							</div>
 							
-							<div id="content">
+							<h4>Compétence(s) secondaire(s)</h4>
+							<div class="scroll">
 								<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
 								<c:set var = "tabComp" value="checkboxtab${boucle.count }"/>
-					  				<div id="tabs">
-										<div class="comp${boucle.count}" ><a href="#comp_Sec${boucle.count }" id="comp_princip${boucle.count }" <c:choose><c:when test = "${valide[boucle.count] == false}"> style="display:none;"</c:when> <c:when test = "${valide[boucle.count] == true}"> style="display:'';" </c:when></c:choose> onClick='selectionElementGrille("comp_princip${boucle.count}","comp_Sec${boucle.count }");'>${nomCompPrincipInd}</a>
-											<div id="comp_Sec${boucle.count }" <c:choose><c:when test = "${valide[boucle.count] == false}"> style="display:none;"</c:when> <c:when test = "${valide[boucle.count] == true}"> style="display:'';"</c:when></c:choose>>
-											<p>Compétence(s) secondaire(s)</p>
-												<c:forEach items="${ nomCompSec }" var="nomCompSecInd" varStatus="boucleSec">
-												<c:set var="tabNumCompSecond" value="compSec${boucle.count }${boucleSec.count}"/>
-												<c:set var="tabNumCompSecErreur" value="compSec${boucle.count }1"/>
-												<c:set var="tabNumCritere" value="critere${boucle.count }${boucleSec.count}"/>
-												<c:set var="tabNumPonderation" value="ponderation${boucle.count }${boucleSec.count }"/>
-													<label id="compSec${boucle.count }${boucleSec.count }">${nomCompSecInd}</label><input type="checkbox" name="${tabNumCompSecond }" value ="${nomCompSecInd}" id="checkboxCompSec${boucle.count }${boucleSec.count}"<c:if test = "${param[tabNumCompSecond] == nomCompSecInd}">checked = "checked" </c:if> onClick='selectionElementGrilleSec("compSec${boucle.count}${boucleSec.count }","critere${boucle.count }${boucleSec.count }","critereCompSec${boucle.count }${boucleSec.count }","ponderation${boucle.count }${boucleSec.count }");' >
-													<div id = "critere${boucle.count }${boucleSec.count}" <c:choose><c:when test = "${valideSec[boucle.count][boucleSec.count] == false}"> style="display:none;"</c:when> <c:when test = "${valideSec[boucle.count][boucleSec.count] == true}"> style="display:'';" </c:when></c:choose>>
-														<p> Critère de sélection : <textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></p>
-														<span>${erreurs[tabNumCritere]}</span>
-														<p> Pondération : 
-															<select name="${tabNumPonderation}" size="1" id="ponderation${boucle.count}${boucleSec.count}" onclick="affichageListeCoefficient(this, '4');">
-																<option disabled selected>Coefficient</option>
-																<c:forEach var="i" begin="1" end ="30" step="1">
-																	<option value="${ i}" <c:if test = "${param[tabNumPonderation] == i}">selected</c:if>><c:out value="${ i }" /> </option>
-																</c:forEach>
-															</select>
-														</p>
-														<span>${erreurs[tabNumPonderation]}</span>
-													</div>
-													
-												</c:forEach>
-												<br>
-												<span>${erreurs[tabNumCompSecErreur]}</span>
+									<div class="comp${boucle.count}" >
+										<a href="#comp_Sec${boucle.count }" id="comp_princip${boucle.count }" <c:choose><c:when test = "${valide[boucle.count] == false}"> style="display:none;"</c:when> <c:when test = "${valide[boucle.count] == true}"> style="display:'';" </c:when></c:choose> onClick='selectionElementGrille("comp_princip${boucle.count}","comp_Sec${boucle.count }");'>
+											<img src="pictures/arrow.png"/>
+											${nomCompPrincipInd}
+										</a>
+										<div id="comp_Sec${boucle.count }" <c:choose><c:when test = "${valide[boucle.count] == false}"> style="display:none;"</c:when> <c:when test = "${valide[boucle.count] == true}"> style="display:'';"</c:when></c:choose>>
+											<c:forEach items="${ nomCompSec }" var="nomCompSecInd" varStatus="boucleSec">
+											<c:set var="tabNumCompSecond" value="compSec${boucle.count }${boucleSec.count}"/>
+											<c:set var="tabNumCompSecErreur" value="compSec${boucle.count }1"/>
+											<c:set var="tabNumCritere" value="critere${boucle.count }${boucleSec.count}"/>
+											<c:set var="tabNumPonderation" value="ponderation${boucle.count }${boucleSec.count }"/>
+											<div>
+												<label id="compSec${boucle.count }${boucleSec.count }">${nomCompSecInd}</label><input type="checkbox" name="${tabNumCompSecond }" value ="${nomCompSecInd}" id="checkboxCompSec${boucle.count }${boucleSec.count}"<c:if test = "${param[tabNumCompSecond] == nomCompSecInd}">checked = "checked" </c:if> onClick='selectionElementGrilleSec("compSec${boucle.count}${boucleSec.count }","critere${boucle.count }${boucleSec.count }","critereCompSec${boucle.count }${boucleSec.count }","ponderation${boucle.count }${boucleSec.count }");' >
+												<div id = "critere${boucle.count }${boucleSec.count}" <c:choose><c:when test = "${valideSec[boucle.count][boucleSec.count] == false}"> style="display:none;"</c:when> <c:when test = "${valideSec[boucle.count][boucleSec.count] == true}"> style="display:'';" </c:when></c:choose>>
+													<p> Critère de sélection : <textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></p>
+													<span>${erreurs[tabNumCritere]}</span>
+													<p> Pondération : 
+														<select name="${tabNumPonderation}" size="1" id="ponderation${boucle.count}${boucleSec.count}" onclick="affichageListeCoefficient(this, '4');">
+															<option disabled selected>Coefficient</option>
+															<c:forEach var="i" begin="1" end ="30" step="1">
+																<option value="${ i}" <c:if test = "${param[tabNumPonderation] == i}">selected</c:if>><c:out value="${ i }" /> </option>
+															</c:forEach>
+														</select>
+													</p>
+													<span>${erreurs[tabNumPonderation]}</span>
+												</div>
 											</div>
+												
+											</c:forEach>
+											<br>
+											<span>${erreurs[tabNumCompSecErreur]}</span>
 										</div>
 									</div>
 								</c:forEach>
 							</div>
+							
 							<input type="submit" name="Submit" value="Valider" id="Submit" >
 							</form>
 						  <span>${resultatForm }</span>
