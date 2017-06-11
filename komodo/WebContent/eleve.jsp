@@ -56,7 +56,7 @@
 
 	 <body>
 
-	 	<%@include  file="header.jsp" %>
+	 	<jsp:include page = "header.jsp" />
 		
 		<div class="container">
 			<div class="row">
@@ -170,7 +170,7 @@
 			</div>
 		</div>
 
-		<%@include  file="footer.jsp" %>
+		<jsp:include page = "footer.jsp" />
 		
 		<script>modifLink();</script>
 	</body>
