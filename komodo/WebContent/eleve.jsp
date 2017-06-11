@@ -61,15 +61,8 @@
 		<div class="container">
 			<div class="row">
 				<menu class="col-md-3">
-					<div class="group" onclick="menuToggle(this)">
-						<img src="pictures/minus.png"/>
-						<img src="pictures/plus.png" class="hidden-menu"/>
-						APP électronique
-						<div class="aside-student">
-							<p id="student1">MOI<p>
-							<p>François</p>
-							<p>Gérard</p>
-						</div>
+					<div class="aside-promo">
+						<p><a id="ajout" href="ArborescenceEleve">Retour vers l'arborescence</a></p>
 					</div>
 				</menu>
 
