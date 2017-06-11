@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -15,61 +15,23 @@
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
 
-		<script src="script/jquery.min.js"></script>
-		<script src="script/test.js"></script>
-
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
-		<script type="text/javascript">
-		function get(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
-	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;
-			}
-			return vars;
-		}
-		
-		function modifLink(){
-			var obj=document.getElementsByClassName("link");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		function modifLink2(){
-			var obj=document.getElementsByClassName("link2");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].action = obj[i].action.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].action = obj[i].action.replace("grille=0", "grille="+get("grille"));
-				obj[i].action = obj[i].action.replace("competence=0", "competence="+get("competence"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		</script>
+
+		<script src="script/jquery.min.js"></script>
+		<script src="script/test.js"></script>	
+		<script src="script/select.js"></script>
 	 </head>
 
 	 <body>
 
 		<jsp:include page = "header.jsp" />
 		
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -77,7 +39,7 @@
 						<div class="aside-category">
 							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
 							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
+								<p id="app1"><img src="pictures/minus.png"/>APP Ã©lectronique</p>
 								<div class="aside-group">
 									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
 									<div class="aside-student">
@@ -109,7 +71,7 @@
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
-							<div class="tab"><a class="link" href="AffichageTeacher?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a></div>
+								<a class="tab link" href="AffichageTeacher?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a>
 							</c:forEach>
 						</div>
 						<div>

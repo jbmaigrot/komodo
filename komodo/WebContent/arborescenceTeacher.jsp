@@ -4,68 +4,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-<script>
-	function displ(classname){
-		var x=document.getElementsByClassName(classname);
-		for (i = 0; i < x.length; i++) {
-			if(document.getElementsByClassName(classname)[i].style.display=='none')
-				document.getElementsByClassName(classname)[i].style.display='block';
-			else
-				document.getElementsByClassName(classname)[i].style.display='none';
-		}
-	}
-	
-	function get(param) {
-		var vars = {};
-		window.location.href.replace( location.hash, '' ).replace( 
-			/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-			function( m, key, value ) { // callback
-				vars[key] = value !== undefined ? value : '';
-			}
-		);
-
-		if ( param ) {
-			return vars[param] ? vars[param] : null;	
-		}
-		return vars;
-	}
-	
-	function hideRoles(id,promo){
-		if(promo!=get("promo")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideApps(id,role){
-		if(role!=get("role")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideGroupes(id,app){
-		if(app!=get("app")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-	function hideEleves(id,groupe){
-		if(groupe!=get("groupe")){
-			document.getElementById(id).style.display='none';
-		}
-	}
-	
-</script>
     <head>
         <meta charset="UTF-8"/>
 		<title>Arborescence</title>
+
+		<!-- Bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script src="script/jquery.min.js"></script>
+		<script src="script/test.js"></script>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<script>
+			function displ(classname){
+				var x=document.getElementsByClassName(classname);
+				for (i = 0; i < x.length; i++) {
+					if(document.getElementsByClassName(classname)[i].style.display=='none')
+						document.getElementsByClassName(classname)[i].style.display='block';
+					else
+						document.getElementsByClassName(classname)[i].style.display='none';
+				}
+			}
+			
+			function get(param) {
+				var vars = {};
+				window.location.href.replace( location.hash, '' ).replace( 
+					/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+					function( m, key, value ) { // callback
+						vars[key] = value !== undefined ? value : '';
+					}
+				);
+		
+				if ( param ) {
+					return vars[param] ? vars[param] : null;	
+				}
+				return vars;
+			}
+			
+			function hideRoles(id,promo){
+				if(promo!=get("promo")){
+					document.getElementById(id).style.display='none';
+				}
+			}
+			
+			function hideApps(id,role){
+				if(role!=get("role")){
+					document.getElementById(id).style.display='none';
+				}
+			}
+			
+			function hideGroupes(id,app){
+				if(app!=get("app")){
+					document.getElementById(id).style.display='none';
+				}
+			}
+			
+			function hideEleves(id,groupe){
+				if(groupe!=get("groupe")){
+					document.getElementById(id).style.display='none';
+				}
+			}
+			
+		</script>
 	 </head>
 
 	 <body>
 
 	 	<jsp:include page = "header.jsp" />
 
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<c:forEach items="${ is }" var="i">

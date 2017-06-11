@@ -6,11 +6,7 @@ body
 }
 
 /*Général-------------------------------------------------------------------------------------*/
-.container
-{
-	width: 100%;
-	background-color: white;
-}
+.container{width: 100%;}
 
 .button
 {
@@ -21,6 +17,8 @@ body
 	padding: 0.5%
 }
 .button:hover{cursor: pointer;}
+
+.white{background-color: white;}
 
 /*Header--------------------------------------------------------------------------------------*/
 header
@@ -127,6 +125,7 @@ menu img
 }
 .selected-tab:hover{
 	text-decoration: none;
+	background-color: #26F;
 	color: white;
 	cursor: pointer;
 }
@@ -189,6 +188,9 @@ td:nth-child(1)
 {
 	width: 20%;
 	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 #skill-level1{background-color: #0A0;}
 #skill-level2{background-color: #0A0;}
