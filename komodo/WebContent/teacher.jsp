@@ -167,53 +167,53 @@
 											<input type="submit" value="Modifier" />
 										</form>
 									</td>
-									<td>
+									<td><form class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[li.index] }&ev=1&nb=${ 1+li.index }#frm_${ li.index }">
 										<div class="skill-levels">
-											<c:if test="${ the_evaluation == loin }" var="variable">
-												<div class="skill-level-cell" id="skill-level2"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
+											<c:if test="${ evaluations[li.index] == loin }" var="variable">
+												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<c:if test="${ the_evaluation == proche }" var="variable">
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell" id="skill-level2"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
+											<c:if test="${ evaluations[li.index] == proche }" var="variable">
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<c:if test="${ the_evaluation == tproche }" var="variable">
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell" id="skill-level2"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
+											<c:if test="${ evaluations[li.index] == tproche }" var="variable">
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<c:if test="${ the_evaluation == attendu }" var="variable">
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell" id="skill-level2"></div>
-												<div class="skill-level-cell"></div>
+											<c:if test="${ evaluations[li.index] == attendu }" var="variable">
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<c:if test="${ the_evaluation == audela }" var="variable">
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell" id="skill-level2"></div>
+											<c:if test="${ evaluations[li.index] == audela }" var="variable">
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<c:if test="${ the_evaluation != loin && the_evaluation != proche && the_evaluation != tproche && the_evaluation != attendu && the_evaluation != audela }" var="variable">
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
-												<div class="skill-level-cell"></div>
+											<c:if test="${ evaluations[li.index] != loin && evaluations[li.index] != proche && evaluations[li.index] != tproche && evaluations[li.index] != attendu && evaluations[li.index] != audela }" var="variable">
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="loin" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="proche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="tproche" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="attendu" id="${ li.index }" /></div>
+												<div class="skill-level-cell"><input type="radio" name="eval${ 1+li.index }" value="audela" id="${ li.index }" /></div>
 											</c:if>
-											<div class="skill-level-cell">Modifier</div>
+											<div class="skill-level-cell"><input type="submit" value="Modifier"></div>
 										</div>
-									</td>
+									</form></td>
 								</tr>
 								</c:if>
 								</c:forEach>
