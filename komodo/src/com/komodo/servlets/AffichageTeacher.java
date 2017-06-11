@@ -52,7 +52,7 @@ public class AffichageTeacher extends HttpServlet {
 					conn.update("evalue", "CommentaireGroupe", request.getParameter("value"), "idEleve="+request.getParameter("eleve")+" AND idComp_Sec_Util="+request.getParameter("modif"));
 				}
 				else if(request.getParameter("ev")!=null){
-					String l = request.getParameter("modif");
+					String l = request.getParameter("nb");
 					conn.update("evalue", "Evaluation", request.getParameter("eval"+l), "idEleve="+request.getParameter("eleve")+" AND idComp_Sec_Util="+request.getParameter("modif"));
 				}
 			}
