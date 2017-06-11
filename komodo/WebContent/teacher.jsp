@@ -83,7 +83,7 @@
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
-						<p><a class="link3" id="ajout" href="ArborescenceType">Retour vers l'arborescence</a></p>
+						<p><a class="link3" id="ajout" href="LoginServlet">Retour vers l'arborescence</a></p>
 					</div>
 				</menu>
 				
