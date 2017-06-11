@@ -105,7 +105,7 @@
 				</menu>
 				
 				<section class="col-md-9">
-					<h2>Promo 2018 &gt; Tuteur &gt; APP électronique &gt; Groupe APP A &gt; Léo</h2>
+					<h2></h2>
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
