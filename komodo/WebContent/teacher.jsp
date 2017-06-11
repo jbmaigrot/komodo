@@ -112,7 +112,7 @@
 									</td>
 									<td>
 										<form id="frm_${ li.index }" class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[li.index] }&cp=1#frm_${ li.index }">
-											<textarea name="value" id="value">${ cp[ligne.index] }</textarea>
+											<textarea name="value" id="value">${ cp[li.index] }</textarea>
 											<input type="submit" value="Modifier" />
 										</form>
 									</td>
@@ -205,7 +205,7 @@
 											<input type="submit" value="Modifier" />
 										</form>
 									</td>
-									<td><form class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&ev=1#frm_${ ligne.index }">
+									<td><form class="link2" method="POST" action="AffichageTeacher?eleve=0&grille=0&competence=0&modif=${ id_noms[ligne.index] }&ev=1&nb=${ 1+ligne.index }#frm_${ ligne.index }">
 										<div class="skill-levels">
 											<c:if test="${ evaluations[ligne.index] == loin }" var="variable">
 												<div class="skill-level-cell"><input checked type="radio" name="eval${ 1+ligne.index }" value="loin" id="${ ligne.index }" /></div>
