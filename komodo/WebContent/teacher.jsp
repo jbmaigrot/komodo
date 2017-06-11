@@ -285,6 +285,7 @@
 		<jsp:include page = "footer.jsp" />
 		<script>modifLink();</script>
 		<script>modifLink2();</script>
+		<script>modifLink3();</script>
 	</body>
 
 </html> 
