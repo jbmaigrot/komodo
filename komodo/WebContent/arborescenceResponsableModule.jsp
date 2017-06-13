@@ -133,7 +133,7 @@
 					<p><a href="EditionPlanning">Ajouter planning</a></p>
 				</div>
 			    <div class="aside-app" id="editionPlan">
-					<p><a id="lienEditionPlan" href="EditionPlanning">Edition des plannings élève</a></p>
+					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élèves</a></p>
 				</div>
 				     <div class="aside-app" id="ajoutCompPrin">
 					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>

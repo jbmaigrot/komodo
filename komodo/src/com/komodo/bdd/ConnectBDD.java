@@ -20,20 +20,20 @@ public class ConnectBDD {
 	    try {
 	        System.out.println( "Chargement du driver..." );
 	        Class.forName( "com.mysql.jdbc.Driver" );
-	        System.out.println( "Driver chargé !" );
+	        System.out.println( "Driver chargï¿½ !" );
 	    } catch ( ClassNotFoundException e ) {
-	    	System.out.println( "Erreur lors du chargement : le driver n'a pas été trouvé dans le classpath ! <br/>"
+	    	System.out.println( "Erreur lors du chargement : le driver n'a pas ï¿½tï¿½ trouvï¿½ dans le classpath ! <br/>"
 	                + e.getMessage() );
 	    }
 
-	    /* Connexion à la base de données */
+	    /* Connexion ï¿½ la base de donnï¿½es */
 	    String url = "jdbc:mysql://localhost/komodo";
 	    String utilisateur = "root";
 	    String motDePasse = "";
 	    try {
-	    	System.out.println( "Connexion à la base de données..." );
+	    	System.out.println( "Connexion ï¿½ la base de donnï¿½es..." );
 	        connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-	        System.out.println( "Connexion réussie !" );
+	        System.out.println( "Connexion rï¿½ussie !" );
 	       
 	    } catch ( SQLException e ) {
 	    	System.out.println( "Erreur lors de la connexion : <br/>"
@@ -459,10 +459,10 @@ public class ConnectBDD {
   				plan_fin.add(planning.getString( "Fin" ));
   				/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
   				 * 			heures : retirer les secondes
-  				 * 			Ajouter une description cliquable pour étendre
+  				 * 			Ajouter une description cliquable pour ï¿½tendre
   				 * */
   			}
-  			//Définition des Attributs pour la page jsp
+  			//Dï¿½finition des Attributs pour la page jsp
   			request.setAttribute("id_app", idAPP);
   			request.setAttribute("nom_app", nomAPP);
   			request.setAttribute("nom_groupe", groupe_actif);
@@ -520,7 +520,7 @@ public class ConnectBDD {
 		ArrayList<String> plan_fin = new ArrayList<String>();
 		
 		/*
-		 * Requête
+		 * Requï¿½te
 
 SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Description FROM `lie6` l6 INNER JOIN `planning` p ON l6.idPlaning=p.id_planning WHERE `idGroupe`=1 ORDER BY Date, Debut, fin
 		 */
@@ -545,10 +545,10 @@ SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Descrip
 					plan_gr_app.add(planning.getString( "Nom_grille" ));
 					/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
 					 * 			heures : retirer les secondes
-					 * 			Ajouter une description cliquable pour étendre
+					 * 			Ajouter une description cliquable pour ï¿½tendre
 					 * */
 				}
-				//Définition des Attributs pour la page jsp
+				//Dï¿½finition des Attributs pour la page jsp
 				request.setAttribute("plan_id", plan_id);
 				request.setAttribute("plan_nom", plan_nom);
 				request.setAttribute("plan_description", plan_description);
@@ -579,7 +579,7 @@ SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Descrip
 					pas_de_plan= false;
 					/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
 					 * 			heures : retirer les secondes
-					 * 			Ajouter une description cliquable pour étendre
+					 * 			Ajouter une description cliquable pour ï¿½tendre
 					 * */
 				}
 				if(pas_de_plan)
@@ -587,7 +587,7 @@ SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Descrip
 					plan_id.add(null);
 				}
 				
-				//Définition des Attributs pour la page jsp
+				//Dï¿½finition des Attributs pour la page jsp
 				request.setAttribute("nom_app", nomAPP);
 				request.setAttribute("nom_groupe", groupe_actif);
 				request.setAttribute("plan_id", plan_id);
