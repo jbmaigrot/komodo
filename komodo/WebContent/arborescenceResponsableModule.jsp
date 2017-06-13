@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
@@ -133,7 +133,7 @@
 					</c:forEach>
 			    </div>
 			    <div class="aside-app" id="editionPlan">
-					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élève</a></p>
+					<p><a id="lienEditionPlan" href="EditionPlanning">Edition des plannings élève</a></p>
 				</div>
 				     <div class="aside-app" id="ajoutCompPrin">
 					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>

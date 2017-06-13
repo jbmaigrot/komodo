@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -58,15 +60,15 @@
 				</menu>
 				<section class="col-md-9">
 				<section>
-					<h4>Ajouter un élement au planning</h4>
+					<h4>Ajouter un Ã©lement au planning</h4>
 					<form method="post" action="EditionPlanning">
-						<label>Nom de l'événement : </label><input type="text" name="nom_plan" id="nom_plan" /><br/>
+						<label>Nom de l'Ã©vÃ©nement : </label><input type="text" name="nom_plan" id="nom_plan" /><br/>
 						<span class="erreur">${erreurs['nom_grille']}</span>
 						<label>Description : </label><input type="textarea" name="descr_plan" id="descr_plan" /><br/>
 						<span class="erreur">${erreurs['nom_grille']}</span>
 						<label>Date : </label><input type="date" name="date_plan" id="date_plan" />
 						<span class="erreur">${erreurs['nom_grille']}</span>
-						<label>Heure de début: </label><input type="time" name="time_debut" id="time_debut" />
+						<label>Heure de dÃ©but: </label><input type="time" name="time_debut" id="time_debut" />
 						<span class="erreur">${erreurs['nom_grille']}</span>
 						<label>Heure de fin : </label><input type="time" name="time_fin" id="time_fin" />
 						<span class="erreur">${erreurs['nom_grille']}</span>
@@ -93,19 +95,19 @@
 								</c:choose>
 							</select>
 						</c:forEach><br/><br/>
-						<input type="submit" name="Submit" value="Ajouter un évenement" id="Submit" >
+						<input type="submit" name="Submit" value="Ajouter un Ã©venement" id="Submit" >
 					</form>
 					<div>
-						<h4>Liste des événements</h4>
+						<h4>Liste des Ã©vÃ©nements</h4>
 						<u1>
 							<c:choose>
 								<c:when test="${nb_plan == 0}">
-									<li>Pas d'évènements prévu</li>
+									<li>Pas d'Ã©vÃ¨nements prÃ©vu</li>
 								</c:when>
 								
 								<c:otherwise>
 									<c:forEach var="i" begin="0" end="${nb_plan - 1}">
-										<li>Le <strong>${plan_date[i]}</strong> de ${heure_debut[i]} à ${heure_fin[i]} - <strong>${plan_groupe_nom[i]}</strong> dans <strong>${plan_groupe_app[i]}</strong> : ${plan_nom[i]} 
+										<li>Le <strong>${plan_date[i]}</strong> de ${heure_debut[i]} Ã  ${heure_fin[i]} - <strong>${plan_groupe_nom[i]}</strong> dans <strong>${plan_groupe_app[i]}</strong> : ${plan_nom[i]} 
 										</li>
 									</c:forEach>
 								</c:otherwise>

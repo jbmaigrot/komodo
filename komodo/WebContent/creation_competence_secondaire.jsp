@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -6,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Creation competence secondaire</title>
+		<title>Cr√©ation comp√©tence secondaire</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -66,10 +68,10 @@
 						</c:forEach>
 				    </div>
 			    	<div class="aside-app" id="ajoutCompPrin">
-			   			<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modËle de compÈtence principale</a></p>
+			   			<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un mod√®le de comp√©tence principale</a></p>
 			    	</div>
 			   		<div class="aside-app" id="ajoutCompSec">
-			   	 		<p><a id="ajoutCompSec" href="#creation" onClick='selectionElementGrille("ajoutCompSec","creation");'>Ajouter un modËle de compÈtence secondaire</a></p>
+			   	 		<p><a id="ajoutCompSec" href="#creation" onClick='selectionElementGrille("ajoutCompSec","creation");'>Ajouter un mod√®le de comp√©tence secondaire</a></p>
 			    	</div>
 			    	<div class="aside-app" id="ajoutUtilisateur">
 				   		<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
@@ -80,7 +82,7 @@
 					<div id="creation">
 						<form method="post" action="CreationCompetenceSecondaire">
 							<div>
-								<label>Nom compÈtence secondaire : </label><input type="text" name="nom_competence_secondaire" value="" id="nom_competence_secondaire" />
+								<label>Nom comp√©tence secondaire : </label><input type="text" name="nom_competence_secondaire" value="" id="nom_competence_secondaire" />
 						 		<span class="erreur">${erreurs['nom_competence_secondaire']}</span>
 							</div>
 							<input type="submit" name="Submit" value="Valider" id="Submit" >
