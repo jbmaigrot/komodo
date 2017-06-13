@@ -119,7 +119,6 @@
 							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
 					</c:forEach>
-			    </div>
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
