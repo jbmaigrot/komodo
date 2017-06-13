@@ -39,7 +39,7 @@ public class PlanningServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
 	    conn.getConnection();
-	    conn.affichagePlanningEleve(numero_groupe, true, request);
+	    conn.affichagePlanning(numero_groupe, false, request);
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
 	

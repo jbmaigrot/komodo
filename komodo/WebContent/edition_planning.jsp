@@ -19,7 +19,7 @@
 		<![endif]-->
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Gestion des plannings des APP</title>
+		<title>Planning APP Edition</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		
 		<script>
@@ -33,6 +33,15 @@
 					cible.style.display = 'none';
 		    		}
 				}
+			}
+			function affichageElementList(id_element, limit){
+				var cible = document.getElementById("choix_groupe_" + id_element.value);
+				
+		       	cible.style.display = '';
+		 		for(i=1; i<=limit; i++) {
+		 			if(id_element.value != i)
+		 				document.getElementById("choix_groupe_" + i).style.display = 'none';
+		 		}
 			}
 		</script>
 	 </head>
@@ -83,25 +92,65 @@
 						</div>
 					</div>
 				</menu>
+				<section class="col-md-9">
 				<section>
-					<u1>
-						<c:choose>
-							<c:when test="${plan_id[0] == null}">
-								<li>Pas d'évènements pour le moment</li>
-							</c:when>
-							
-							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_plan}">
-									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
-									</li>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</u1>
+					<h4>Ajouter un élement au planning</h4>
+					<form method="post" action="EditionPlanning">
+						<label>Nom de l'événement : </label><input type="text" name="nom_plan" id="nom_plan" /><br/>
+						<span class="erreur">${erreurs['nom_grille']}</span>
+						<label>Description : </label><input type="textarea" name="descr_plan" id="descr_plan" /><br/>
+						<span class="erreur">${erreurs['nom_grille']}</span>
+						<label>Date : </label><input type="date" name="date_plan" id="date_plan" />
+						<span class="erreur">${erreurs['nom_grille']}</span>
+						<label>Heure de début: </label><input type="time" name="time_debut" id="time_debut" />
+						<span class="erreur">${erreurs['nom_grille']}</span>
+						<label>Heure de fin : </label><input type="time" name="time_fin" id="time_fin" />
+						<span class="erreur">${erreurs['nom_grille']}</span>
+						<select name="choix_app" id="choix_app" onchange="affichageElementList(choix_app, ${liste_app_size})">
+							<option disabled selected>Choisir un APP</option>
+							<c:forEach var="j" begin="0" end="${liste_app_size - 1}">
+								<option value="${inp_id_app[j]}">${inp_nom_app[j] }</option>
+							</c:forEach>
+						</select>
+						<c:forEach var="i" begin="0" end="${liste_app_size - 1}">
+							<select id="choix_groupe_${inp_id_app[i] }" name="groupe_choisi" style="display:none">
+								<option disabled selected>choisir un groupe</option>
+								<c:choose>
+									<c:when test="${i==0}">
+										<c:forEach var="j" begin="0" end="${taille_groupes[i] - 1}">
+											<option value="${id_all_group[j]}" >${nom_all_group[j]}</option>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<c:forEach var="j" begin="${taille_groupes[i-1]}" end="${taille_groupes[i] - 1}">
+											<option value="${id_all_group[j]}" >${nom_all_group[j]}</option>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+							</select>
+						</c:forEach><br/><br/>
+						<input type="submit" name="Submit" value="Ajouter un évenement" id="Submit" >
+					</form>
+					<div>
+						<h4>Liste des événements</h4>
+						<u1>
+							<c:choose>
+								<c:when test="${nb_plan == 0}">
+									<li>Pas d'évènements prévu</li>
+								</c:when>
+								
+								<c:otherwise>
+									<c:forEach var="i" begin="0" end="${nb_plan - 1}">
+										<li>Le <strong>${plan_date[i]}</strong> de ${heure_debut[i]} à ${heure_fin[i]} - <strong>${plan_groupe_nom[i]}</strong> dans <strong>${plan_groupe_app[i]}</strong> : ${plan_nom[i]} 
+										</li>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</u1>
+					</div>
 				</section>
 			</div>
 		</div>
-		
 		<footer>
 			<div><a href="#">CGU</a></div>
 			<div><a href="#">FAQ</a></div>

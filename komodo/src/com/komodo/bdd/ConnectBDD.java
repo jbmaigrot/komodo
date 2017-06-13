@@ -287,6 +287,7 @@ public class ConnectBDD {
     	  {	
     		  statement = connexion.createStatement();
     		  //System.out.println("Ca marche");
+    		  System.out.println("INSERT INTO "+INSERT_INTO+" ("+premiereMoitie+") VALUES ("+secondMoitie+")");
     		  statement.executeUpdate( "INSERT INTO "+INSERT_INTO+" ("+premiereMoitie+") VALUES ("+secondMoitie+")" ,Statement.RETURN_GENERATED_KEYS);
     		  //System.out.println(resultat);
     		  ResultSet resId = statement.getGeneratedKeys();
@@ -497,7 +498,7 @@ public class ConnectBDD {
   		}
   	}
     
-    public void affichagePlanningEleve(int numero_groupe, boolean isRespo, HttpServletRequest request) {
+    public void affichagePlanning(int numero_groupe, boolean isRespo, HttpServletRequest request) {
 		Statement statement_planning = null;
 		Statement statement_groupe = null;
 		ResultSet planning = null;
@@ -510,6 +511,9 @@ public class ConnectBDD {
 		ArrayList<String> plan_id = new ArrayList<String>();
 		ArrayList<String> plan_nom = new ArrayList<String>();
 		ArrayList<String> plan_description = new ArrayList<String>();
+		ArrayList<String> plan_gr_id = new ArrayList<String>();
+		ArrayList<String> plan_gr_nom = new ArrayList<String>();
+		ArrayList<String> plan_gr_app = new ArrayList<String>();
 		ArrayList<String> plan_date = new ArrayList<String>();
 		ArrayList<String> plan_debut = new ArrayList<String>();
 		ArrayList<String> plan_fin = new ArrayList<String>();
@@ -524,9 +528,36 @@ SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Descrip
 			statement_planning = connexion.createStatement();
 			statement_groupe = connexion.createStatement();
 			
-			//Récupération du planning - ID GROUPE FIXÉ !!!
 			if(isRespo) {
 				planning = statement_planning.executeQuery("SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Description, g.Nom Nom_groupe, g.id_groupe, app.id_grille, app.Nom_grille FROM `lie6` l6 INNER JOIN `planning` p ON l6.idPlaning=p.id_planning INNER JOIN groupe g ON g.id_groupe=l6.idGroupe INNER JOIN grille_de_competence_app app ON app.id_grille=g.idGrilleAPP ORDER BY Date, Debut, fin");
+				
+				while (planning.next())
+				{
+					plan_id.add(planning.getString( "id_planning" ));
+					plan_nom.add(planning.getString( "Nom_planning" ));
+					plan_description.add(planning.getString( "Description" ));
+					plan_date.add(planning.getString( "Date" ));
+					plan_debut.add(planning.getString( "Debut" ));
+					plan_fin.add(planning.getString( "Fin" ));
+					plan_gr_id.add(planning.getString( "id_groupe" ));
+					plan_gr_nom.add(planning.getString( "Nom_groupe" ));
+					plan_gr_app.add(planning.getString( "Nom_grille" ));
+					/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
+					 * 			heures : retirer les secondes
+					 * 			Ajouter une description cliquable pour étendre
+					 * */
+				}
+				//Définition des Attributs pour la page jsp
+				request.setAttribute("plan_id", plan_id);
+				request.setAttribute("plan_nom", plan_nom);
+				request.setAttribute("plan_description", plan_description);
+				request.setAttribute("plan_date", plan_date);
+				request.setAttribute("heure_debut", plan_debut);
+				request.setAttribute("heure_fin", plan_fin);
+				request.setAttribute("plan_groupe_id", plan_gr_id);
+				request.setAttribute("plan_groupe_nom", plan_gr_nom);
+				request.setAttribute("plan_groupe_app", plan_gr_app);
+				request.setAttribute("nb_plan", (plan_id.size()) );
 				
 			}else{
 				groupe = statement_groupe.executeQuery("SELECT app.Nom_grille, g.Nom Nom_groupe FROM grille_de_competence_app app INNER JOIN groupe g ON app.id_grille=g.idGrilleAPP WHERE id_groupe='"+numero_groupe+"'");
@@ -564,7 +595,7 @@ SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Descrip
 				request.setAttribute("plan_date", plan_date);
 				request.setAttribute("heure_debut", plan_debut);
 				request.setAttribute("heure_fin", plan_fin);
-				request.setAttribute("nb_plan", (plan_id.size()-1) );
+				request.setAttribute("nb_plan", (plan_id.size()) );
 			
 			}
 			

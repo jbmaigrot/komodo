@@ -88,12 +88,12 @@
 					<h4>Planning du groupe <strong>${nom_groupe}</strong> de <strong>${nom_app}</strong></h4>
 					<u1>
 						<c:choose>
-							<c:when test="${plan_id[0] == null}">
+							<c:when test="${nb_plan == 0}">
 								<li>Pas d'évènements dans le planning</li>
 							</c:when>
 							
 							<c:otherwise>
-								<c:forEach var="i" begin="0" end="${nb_plan}">
+								<c:forEach var="i" begin="0" end="${nb_plan - 1}">
 									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
 									</li>
 								</c:forEach>

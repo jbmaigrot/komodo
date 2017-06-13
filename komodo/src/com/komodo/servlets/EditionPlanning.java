@@ -2,6 +2,7 @@ package com.komodo.servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.sql.ResultSet;
 
@@ -22,18 +23,8 @@ import com.komodo.bdd.ConnectBDD;
 @WebServlet("/EditionPlanning")
 public class EditionPlanning extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/planning_eleve.jsp";
-	public static final String INFO_NOM_APP = "nom_app";
-    public static final String INFO_NOM_GROUPE = "nom_groupe";
-	// Creation planning
-	public static final String INFO_PLAN_ID = "plan_id";
-    public static final String INFO_PLAN_NOM = "plan_nom";
-    public static final String INFO_PLAN_DESCRIPTION = "plan_description";
-    public static final String INFO_PLAN_DATE = "plan_date";
-    public static final String INFO_PLAN_DEBUT = "heure_debut";
-    public static final String INFO_PLAN_FIN = "heure_fin";
-    public static final String INFO_NB_PLAN = "nb_plan";
-	
+	public static final String VUE = "/edition_planning.jsp";
+
 	 /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,81 +35,69 @@ public class EditionPlanning extends HttpServlet {
 
 	    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		//Création des plannings
 		ConnectBDD conn = new ConnectBDD();
-		Statement statement_planning = null;
-		Statement statement_groupe = null;
-		ResultSet planning = null;
-		ResultSet groupe = null;
-
-		String groupe_actif = null;
-		String nomAPP = null;
-		boolean pas_de_plan = true;
+		conn.getConnection();
+		List<String> listIdApp = new ArrayList<String>();
+		List<String> listNomApp = new ArrayList<String>();
+		List<Integer> listLength = new ArrayList<Integer>();
 		
-		ArrayList<String> plan_id = new ArrayList<String>();
-		ArrayList<String> plan_nom = new ArrayList<String>();
-		ArrayList<String> plan_description = new ArrayList<String>();
-		ArrayList<String> plan_date = new ArrayList<String>();
-		ArrayList<String> plan_debut = new ArrayList<String>();
-		ArrayList<String> plan_fin = new ArrayList<String>();
+		listIdApp = conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "inp_id_app", request);
+		listNomApp = conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "inp_nom_app", request);
+				
+		conn.sendList("id_groupe", "groupe", "1=1 ORDER BY idGrilleAPP", "id_all_group", request);
+		conn.sendList("Nom", "groupe", "1=1 ORDER BY idGrilleAPP", "nom_all_group", request);
 		
-		/*
-		 * Requête
-
-SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Description FROM `lie6` l6 INNER JOIN `planning` p ON l6.idPlaning=p.id_planning WHERE `idGroupe`=1 ORDER BY Date, Debut, fin
-		 */
-		try 
+		for(int i=0; i<listIdApp.size(); i++)
 		{
-			statement_planning = conn.getConnection().createStatement();
-			statement_groupe = conn.getConnection().createStatement();
-			
-			//Récupération du planning - ID GROUPE FIXÉ !!!
-			groupe = statement_groupe.executeQuery("SELECT app.Nom_grille, g.Nom Nom_groupe FROM grille_de_competence_app app INNER JOIN groupe g ON app.id_grille=g.idGrilleAPP");
-			planning = statement_planning.executeQuery("SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Description FROM `lie6` l6 INNER JOIN `planning` p ON l6.idPlaning=p.id_planning ORDER BY Date, Debut, fin");
-			
-			groupe.next();
-			nomAPP = groupe.getString( "Nom_grille" );
-			groupe_actif = groupe.getString( "Nom_groupe" );
-			
-			while (planning.next())
+			if(i!=0)
 			{
-				plan_id.add(planning.getString( "id_planning" ));
-				plan_nom.add(planning.getString( "Nom_planning" ));
-				plan_description.add(planning.getString( "Description" ));
-				plan_date.add(planning.getString( "Date" ));
-				plan_debut.add(planning.getString( "Debut" ));
-				plan_fin.add(planning.getString( "Fin" ));
-				pas_de_plan= false;
-				/* Ajouts : date au format JJ-MM-AAAA (actuellement AAAA-MM-JJ)
-				 * 			heures : retirer les secondes
-				 * 			Ajouter une description cliquable pour étendre
-				 * */
+				int sum = conn.compte("id_groupe", "groupe WHERE idGrilleAPP="+listIdApp.get(i)) + listLength.get(i-1);
+				listLength.add(sum);
+			} else {
+				listLength.add(conn.compte("id_groupe", "groupe WHERE idGrilleAPP="+listIdApp.get(i)));
 			}
-			if(pas_de_plan)
-			{
-				plan_id.add(null);
-			}
-			
-			//Définition des Attributs pour la page jsp
-			request.setAttribute(INFO_NOM_APP, nomAPP);
-			request.setAttribute(INFO_NOM_GROUPE, groupe_actif);
-			request.setAttribute(INFO_PLAN_ID, plan_id);
-			request.setAttribute(INFO_PLAN_NOM, plan_nom);
-			request.setAttribute(INFO_PLAN_DESCRIPTION, plan_description);
-			request.setAttribute(INFO_PLAN_DATE, plan_date);
-			request.setAttribute(INFO_PLAN_DEBUT, plan_debut);
-			request.setAttribute(INFO_PLAN_FIN, plan_fin);
-			request.setAttribute(INFO_NB_PLAN, (plan_id.size()-1) );
-			
-		} catch (SQLException e) 
-        {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		
+		request.setAttribute("taille_groupes", listLength);
+		request.setAttribute( "liste_app_size", listIdApp.size() );
+		
+		// Liste des plannings
+		conn.affichagePlanning(0, true, request);
+		
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
     }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("etape 0");
+		String id_APP = request.getParameter("choix_app");
+        String id_groupe = request.getParameter("groupe_choisi");
+		String nom_planning = request.getParameter("nom_plan");
+		String descr_planning = request.getParameter("descr_plan");
+		String date_planning = request.getParameter("date_plan");
+		String time_debut = request.getParameter("time_debut");
+		String time_fin = request.getParameter("time_fin");
+		ResultSet res_planning;
+		int id_planning = 0;
+		
+		ConnectBDD conn = new ConnectBDD();
+		System.out.println(id_APP);
+		conn.getConnection();
+		res_planning = conn.insertGroup("planning", "Nom_planning", "Description", nom_planning, descr_planning);
+		System.out.println("etape 1");
+		try {
+			System.out.println("étape 2");
+			if(res_planning.next()){
+				conn.insertGroup("lie6", "idGroupe", "idPlaning", "Date", "Debut", "Fin", id_groupe, res_planning.getString(1), date_planning, time_debut, time_fin);
+			}
+			//id_planning = res_planning.getInt("id_planning");
+			//System.out.println("id_planning " + id_planning);
+		} catch (SQLException e) {
+		}
+		
+		//conn.insertGroup("lie6", "idGroupe", "idPlaning", "Date", "Debut", "Fin", id_groupe, String.valueOf(id_planning), date_planning, time_debut, time_fin);
+		
+		doGet(request,response);
 	}
 }
