@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -79,7 +79,7 @@
 	 </head>	
 	 <body>
 		<jsp:include page = "header.jsp" />
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div>MOI<p>
@@ -89,6 +89,7 @@
 							<c:forEach items="${ eleves }" varStatus="s4">
 							<p><a href="AffichageEleve?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[0] }&competence=1">${ eleves[s4.index] }</a></p>
 							</c:forEach>
+							<p><a href="PlanningEleve?groupe=${ groupes_id[s3.index] }">[Planning]</a></p>
 						</div>
 						<script>hideEleves('f${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
 					</p></c:forEach>

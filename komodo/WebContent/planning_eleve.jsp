@@ -38,49 +38,13 @@
 	 </head>
 	 
 	 <body>
-	 	<header>
-			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-			<div class="col-md-3">
-	    		<a href="#">Thomas (mon profil)</a>
-	    		<a href="#">Déconnexion</a>
-	    	</div>
-		</header>
-
-		<div class="container">
-
+	 	<jsp:include page = "header.jsp" />
+		
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
-						<p id="promo1"><img src="pictures/minus.png"/>[TO BE MADE : MENU] PROMO 20XX</p>
-						<div class="aside-category">
-							<p id="category1"><img src="pictures/minus.png"/>Tuteur</p>
-							<div class="aside-app">
-								<p id="app1"><img src="pictures/minus.png"/>APP électronique</p>
-								<div class="aside-group">
-									<p id="group1"><img src="pictures/minus.png"/>Groupe APP A</p>
-									<div class="aside-student">
-										<p id="student1">Léo<p>
-										<p>François</p>
-										<p>Gérard</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="aside-category"><img src="pictures/plus.png"/>Client</div>
-					</div>
-					<div class="aside-promo">
-						<p><img src="pictures/plus.png"/>Autres promos</p>
-					</div>
-					<div class="aside-app" id="grille">
-						<p><a href="CreationGrille">Ajouter</a></p>
-					</div>
-					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","grilles");'>
-						<p><img src="pictures/plus.png"/>Grille APP<p>
-						<div id="grilles" style="display:none;">
-							<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
-								<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
-							</c:forEach>
-						</div>
+						<p><a class="link3" id="ajout" href="LoginServlet">Retour vers l'arborescence</a></p>
 					</div>
 				</menu>
 				<section class="col-md-9">
@@ -89,12 +53,12 @@
 					<u1>
 						<c:choose>
 							<c:when test="${nb_plan == 0}">
-								<li>Pas d'évènements dans le planning</li>
+								<li>Pas d'Ã©vÃ¨nements dans le planning</li>
 							</c:when>
 							
 							<c:otherwise>
 								<c:forEach var="i" begin="0" end="${nb_plan - 1}">
-									<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
+									<li>Le ${plan_date[i]} de ${heure_debut[i]} Ã  ${heure_fin[i]} : ${plan_nom[i]} 
 									</li>
 								</c:forEach>
 							</c:otherwise>

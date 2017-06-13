@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
@@ -106,6 +106,7 @@
 														<c:forEach items="${ eleves }" varStatus="s4">
 															<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
 														</c:forEach>
+														<p><a href="PlanningEleve?groupe=${ groupes_id[s3.index] }">[Planning]</a></p>
 													</div>
 													<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
 												</p></c:forEach>
@@ -119,35 +120,26 @@
 							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
 					</c:forEach>
+				<div class="aside-app" id="groupeAjout">
+					<p><a href="EditionPlanning">Ajouter planning</a></p>
+				</div>
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
-			    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+			    <div><a href = "#" class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'><img src = "pictures/minus.png"/> Groupe</a></div>
 			    <div id="nomGroupe" style="display:none;">
 			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-						<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						<div><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></div>
 					</c:forEach>
 			    </div>
 			    <div class="aside-app" id="editionPlan">
-					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élève</a></p>
+					<p><a id="lienEditionPlan" href="EditionPlanning">ÃƒÂ‰dition des plannings ÃƒÂ©lÃƒÂ¨ve</a></p>
 				</div>
-			     <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
-				    </div>
-				    <div class="aside-app" id="groupeAjout">
-						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
-					</div>
-				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
-				    <div id="nomGroupe" style="display:none;">
-				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
-						</c:forEach>
-				    </div>
 				     <div class="aside-app" id="ajoutCompPrin">
-					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃƒÂ¨le de compÃƒÂ©tence principale</a></p>
 					    </div>
 					    <div class="aside-app" id="ajoutCompSec">
-					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃƒÂ¨le de compÃƒÂ©tence secondaire</a></p>
 					    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 					    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
