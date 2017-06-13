@@ -17,6 +17,7 @@
 
 		<script src="script/jquery.min.js"></script>
 		<script src="script/test.js"></script>
+		<script src="script/select.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,33 +26,6 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<script type="text/javascript">
-		function get(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
-	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;
-			}
-			return vars;
-		}
-		
-		function modifLink(){
-			var obj=document.getElementsByClassName("link");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		</script>
 	 </head>
 
 	 <body>
