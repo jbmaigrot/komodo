@@ -38,3 +38,13 @@ function modifLink2(){
 		//alert(obj[i].href);
 	}
 }
+
+
+function modifLink3(){
+	var obj=document.getElementsByClassName("link3");
+	for (i = 0; i < obj.length; i++) {
+		//alert(obj[i].href);
+		obj[i].href = obj[i].href.replace("Type", get("type"));
+		//alert(obj[i].href);
+	}
+}

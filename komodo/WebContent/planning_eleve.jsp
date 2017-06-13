@@ -55,7 +55,7 @@
 					<u1>
 						<c:choose>
 							<c:when test="${nb_plan == 0}">
-								<li>Pas d'Ã©vÃ¨nements dans le planning</li>
+								<li>Pas d'évènements dans le planning</li>
 							</c:when>
 							
 							<c:otherwise>

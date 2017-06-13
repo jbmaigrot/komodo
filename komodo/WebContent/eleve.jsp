@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>ElÃ¨ve</title>
+		<title>Elève</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +17,7 @@
 
 		<script src="script/jquery.min.js"></script>
 		<script src="script/test.js"></script>
+		<script src="script/select.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,40 +26,13 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<script type="text/javascript">
-		function get(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
-	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;
-			}
-			return vars;
-		}
-		
-		function modifLink(){
-			var obj=document.getElementsByClassName("link");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		</script>
 	 </head>
 
 	 <body>
 
 	 	<jsp:include page = "header.jsp" />
 		
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -79,16 +53,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire Ã  l'Ã©lÃ¨ve</th>
+									<th>Commentaire à l'élève</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compÃ©tence<br>
+										Niveau de compétence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">TrÃ¨s proche</div>
+											<div class="skill-level">Très proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delÃ </div>
+											<div class="skill-level">Au-delà </div>
 										</div>
 									</th>
 								</tr>
