@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Elève</title>
+		<title>ElÃ¨ve</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,29 +56,22 @@
 
 	 <body>
 
-	 	<%@include  file="header.jsp" %>
+	 	<jsp:include page = "header.jsp" />
 		
 		<div class="container">
 			<div class="row">
 				<menu class="col-md-3">
-					<div class="group" onclick="menuToggle(this)">
-						<img src="pictures/minus.png"/>
-						<img src="pictures/plus.png" class="hidden-menu"/>
-						APP électronique
-						<div class="aside-student">
-							<p id="student1">MOI<p>
-							<p>François</p>
-							<p>Gérard</p>
-						</div>
+					<div class="aside-promo">
+						<p><a id="ajout" href="ArborescenceEleve">Retour vers l'arborescence</a></p>
 					</div>
 				</menu>
 
 				<section class="col-md-9">
-					<h2>Promo 2018 &gt; Tuteur &gt; APP électronique &gt; Groupe APP A &gt; Léo</h2>
+					<h2></h2>
 					<div id="content">
 						<div id="tabs">
 							<c:forEach items="${ compprinc }" varStatus="i">
-							<div class="tab"><a class="link" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a></div>
+							<a class="tab link" href="AffichageEleve?eleve=0&grille=0&competence=${ compprinc_id[i.index] }">${ compprinc[i.index] }</a>
 							</c:forEach>
 						</div>
 						<div>
@@ -86,16 +79,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire à l'élève</th>
+									<th>Commentaire Ã  l'Ã©lÃ¨ve</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compétence<br>
+										Niveau de compÃ©tence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">Très proche</div>
+											<div class="skill-level">TrÃ¨s proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delà</div>
+											<div class="skill-level">Au-delÃ </div>
 										</div>
 									</th>
 								</tr>
@@ -104,7 +97,10 @@
 								<c:set var="tproche" value="tproche" scope="page" />
 								<c:set var="attendu" value="attendu" scope="page" />
 								<c:set var="audela" value="audela" scope="page" />
-								<c:forEach items="${ competences }" varStatus="ligne">
+								
+								<c:set var="J" value="Jugement global" scope="page" />
+								
+								<c:forEach items="${ competences }" varStatus="ligne"><c:if test="${ noms[ligne.index] == J }" var="variable">
 								<tr>
 									<td>
 										<div class="skill">${ noms[ligne.index] }</div>
@@ -162,7 +158,67 @@
 										</div>
 									</td>
 								</tr>
-								</c:forEach>
+								</c:if></c:forEach>
+								
+								<c:forEach items="${ competences }" varStatus="ligne"><c:if test="${ noms[ligne.index] != J }" var="variable">
+								<tr>
+									<td>
+										<div class="skill">${ noms[ligne.index] }</div>
+										<div class="criteria">
+											${ criteres[ligne.index] }
+										</div>
+									</td>
+									<td>${ cp[ligne.index] }</td>
+									<td>${ ci[ligne.index] }</td>
+									<td>${ cg[ligne.index] }</td>
+									<td>
+										<div class="skill-levels">
+											<c:if test="${ evaluations[ligne.index] == loin }" var="variable">
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ evaluations[ligne.index] == proche }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ evaluations[ligne.index] == tproche }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ evaluations[ligne.index] == attendu }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+											<c:if test="${ evaluations[ligne.index] == audela }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell" id="skill-level2"></div>
+											</c:if>
+											<c:if test="${ evaluations[ligne.index] != loin && evaluations[ligne.index] != proche && evaluations[ligne.index] != tproche && evaluations[ligne.index] != attendu && evaluations[ligne.index] != audela }" var="variable">
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+												<div class="skill-level-cell"></div>
+											</c:if>
+										</div>
+									</td>
+								</tr>
+								</c:if></c:forEach>
 							</table>
 						</div>
 					</div>
@@ -170,7 +226,7 @@
 			</div>
 		</div>
 
-		<%@include  file="footer.jsp" %>
+		<jsp:include page = "footer.jsp" />
 		
 		<script>modifLink();</script>
 	</body>

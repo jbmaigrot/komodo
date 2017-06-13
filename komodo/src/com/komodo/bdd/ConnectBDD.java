@@ -387,7 +387,7 @@ public class ConnectBDD {
   		String ClientId = null;
   		String ClientPrenom = null;
   		String ClientNom = null;
-  		
+  		String idAPP = null;
   		String nomAPP = null;
   		
   		ArrayList<String> listeEleveId = new ArrayList<String>();
@@ -414,16 +414,16 @@ public class ConnectBDD {
   			statement_tous_eleves = connexion.createStatement();
   			statement_planning = connexion.createStatement();
   			
-  			TuteurInfo = statement_tuteur.executeQuery( "SELECT app.Nom_grille, app.Promo, g.Nom Nom_groupe, u.id, u.Nom Nom_prof, u.Prenom FROM grille_de_competence_app app INNER JOIN groupe g ON app.id_grille=g.idGrilleAPP INNER JOIN utilisateur u ON g.idTuteur=u.id WHERE id_groupe='"+ numero_groupe +"'" );
+  			TuteurInfo = statement_tuteur.executeQuery( "SELECT app.id_grille, app.Nom_grille, app.Promo, g.Nom Nom_groupe, u.id, u.Nom Nom_prof, u.Prenom FROM grille_de_competence_app app INNER JOIN groupe g ON app.id_grille=g.idGrilleAPP INNER JOIN utilisateur u ON g.idTuteur=u.id WHERE id_groupe='"+ numero_groupe +"'" );
   			ClientInfo = statement_client.executeQuery( "SELECT app.Nom_grille, app.Promo, g.Nom Nom_groupe, u.id, u.Nom Nom_prof, u.Prenom FROM grille_de_competence_app app INNER JOIN groupe g ON app.id_grille=g.idGrilleAPP INNER JOIN utilisateur u ON g.idClient=u.id WHERE id_groupe='"+ numero_groupe +"'" );
   			listeEleves = statement_eleves.executeQuery("SELECT g.id_groupe, g.Nom Nom_grille, e.id_utilisateur, e.Numero_eleve, e.Annee, u.Prenom, u.Nom Nom_eleve FROM groupe g INNER JOIN appartient a ON a.idGroupe=g.id_groupe INNER JOIN eleves e ON a.idEleve=e.id_utilisateur INNER JOIN utilisateur u ON u.id= e.id_utilisateur WHERE g.id_groupe='"+ numero_groupe +"' AND a.actif='1' ");
   			planning = statement_planning.executeQuery("SELECT l6.Date, l6.`Debut`, l6.`Fin`, p.`id_planning`, p.Nom_planning, p.Description FROM `lie6` l6 INNER JOIN `planning` p ON l6.idPlaning=p.id_planning WHERE `idGroupe`='"+ numero_groupe+"' ORDER BY Date, Debut, fin");
-  			
+  			System.out.println("SELECT g.id_groupe, g.Nom Nom_grille, e.id_utilisateur, e.Numero_eleve, e.Annee, u.Prenom, u.Nom Nom_eleve FROM groupe g INNER JOIN appartient a ON a.idGroupe=g.id_groupe INNER JOIN eleves e ON a.idEleve=e.id_utilisateur INNER JOIN utilisateur u ON u.id= e.id_utilisateur WHERE g.id_groupe='"+ numero_groupe +"' AND a.actif='1'"); 
   			TuteurInfo.next();
   			ClientInfo.next();
   			
   			AllEleves = statement_tous_eleves.executeQuery("SELECT u.id, u.Nom, u.Prenom, e.Numero_eleve, a.idGroupe FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE e.Annee='"+ TuteurInfo.getString( "Promo" ) +"' AND u.id NOT IN (SELECT u.id FROM utilisateur u INNER JOIN eleves e ON e.id_utilisateur=u.id LEFT JOIN appartient a ON a.idEleve=e.id_utilisateur WHERE a.idGroupe='"+ numero_groupe +"')");
-  			
+  			idAPP = TuteurInfo.getString( "id_grille" );
   			nomAPP = TuteurInfo.getString( "Nom_grille" );
   			groupe_actif = TuteurInfo.getString( "Nom_groupe" );
   			TuteurId = TuteurInfo.getString( "id" );
@@ -463,6 +463,7 @@ public class ConnectBDD {
   				 * */
   			}
   			//Définition des Attributs pour la page jsp
+  			request.setAttribute("id_app", idAPP);
   			request.setAttribute("nom_app", nomAPP);
   			request.setAttribute("nom_groupe", groupe_actif);
   			request.setAttribute("id_groupe", numero_groupe);

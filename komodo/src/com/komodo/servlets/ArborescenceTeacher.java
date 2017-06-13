@@ -53,6 +53,11 @@ public class ArborescenceTeacher extends HttpServlet {
 			List<String> utmp = conn.sendList("id", "utilisateur", "NomConnection='"+username+"'", "utmp",request);
 			int monIdUtilisateur=Integer.parseInt(utmp.get(0));
 			
+			String promo=new String();
+			promo="0";
+			if(request.getParameter("promo")!=null)
+				promo=request.getParameter("promo");
+			String flt = " AND idGrilleAPP IN (SELECT id_grille FROM grille_de_competence_app WHERE Promo="+promo+")";
 			if(role.contains("Autre"))
 			{
 				conn.sendList("Promo", "grille_de_competence_app", "1=1 ORDER BY id_grille", "promos",request);
@@ -61,14 +66,14 @@ public class ArborescenceTeacher extends HttpServlet {
 			}
 			else if(role.contains("Tuteur"))
 			{
-				List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "idTuteur="+monIdUtilisateur, "tmp3", request);
+				List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "idTuteur="+monIdUtilisateur+""+flt, "tmp3", request);
 				conn.sendListById("Promo", "grille_de_competence_app", "id_grille", l3, "promos", request);
 				conn.sendListById("Nom_grille", "grille_de_competence_app", "id_grille", l3, "apps", request);
 				conn.sendListById("id_grille", "grille_de_competence_app", "id_grille", l3, "apps_id", request);
 			}
 			else if(role.contains("Client"))
 			{
-				List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "idClient="+monIdUtilisateur, "tmp3", request);
+				List<String> l3 = conn.sendList("idGrilleAPP", "groupe", "idClient="+monIdUtilisateur+""+flt, "tmp3", request);
 				conn.sendListById("Promo", "grille_de_competence_app", "id_grille", l3, "promos", request);
 				conn.sendListById("Nom_grille", "grille_de_competence_app", "id_grille", l3, "apps", request);
 				conn.sendListById("id_grille", "grille_de_competence_app", "id_grille", l3, "apps_id", request);
@@ -76,15 +81,16 @@ public class ArborescenceTeacher extends HttpServlet {
 			
 			//preparation donnes groupe
 			String app=request.getParameter("app");
-			List<String> l1 = conn.sendList("idEleve", "lie2", "idGrilleComp="+app, "tmp1",request);
+			//List<String> l1 = conn.sendList("idEleve", "lie2", "idGrilleComp="+app, "tmp1",request);
+			List<String> l1 = conn.sendList("idEleve", "appartient", "idGroupe IN (SELECT id_groupe FROM groupe WHERE idGrilleAPP="+app+")", "tmp1",request);
+			
 			List<String> l2 = conn.sendListById("idGroupe", "appartient", "idEleve", l1, "tmp2", request);
 			//donnes groupe
-			conn.sendListById("Nom", "groupe", "id_groupe", l2, "groupes", request);
-			conn.sendListById("id_groupe", "groupe", "id_groupe", l2, "groupes_id", request);
+			//conn.sendListById("Nom", "groupe", "id_groupe", l2, "groupes", request);
+			//conn.sendListById("id_groupe", "groupe", "id_groupe", l2, "groupes_id", request);
 			
-			
-			//conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupes",request);
-			//conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupes_id",request);
+			conn.sendList("Nom", "groupe", "idGrilleAPP = "+app+" ORDER BY id_groupe", "groupes",request);
+			conn.sendList("id_groupe", "groupe", "idGrilleAPP = "+app+" ORDER BY id_groupe", "groupes_id",request);
 			
 			//preparation donnes eleves
 			String groupe=request.getParameter("groupe");

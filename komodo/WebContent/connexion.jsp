@@ -18,8 +18,8 @@
 		<![endif]-->
     </head>
     
-    <body>
-    	<div class="center">
+    <body class="white">
+	    <div class="center">
 	        <form class="connexion" method="post" action="LoginServlet">
 	        	<div class="container">
 	            	<h2>Connexion</h2>

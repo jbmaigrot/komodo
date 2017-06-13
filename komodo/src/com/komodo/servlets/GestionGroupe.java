@@ -48,6 +48,12 @@ public class GestionGroupe extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ConnectBDD conn = new ConnectBDD();
 	    conn.getConnection();
+	    
+	    conn.sendList("id_groupe", "groupe", "1=1 ORDER BY id_groupe", "groupeTabId",request);
+		conn.sendList("Nom", "groupe", "1=1 ORDER BY id_groupe", "groupeTabNom",request);
+		
+		conn.sendList("id_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabId",request);
+		conn.sendList("Nom_grille", "grille_de_competence_app", "1=1 ORDER BY id_grille", "grilleTabNom",request);
 	    String id_groupe = request.getParameter("id_groupe");
 	    numero_groupe = Integer.parseInt(id_groupe);
 	 	//Récupération du groupe, des profs, du planning et des eleves - ID GROUPE FIXÉ !!!
@@ -64,6 +70,7 @@ public class GestionGroupe extends HttpServlet {
         Map<String, String> erreurs = new HashMap<String, String>();
         Map<String, String> erreurs_bdd = new HashMap<String, String>();
         boolean fail=false;
+        String id_app = request.getParameter("id_app");
         String id_groupe = request.getParameter("id_groupe");
 	    numero_groupe = Integer.parseInt(id_groupe);
 		
@@ -84,6 +91,7 @@ public class GestionGroupe extends HttpServlet {
 		{
 		// Accès BDD
 			conn.insertGroup("appartient", "idEleve", "idGroupe", nouvel_eleve, ""+numero_groupe);
+			conn.insertGroup("lie2", "idEleve", "idGrilleComp", nouvel_eleve, id_app);
 		}
 		
 		// Renvoie des erreurs

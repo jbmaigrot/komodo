@@ -102,7 +102,7 @@
 	</head>
 	<body>	
 		<jsp:include page="header.jsp" />
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -115,6 +115,15 @@
 					<div id="nomGrille" style="display:none;">
 						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
 							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+						</c:forEach>
+				    </div>
+				     <div class="aside-app" id="groupeAjout">
+						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
+					</div>
+				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+				    <div id="nomGroupe" style="display:none;">
+				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
+							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
