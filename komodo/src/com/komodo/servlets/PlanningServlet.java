@@ -33,11 +33,13 @@ public class PlanningServlet extends HttpServlet {
     }
 
 	
-	int numero_groupe = 1;
+	int numero_groupe = 0;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ConnectBDD conn = new ConnectBDD();
+		numero_groupe = Integer.parseInt(request.getParameter("groupe"));
+		//numero_groupe=1;
 	    conn.getConnection();
 	    conn.affichagePlanning(numero_groupe, false, request);
         this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
