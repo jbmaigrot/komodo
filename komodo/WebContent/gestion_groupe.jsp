@@ -50,7 +50,7 @@
 	 <body>
 	 	<jsp:include page="header.jsp" />
 
-		<div class="container">
+		<div class="container white">
 
 			<div class="row">
 				<menu class="col-md-3">
@@ -85,6 +85,8 @@
 				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
 					</div>
 				</menu>
+		
+				
 				<section class="col-md-9">
 					<div>
 						<h1>Gestion de groupe</h1>
@@ -148,8 +150,7 @@
 						</u1>
 					</div>
 				</section>
-			</div>
-		</div>
+			
 		
 		<jsp:include page = "footer.jsp" />
 	</body>
