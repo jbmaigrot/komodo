@@ -5,8 +5,22 @@
 
 
 <html>
-    <head>
-        <meta charset="UTF-8"/>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<!-- Bootstrap -->
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 		<title>Arborescence</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		
@@ -64,12 +78,7 @@
 		</script>
 	 </head>	
 	 <body>
-		<header>
-			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-			<div class="col-md-3">
-				<a href="#">${ sessionScope.userName }</a><br> <a href="LogoutServlet">Déconnexion</a>
-			</div>
-		</header>
+		<jsp:include page = "header.jsp" />
 		<div class="container">
 			<div class="row">
 				<menu class="col-md-3">
