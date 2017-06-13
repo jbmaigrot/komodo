@@ -120,6 +120,15 @@
 							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
 					</c:forEach>
+					<div class="aside-app" id="grille">
+						<p><a id="ajout" href="CreationGrille">Ajouter Grille</a></p>
+					</div>
+					<div class="aside-app" id="grille" onClick='selectionElementGrille("grille","nomGrille");'>Grille APP</div>
+					<div id="nomGrille" style="display:none;">
+						<c:forEach items="${grilleTabId }" var="grilleInd" varStatus="iterator">
+							<p><a href="ModifierGrille?id=${grilleInd }">${grilleTabNom[iterator.index]}</a></p>
+						</c:forEach>
+				    </div>
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
