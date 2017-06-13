@@ -52,7 +52,7 @@
 				var type = document.getElementById("type").value;
 				
 				var div = document.getElementById(eleve);
-				alert(div);
+
 				if (type=="eleve"){
 					
 					div.style.display='';

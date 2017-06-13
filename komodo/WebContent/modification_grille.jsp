@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -127,10 +129,10 @@
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutCompSec">
-				   		<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				   		<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
@@ -155,7 +157,7 @@
 							<span class="erreur">${erreurs['promo']}</span>
 						</p>
 					
-						<p>Compétence(s) principale(s)</p>
+						<p>CompÃ©tence(s) principale(s)</p>
 						<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
 							<c:set var="tabNum" value="tab${boucle.count }"/>
 							<p>
@@ -174,7 +176,7 @@
 				  				<div id="tabs">
 									<div class="comp${boucle.count}"><a href="#comp_Sec${boucle.count }" id="comp_princip${boucle.count }" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd}" ><c:set var="valideGet" value="true"/>style="display:;"</c:if></c:forTokens><c:if test="${valideGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valide[boucle.count] == false}"> style="display:none;"</c:if> <c:if test = "${valide[boucle.count] == true}"> style="display:'';" </c:if></c:when></c:choose> onClick='selectionElementGrille("comp_princip${boucle.count}","comp_Sec${boucle.count }");'>${nomCompPrincipInd}</a>
 										<div id="comp_Sec${boucle.count }" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd}" ><c:set var="valideGet" value="true"/> style="display:;"</c:if></c:forTokens><c:if test="${valideGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valide[boucle.count] == false}"> style="display:none;"</c:if> <c:if test = "${valide[boucle.count] == true}"> style="display:'';" </c:if></c:when></c:choose>>
-										<p>Compétence(s) secondaire(s)</p>
+										<p>CompÃ©tence(s) secondaire(s)</p>
 											<c:forEach items="${ nomCompSec }" var="nomCompSecInd" varStatus="boucleSec">
 												<c:set var="tabNumCompSecond" value="compSec${boucle.count }${boucleSec.count}"/>
 												<c:set var="tabNumCompSecErreur" value="compSec${boucle.count }1"/>
@@ -190,12 +192,12 @@
 													</c:forEach>
 												</c:forTokens>
 												<div id = "critere${boucle.count }${boucleSec.count}" <c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:forEach items="${resultatNomCompSec }" var="resultatNomCompSecInd" varStatus="boucleResultCompSec"><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd && resultatNomCompSecInd == nomCompSecInd && resultatIdNomCompPrincip[boucleResult.count-1] == resultatIdNomCompSec[boucleResultCompSec.count-1]}"><c:set var="valideSecGet" value="true"/> style="display:;"</c:if></c:forEach></c:forTokens><c:if test="${valideSecGet == false }">style="display:none;"</c:if></c:when><c:when test="${not empty erreurs }"><c:if test = "${valideSec[boucle.count][boucleSec.count] == false}"> style="display:none;"</c:if> <c:if test = "${valideSec[boucle.count][boucleSec.count] == true}"> style="display:'';" </c:if></c:when></c:choose>>
-													<p> Critère de sélection : 
+													<p> CritÃ¨re de sÃ©lection : 
 														<textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}"><c:choose><c:when test="${empty erreurs }"><c:forTokens items="${resultatNomCompPrincip }" delims=", " varStatus="boucleResult" ><c:forEach items="${resultatNomCompSec }" var="resultatNomCompSecInd" varStatus="boucleResultCompSec"><c:if test="${resultatNomCompPrincip[boucleResult.count-1] == nomCompPrincipInd && resultatNomCompSecInd == nomCompSecInd && resultatIdNomCompPrincip[boucleResult.count-1] == resultatIdNomCompSec[boucleResultCompSec.count-1]}"><c:out value="${resultatCompCritere[compteTest2] }"/></c:if></c:forEach></c:forTokens></c:when><c:when test="${not empty erreurs }"><c:out value="${param[tabNumCritere]}"/></c:when></c:choose></textarea>
 													</p>
 													<span>${erreurs[tabNumCritere]}</span>
 													
-													<p> Pondération : 
+													<p> PondÃ©ration : 
 														<select name="${tabNumPonderation}" size="1" id="ponderation${boucle.count}${boucleSec.count}" onclick="affichageListeCoefficient(this, '4');">
 															<option disabled selected>Coefficient</option>
 															<c:forEach var="i" begin="1" end ="30" step="1">			

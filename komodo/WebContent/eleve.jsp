@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -17,6 +17,7 @@
 
 		<script src="script/jquery.min.js"></script>
 		<script src="script/test.js"></script>
+		<script src="script/select.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,40 +26,13 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-		<script type="text/javascript">
-		function get(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
-	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;
-			}
-			return vars;
-		}
-		
-		function modifLink(){
-			var obj=document.getElementsByClassName("link");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		</script>
 	 </head>
 
 	 <body>
 
 	 	<jsp:include page = "header.jsp" />
 		
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -88,7 +62,7 @@
 											<div class="skill-level">Proche</div>
 											<div class="skill-level">Très proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delà</div>
+											<div class="skill-level">Au-delà </div>
 										</div>
 									</th>
 								</tr>

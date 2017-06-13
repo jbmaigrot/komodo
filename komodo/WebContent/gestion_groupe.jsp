@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -76,10 +78,10 @@
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="#creation" onClick='selectionElementGrille("ajoutCompPrin","creation");'>Ajouter un modèle de compétence principale</a></p>
+				    	<p><a id="ajoutCompPrin" href="#creation" onClick='selectionElementGrille("ajoutCompPrin","creation");'>Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutCompSec">
-				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
@@ -93,11 +95,11 @@
 						<h3>Edition de <strong>${nom_groupe}</strong> dans <strong>${nom_app}</strong></h3>
 						<p> Tuteur : ${tuteur_prenom} ${tuteur_nom}<p>
 						<p> Client : ${client_prenom} ${client_nom}<p>
-						<p> Élèves membre :<p>
+						<p> Ã‰lÃ¨ves membre :<p>
 						<ul>
 							<c:choose>
 								<c:when test="${nb_eleves == 0}">
-									<li>Pas encore d'élèves</li>
+									<li>Pas encore d'Ã©lÃ¨ves</li>
 								</c:when>
 								
 								<c:otherwise>
@@ -117,11 +119,11 @@
 								
 									<c:choose>
 										<c:when test="${nb_all == 0}">
-											<option>Pas d'élèves à ajouter</option>
+											<option>Pas d'Ã©lÃ¨ves Ã  ajouter</option>
 										</c:when>
 									
 										<c:otherwise>
-											<option disabled selected>Nouvel élève</option>
+											<option disabled selected>Nouvel Ã©lÃ¨ve</option>
 											<c:forEach var="i" begin="0" end="${nb_all - 1}">
 												<option value='<c:out value="${all_id[i]}"/>' > ${all_numero[i]} ${all_prenom[i]} ${all_nom[i]}</option>
 											</c:forEach>
@@ -137,12 +139,12 @@
 						<u1>
 							<c:choose>
 								<c:when test="${nb_plan == 0}">
-									<li>Pas d'évènements dans le planning</li>
+									<li>Pas d'Ã©vÃ¨nements dans le planning</li>
 								</c:when>
 								
 								<c:otherwise>
 									<c:forEach var="i" begin="0" end="${nb_plan - 1}">
-										<li>Le ${plan_date[i]} de ${heure_debut[i]} à ${heure_fin[i]} : ${plan_nom[i]} 
+										<li>Le ${plan_date[i]} de ${heure_debut[i]} Ã  ${heure_fin[i]} : ${plan_nom[i]} 
 										</li>
 									</c:forEach>
 								</c:otherwise>

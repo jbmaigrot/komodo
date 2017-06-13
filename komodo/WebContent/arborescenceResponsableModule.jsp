@@ -133,13 +133,13 @@
 					</c:forEach>
 			    </div>
 			    <div class="aside-app" id="editionPlan">
-					<p><a id="lienEditionPlan" href="EditionPlanning">Ãdition des plannings Ã©lÃ¨ve</a></p>
+					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élèves</a></p>
 				</div>
 				     <div class="aside-app" id="ajoutCompPrin">
-					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
+					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
 					    </div>
 					    <div class="aside-app" id="ajoutCompSec">
-					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
+					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
 					    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 					    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>

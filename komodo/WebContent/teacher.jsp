@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -26,54 +26,6 @@
 		<script src="script/test.js"></script>	
 		<script src="script/select.js"></script>
 	 </head>
-	 
-	 <script type="text/javascript">
-		function get(param) {
-			var vars = {};
-			window.location.href.replace( location.hash, '' ).replace( 
-				/[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
-				function( m, key, value ) { // callback
-					vars[key] = value !== undefined ? value : '';
-				}
-			);
-	
-			if ( param ) {
-				return vars[param] ? vars[param] : null;
-			}
-			return vars;
-		}
-		
-		function modifLink(){
-			var obj=document.getElementsByClassName("link");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].href = obj[i].href.replace("grille=0", "grille="+get("grille"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		function modifLink2(){
-			var obj=document.getElementsByClassName("link2");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].action = obj[i].action.replace("eleve=0", "eleve="+get("eleve"));
-				obj[i].action = obj[i].action.replace("grille=0", "grille="+get("grille"));
-				obj[i].action = obj[i].action.replace("competence=0", "competence="+get("competence"));
-				//alert(obj[i].href);
-			}
-		}
-		 
-		function modifLink3(){
-			var obj=document.getElementsByClassName("link3");
-			for (i = 0; i < obj.length; i++) {
-				//alert(obj[i].href);
-				obj[i].href = obj[i].href.replace("Type", get("type"));
-				//alert(obj[i].href);
-			}
-		}
-		
-		</script>
 
 	 <body>
 
