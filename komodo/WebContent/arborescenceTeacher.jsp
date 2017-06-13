@@ -98,6 +98,7 @@
 											<c:forEach items="${ eleves }" varStatus="s4">
 											<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
 											</c:forEach>
+											<p><a href="PlanningEleve?groupe=${ groupes_id[s3.index] }">[Planning]</a></p>
 										</div>
 										<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
 									</p></c:forEach>
