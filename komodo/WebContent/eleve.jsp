@@ -79,16 +79,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire Ã  l'Ã©lÃ¨ve</th>
+									<th>Commentaire à l'élève</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compÃ©tence<br>
+										Niveau de compétence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">TrÃ¨s proche</div>
+											<div class="skill-level">Très proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delÃ </div>
+											<div class="skill-level">Au-delà </div>
 										</div>
 									</th>
 								</tr>
