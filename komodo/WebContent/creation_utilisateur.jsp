@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -6,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Création utilisateur</title>
+		<title>CrÃ©ation utilisateur</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -88,10 +90,10 @@
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutCompSec">
-				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 				    </div>
 				     <div class="aside-app" id="ajoutUtilisateur">
 				    	<p><a id="ajoutCompSec" href="#creation" onClick='selectionElementGrille("ajoutUtilisateur","creation");'>Ajouter un utilisateur</a></p>
@@ -106,7 +108,7 @@
 				 				<span class="erreur">${erreurs['nom_utilisateur']}</span>
 							</div>
 							<div>
-								<label>Prénom : </label><input type="text" name="prenom_utilisateur" value='<c:out value="${param.prenom_utilisateur}"/>' id="prenom_utilisateur" />
+								<label>PrÃ©nom : </label><input type="text" name="prenom_utilisateur" value='<c:out value="${param.prenom_utilisateur}"/>' id="prenom_utilisateur" />
 				 				<span class="erreur">${erreurs['prenom_utilisateur']}</span>
 							</div>
 							<p>
@@ -126,7 +128,7 @@
 							<div>
 								<label>Type : </label><select name="type" size="1" id="type" onchange='changementType("eleve");'>
 							    <option disabled selected >Type</option>
-								<option value="${eleve}" <c:if test="${param.type == eleve }">selected<c:set var="affEleve" value="true"/></c:if>>élève</option>
+								<option value="${eleve}" <c:if test="${param.type == eleve }">selected<c:set var="affEleve" value="true"/></c:if>>Ã©lÃ¨ve</option>
 								<option value="${professeur }" <c:if test="${param.type == professeur }">selected</c:if>>professeur</option>
 								<option value="${responsable }" <c:if test="${param.type == responsable }">selected</c:if>>responsable</option>
 								</select>
@@ -143,12 +145,12 @@
 							</div>
 							<div id="eleve" <c:choose><c:when test = "${affEleve == false}"> style="display:none;"</c:when> <c:when test = "${affEleve == true}"> style="display:'';"</c:when></c:choose>>
 							<div>
-								<label>Numéro élève : </label><input type="text" name="numero_eleve" value='<c:out value="${param.numero_eleve}"/>' id="numero_eleve" />
+								<label>NumÃ©ro Ã©lÃ¨ve : </label><input type="text" name="numero_eleve" value='<c:out value="${param.numero_eleve}"/>' id="numero_eleve" />
 				 				<span class="erreur">${erreurs['numero_eleve']}</span>
 							</div>
 							<p>
-								<label>Année : </label><select name="annee" size="1" onclick="affichageListeCoefficient(this, '4');" >
-								<option disabled selected >Année</option>
+								<label>AnnÃ©e : </label><select name="annee" size="1" onclick="affichageListeCoefficient(this, '4');" >
+								<option disabled selected >AnnÃ©e</option>
 								<c:forEach var="i" begin="2015" end ="2050" step="1">
 								
 									<option value="${ i}" <c:if test = "${param.annee == i}">selected</c:if>><c:out value="${ i }" /> </option>
@@ -157,7 +159,7 @@
 								<span class="erreur">${erreurs['annee']}</span>
 							</p>
 							<div>
-								<label>Spécialité : </label><input type="text" name="specialite" value='<c:out value="${param.specialite}"/>' id="specialite" />
+								<label>SpÃ©cialitÃ© : </label><input type="text" name="specialite" value='<c:out value="${param.specialite}"/>' id="specialite" />
 				 				<span class="erreur">${erreurs['specialite']}</span>
 							</div>
 							</div>

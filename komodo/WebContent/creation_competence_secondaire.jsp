@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -41,7 +43,7 @@
 	</head>
 	<body>
 		<jsp:include page="header.jsp" />
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
@@ -66,10 +68,10 @@
 						</c:forEach>
 				    </div>
 			    	<div class="aside-app" id="ajoutCompPrin">
-			   			<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+			   			<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 			    	</div>
 			   		<div class="aside-app" id="ajoutCompSec">
-			   	 		<p><a id="ajoutCompSec" href="#creation" onClick='selectionElementGrille("ajoutCompSec","creation");'>Ajouter un modèle de compétence secondaire</a></p>
+			   	 		<p><a id="ajoutCompSec" href="#creation" onClick='selectionElementGrille("ajoutCompSec","creation");'>Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 			    	</div>
 			    	<div class="aside-app" id="ajoutUtilisateur">
 				   		<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
@@ -80,7 +82,7 @@
 					<div id="creation">
 						<form method="post" action="CreationCompetenceSecondaire">
 							<div>
-								<label>Nom compétence secondaire : </label><input type="text" name="nom_competence_secondaire" value="" id="nom_competence_secondaire" />
+								<label>Nom compÃ©tence secondaire : </label><input type="text" name="nom_competence_secondaire" value="" id="nom_competence_secondaire" />
 						 		<span class="erreur">${erreurs['nom_competence_secondaire']}</span>
 							</div>
 							<input type="submit" name="Submit" value="Valider" id="Submit" >

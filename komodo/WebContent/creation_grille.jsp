@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -6,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Création grille</title>
+		<title>CrÃ©ation grille</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -53,10 +55,10 @@
 						</c:forEach>
 				    </div>
 				    <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutCompSec">
-				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+				    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 				    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 				    	<p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
@@ -83,7 +85,7 @@
 								<span class="erreur">${erreurs['promo']}</span>
 							</p>
 							
-							<h3>Compétence(s) principale(s)</h3>
+							<h3>CompÃ©tence(s) principale(s)</h3>
 							<div class="scroll">
 								<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
 									<c:set var="tabNum" value="tab${boucle.count }"/>
@@ -94,7 +96,7 @@
 								<span class="erreur">${erreurs['tab1']}</span>
 							</div>
 							
-							<h4>Compétence(s) secondaire(s)</h4>
+							<h4>CompÃ©tence(s) secondaire(s)</h4>
 							<div class="scroll">
 								<c:forEach items="${ nomCompPrincip }" var="nomCompPrincipInd" varStatus="boucle">
 								<c:set var = "tabComp" value="checkboxtab${boucle.count }"/>
@@ -112,10 +114,10 @@
 											<div>
 												<label id="compSec${boucle.count }${boucleSec.count }">${nomCompSecInd}</label><input type="checkbox" name="${tabNumCompSecond }" value ="${nomCompSecInd}" id="checkboxCompSec${boucle.count }${boucleSec.count}"<c:if test = "${param[tabNumCompSecond] == nomCompSecInd}">checked = "checked" </c:if> onClick='selectionElementGrilleSec("compSec${boucle.count}${boucleSec.count }","critere${boucle.count }${boucleSec.count }","critereCompSec${boucle.count }${boucleSec.count }","ponderation${boucle.count }${boucleSec.count }");' >
 												<table id = "critere${boucle.count }${boucleSec.count}" <c:choose><c:when test = "${valideSec[boucle.count][boucleSec.count] == false}"> style="display:none;"</c:when> <c:when test = "${valideSec[boucle.count][boucleSec.count] == true}"> style="display:'';" </c:when></c:choose>>
-													<tr><td>Critère de sélection : </td><td><textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></td>
+													<tr><td>CritÃ¨re de sÃ©lection : </td><td><textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></td>
 													<td>${erreurs[tabNumCritere]}</td></tr>
 													<tr>
-														<td>Pondération : </td>
+														<td>PondÃ©ration : </td>
 														<td><select name="${tabNumPonderation}" size="1" id="ponderation${boucle.count}${boucleSec.count}" onclick="affichageListeCoefficient(this, '4');">
 															<option disabled selected>Coefficient</option>
 															<c:forEach var="i" begin="1" end ="30" step="1">
