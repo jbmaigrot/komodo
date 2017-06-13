@@ -106,6 +106,7 @@
 														<c:forEach items="${ eleves }" varStatus="s4">
 															<p><a href="AffichageTeacher?eleve=${ eleves_id[s4.index] }&grille=${ apps_id[s2.index] }&competence=1">${ eleves[s4.index] }</a></p>
 														</c:forEach>
+														<p><a href="PlanningEleve?groupe=${ groupes_id[s3.index] }">[Planning]</a></p>
 													</div>
 													<script>hideEleves('f${ i }${ elt }${ apps_id[s2.index] }${ groupes_id[s3.index] }','${ groupes_id[s3.index] }');</script>
 												</p></c:forEach>
@@ -119,6 +120,9 @@
 							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
 					</c:forEach>
+				<div class="aside-app" id="groupeAjout">
+					<p><a href="EditionPlanning">Ajouter planning</a></p>
+				</div>
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
@@ -129,13 +133,13 @@
 					</c:forEach>
 			    </div>
 			    <div class="aside-app" id="editionPlan">
-					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élève</a></p>
+					<p><a id="lienEditionPlan" href="EditionPlanning">Ã‰dition des plannings Ã©lÃ¨ve</a></p>
 				</div>
 				     <div class="aside-app" id="ajoutCompPrin">
-					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
+					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modÃ¨le de compÃ©tence principale</a></p>
 					    </div>
 					    <div class="aside-app" id="ajoutCompSec">
-					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modèle de compétence secondaire</a></p>
+					    	<p><a id="ajoutCompSec" href="CreationCompetenceSecondaire">Ajouter un modÃ¨le de compÃ©tence secondaire</a></p>
 					    </div>
 				    <div class="aside-app" id="ajoutUtilisateur">
 					    <p><a id="ajoutCompSec" href="CreationUtilisateur">Ajouter un utilisateur</a></p>
