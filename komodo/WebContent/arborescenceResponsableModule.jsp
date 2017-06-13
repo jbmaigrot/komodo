@@ -122,10 +122,10 @@
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
-			    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
+			    <div><a href = "#" class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'><img src = "pictures/minus.png"/> Groupe</a></div>
 			    <div id="nomGroupe" style="display:none;">
 			    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-						<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
+						<div><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></div>
 					</c:forEach>
 			    </div>
 			    <div class="aside-app" id="editionPlan">
