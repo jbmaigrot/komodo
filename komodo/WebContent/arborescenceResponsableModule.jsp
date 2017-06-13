@@ -131,18 +131,6 @@
 			    <div class="aside-app" id="editionPlan">
 					<p><a id="lienEditionPlan" href="EditionPlanning">Édition des plannings élève</a></p>
 				</div>
-			     <div class="aside-app" id="ajoutCompPrin">
-				    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
-				    </div>
-				    <div class="aside-app" id="groupeAjout">
-						<p><a href="AjoutGroupe">Ajouter groupe</a></p>
-					</div>
-				    <div class="aside-app" id="groupe" onClick='selectionElementGrille("groupe","nomGroupe");'>Groupe</div>
-				    <div id="nomGroupe" style="display:none;">
-				    <c:forEach items="${groupeTabId }" var="groupeInd" varStatus="iterator">
-							<p><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></p>
-						</c:forEach>
-				    </div>
 				     <div class="aside-app" id="ajoutCompPrin">
 					    	<p><a id="ajoutCompPrin" href="CreationCompetencePrincipale">Ajouter un modèle de compétence principale</a></p>
 					    </div>
