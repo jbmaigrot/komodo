@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 
 CREATE DATABASE IF NOT EXISTS `komodo` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `komodo`;
-CREATE USER 'root'@'localhost' IDENTIFIED BY '';
+-- CREATE USER 'root'@'localhost' IDENTIFIED BY '';
 GRANT ALL PRIVILEGES ON komodo.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 -- --------------------------------------------------------
