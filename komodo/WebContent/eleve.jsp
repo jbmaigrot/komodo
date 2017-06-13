@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Elève</title>
+		<title>ElÃ¨ve</title>
 
 		<!-- Bootstrap -->
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -79,16 +79,16 @@
 								<tr>
 									<th></th>
 									<th>Commentaire au prof</th>
-									<th>Commentaire à l'élève</th>
+									<th>Commentaire Ã  l'Ã©lÃ¨ve</th>
 									<th>Commentaire de groupe</th>
 									<th>
-										Niveau de compétence<br>
+										Niveau de compÃ©tence<br>
 										<div class="skill-levels">
 											<div class="skill-level">Loin</div>
 											<div class="skill-level">Proche</div>
-											<div class="skill-level">Très proche</div>
+											<div class="skill-level">TrÃ¨s proche</div>
 											<div class="skill-level">Attendu</div>
-											<div class="skill-level">Au-delà</div>
+											<div class="skill-level">Au-delÃ </div>
 										</div>
 									</th>
 								</tr>
