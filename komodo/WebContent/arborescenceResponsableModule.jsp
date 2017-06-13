@@ -120,9 +120,6 @@
 							<script>hideRoles('f${ i }','${ i }');</script>
 						</div>
 					</c:forEach>
-				<div class="aside-app" id="groupeAjout">
-					<p><a href="EditionPlanning">Ajouter planning</a></p>
-				</div>
 			    <div class="aside-app" id="groupeAjout">
 					<p><a href="AjoutGroupe">Ajouter groupe</a></p>
 				</div>
@@ -132,6 +129,9 @@
 						<div><a href="GestionGroupe?id_groupe=${groupeInd }">${groupeTabNom[iterator.index]}</a></div>
 					</c:forEach>
 			    </div>
+				<div class="aside-app" id="groupeAjout">
+					<p><a href="EditionPlanning">Ajouter planning</a></p>
+				</div>
 			    <div class="aside-app" id="editionPlan">
 					<p><a id="lienEditionPlan" href="EditionPlanning">Edition des plannings élève</a></p>
 				</div>
