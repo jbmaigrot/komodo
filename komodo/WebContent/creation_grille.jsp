@@ -114,8 +114,8 @@
 											<div>
 												<label id="compSec${boucle.count }${boucleSec.count }">${nomCompSecInd}</label><input type="checkbox" name="${tabNumCompSecond }" value ="${nomCompSecInd}" id="checkboxCompSec${boucle.count }${boucleSec.count}"<c:if test = "${param[tabNumCompSecond] == nomCompSecInd}">checked = "checked" </c:if> onClick='selectionElementGrilleSec("compSec${boucle.count}${boucleSec.count }","critere${boucle.count }${boucleSec.count }","critereCompSec${boucle.count }${boucleSec.count }","ponderation${boucle.count }${boucleSec.count }");' >
 												<table id = "critere${boucle.count }${boucleSec.count}" <c:choose><c:when test = "${valideSec[boucle.count][boucleSec.count] == false}"> style="display:none;"</c:when> <c:when test = "${valideSec[boucle.count][boucleSec.count] == true}"> style="display:'';" </c:when></c:choose>>
-													<tr><td>Critère de sélection : </td><td><textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></td>
-													<td>${erreurs[tabNumCritere]}</td></tr>
+													<tr><td>Critère de sélection : </td><td><textarea rows="5" cols="50" name="${tabNumCritere}" id="critereCompSec${boucle.count}${boucleSec.count}" ><c:out value="${param[tabNumCritere]}"/></textarea></td></tr>
+													<tr><td/><td style="color:red;">${erreurs[tabNumCritere]}</td></tr>
 													<tr>
 														<td>Pondération : </td>
 														<td><select name="${tabNumPonderation}" size="1" id="ponderation${boucle.count}${boucleSec.count}" onclick="affichageListeCoefficient(this, '4');">
@@ -124,8 +124,8 @@
 																<option value="${ i}" <c:if test = "${param[tabNumPonderation] == i}">selected</c:if>><c:out value="${ i }" /> </option>
 															</c:forEach>
 														</select></td>
-														<td>${erreurs[tabNumPonderation]}</td>
 													</tr>
+													<tr><td/><td style="color:red;">${erreurs[tabNumPonderation]}</td></tr>
 												</table>
 											</div>
 												
