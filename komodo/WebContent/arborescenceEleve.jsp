@@ -64,12 +64,7 @@
 		</script>
 	 </head>	
 	 <body>
-		<header>
-			<h1 class="col-md-6 col-md-offset-3">SITE WEB APP</h1>
-			<div class="col-md-3">
-				<a href="#">${ sessionScope.userName }</a><br> <a href="LogoutServlet">Déconnexion</a>
-			</div>
-		</header>
+		<jsp:include page = "header.jsp" />
 		<div class="container">
 			<div class="row">
 				<menu class="col-md-3">
