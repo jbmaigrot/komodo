@@ -63,7 +63,7 @@
 	 <body>
 		<jsp:include page="header.jsp" />
 		
-		<div class="container">
+		<div class="container white">
 			<div class="row">
 				<menu class="col-md-3">
 					<div class="aside-promo">
